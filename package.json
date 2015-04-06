@@ -1,0 +1,14 @@
+{
+	"name" : "ED-BarCode",
+	"window" : {
+			"width" : 1180,
+			"minwidth" : 1000,
+			"height" : 700,
+			"toolbar" : true,
+			"title": "ED ED-BarCode"
+		},
+	"main" : "index.html",
+	"dependencies": {
+		"jade" : "*"
+	 }
+}

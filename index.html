@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TEST</title>
+<!-- jQuery -->
+<script src="js/jquery-1.11.2.js"></script>
+
+<!-- soap ui -->
+<script src="js/soapclient.js"></script>
+
+<!-- bean  -->
+<script src="js/bean.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="bootstrap-3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="bootstrap-3.3.4/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="bootstrap-3.3.4/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container" style="width:400px;">
+
+	
+		<script type="text/javascript">
+
+		 // 	var markdown = require('markdown').markdown;
+   //  		document.write(markdown.toHTML("Hello **World**!"));
+
+			// var rw = require('rw');
+   //  		var contents = rw.readFileSync("C:\\wamp\\www\\ED_CODE\\package.json", "utf8");
+   //  		document.write(contents);
+
+	   		function Login()
+			{
+			    var url = "http://161.246.3.242:8081/EDBarcodeWeb/ws/EDBarcodeService";
+			    var pl = new SOAPClientParameters();
+			    pl.add("userName", $("#exampleInputEmail1").val());
+			    pl.add("password", $("#exampleInputPassword1").val());
+			    SOAPClient.invoke(url, "loginRequest", pl, true, Login_callBack);
+			    return false;
+			}
+			function Login_callBack(r , soapResponse)
+			{
+			    // alert(r + soapResponse);
+			   var node = soapResponse.childNodes[0].childNodes[1].childNodes[0].childNodes;
+			   var responeSoap = { 'status' : node[0].innerHTML  , 'description' : node[1].innerHTML}
+			   if(responeSoap.status == '1'){
+			   	$('#msgAlert').html(responeSoap.description);
+			   	$('#msgAlert').show();
+			   }
+			    if(responeSoap.status == '0'){
+			    	// sync data
+			    	getMasterData();
+			   		// window.location = 'pages/index.html';
+			   }
+			}
+
+			$(document).ready(function(){
+				$('#msgAlert').hide();
+			});
+
+			function getMasterData(){
+				  var url = "http://161.246.3.242:8081/EDBarcodeWeb/ws/EDBarcodeService";
+				    var pl = new SOAPClientParameters();
+				    pl.add("licenseNo", '');
+				    SOAPClient.invoke(url, "syncMasterDataRequest", pl, true, getMasterData_callBack);
+			}
+
+			function getMasterData_callBack (r , soapResponse) {
+				
+				var syncMasterDataRequest =  convertXML(soapResponse);
+				if(syncMasterDataRequest.status != '0'){
+					$('#msgAlert').html( syncMasterDataRequest.description );
+			   		$('#msgAlert').show();
+					return false;
+				}
+
+				localStorage['syncMasterDataRequest'] =JSON.stringify(syncMasterDataRequest); 
+
+				// GO to index
+				// window.location = 'pages/index.html';
+
+			}
+
+		</script>
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h4 class="panel-title">Login</h4>
+			</div>
+			<div class="panel-body">
+			<!-- alert Error -->
+				<div class="alert alert-danger" role="alert" id='msgAlert'></div>
+			<!-- alert Error -->
+			<form action="pages/index.html">
+				  <div class="form-group">
+				    <label for="exampleInputEmail1">Email address</label>
+				    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Password</label>
+				    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+				  </div>
+
+				  <p class="text-center">
+				  <button type="button" class="btn btn-info" onclick="return Login();">Login</button>
+				  </p>
+			</form>
+				<a href="pages/index.html"> Index </a>
+			</div>
+
+		</div>	
+	
+</div>
+</body>
+</html>
