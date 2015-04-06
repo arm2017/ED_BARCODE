@@ -1,1 +1,1 @@
-nw C:\wamp\www\ED_CODE
+nw C:\wamp\www\ED_BARCODE

@@ -55,6 +55,32 @@ var myGrid = {};
 		 return html;
 	};
 
+	myGrid.getHtmlRowForReport = function( row ){
+		var html = '';
+
+		// var editHtml = "<button id='" + row.objId + "' type='button' class='btn btn-default btn-xs' data-toggle='tooltip' data-placement='top' title='edit' ><span class='glyphicon glyphicon-edit' aria-hidden='true'></span> </button>";
+		// var deleteHtml = "<button  id='" + row.objId + "'  type='button' class='btn btn-default btn-xs' data-toggle='tooltip' data-placement='top' title='remove' onClick='myGrid.removebyId(this.id);'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> </button>";
+
+	html = '<tr>' +
+		 '<td width=\'55px\'> {QrinRow}' + '</td>' +		
+		 '<td>' + row.col1 + '</td>' +
+		 '<td>' + row.col2+ '</td>' +
+		 '<td>' + row.col3 +'</td>' +
+		 '<td>' + row.col4 +'</td>' +
+		 '<td>' + row.col5 + '</td>'  + 
+		 '<td>' + row.col6 +'</td>' +
+		 '<td>' + row.col7  + '</td>' +
+		 '<td>' + row.col8  +'</td>'  +
+		 '<td>' + row.col9 +'</td>'+
+		 '<td>' + row.col10 +'</td>'+
+		 '<td>' + row.col11 +'</td>'+
+		 '<td>' + row.col12+'</td>'+
+		 '<td>' + row.col13 +'</td>'+
+		 '<td>' + row.col14 +'</td>'+
+		 '</tr>';
+
+		 return html;
+	};
 myGrid.onChangeValue = function (element, col_num ) {
 	var removeIndex = -1;
 		for	(var index = 0; index < myGrid.dataList.length; index++) {
