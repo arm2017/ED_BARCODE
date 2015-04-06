@@ -1,0 +1,2 @@
+# ED_BARCODE
+NO_BAR
