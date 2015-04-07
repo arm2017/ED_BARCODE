@@ -15,6 +15,8 @@
 		}
 
 		function sr120_11 () {
+
+			loadingscr.show();
 			log('generate report');
 
 			var t_txt = getReportTempate();
@@ -71,8 +73,11 @@
 			var htmlDocs = [ pathHTML + fileName  + ".html" ]
 			  , bookPath =  pathHTML + fileName  + ".pdf" ;
 			 
-			htmlBoilerplatePDF().concat.from(htmlDocs).to(bookPath, function () {
+			htmlBoilerplatePDF({
+				paperBorder : '0.5cm'
+			}).concat.from(htmlDocs).to(bookPath, function () {
 			  log("Created " +  bookPath)
+			  loadingscr.hide();
 			});
 
 			

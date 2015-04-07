@@ -3,6 +3,7 @@ var myGrid = {};
 	myGrid.label = "1234";
 	myGrid.dataList = new Array();
 	myGrid.rowMaster = { objId : 0, num : 0 , col1 : '' , col2 : '', col3 : 0, col4 : 0, col5 : 0 , col6 : 0, col7 : 0 , col8 : 0, col9 : 0, col10 : 0, col11 : 0, col12 : 0, col13 : 0, col14: 0 , col15: 0 };
+
 	myGrid.add = function ( row ) {
 		$( "#" + myGrid.Id  ).append( row );
 	};
@@ -112,8 +113,8 @@ myGrid.reRender = function(){
 };
 
 myGrid.addItemPopup = function(){
-	var type = $('#groupIdName').val();
-	var nameType = $('#taxIdName').val();
+	// var type = $('#groupIdName').val();
+	// var nameType = $('#taxIdName').val();
 	var r = myGrid.getRow();
 		r.col1 = type;
 		r.col2 = nameType;
@@ -166,17 +167,10 @@ var TaxType = {};
 
 //InJact Data
 $(document).ready (function(){
-	// var addrList = localStorage['addrList'].split(',');
-	// if(undefined == addrList) return ;
-	// var obj = $('input.addinput');
-	// obj[0].value = addrList[1];
-	// obj[1].value = addrList[2];
-	// obj[2].value = addrList[0];
-	// obj[3].value = addrList[5];
-	// $('textarea.addinput').val(addrList[6]); 
-	// $('input.liDate').val(addrList[3].substr(0,10)); 
+
 	var jsonsyncMasterDataRequest = localStorage['syncMasterDataRequest'];
-	var syncMasterDataRequest = JSON.parse(jsonsyncMasterDataRequest);
+	// Gobal data
+	syncMasterDataRequest = JSON.parse(jsonsyncMasterDataRequest);
 
 	var addr = syncMasterDataRequest.entrepreneur;
 
@@ -189,6 +183,78 @@ $(document).ready (function(){
 	// $('input.liDate').val(addrList[3].substr(0,10)); 
 
 });
+
+var searchGrid = {};
+searchGrid.dataList = new Array();
+
+searchGrid.getHtmlRow = function (BEAN_productList) {
+	var radioBtn = "<div class=\"radio searchGrid-radio\">  <label>    <input type=\"radio\" name=\"selectSearchGrid\"  value=\"" + BEAN_productList.productCode + "\" aria-label=\"...\">  </label></div>";
+	var html  = "";
+	html = 
+	'<tr>' +
+		'<td align=\'center\'>' + radioBtn + '</td>' +
+		'<td>' + BEAN_productList.productGroup +'</td>' +
+		'<td>' + BEAN_productList.productCode +'</td>' +
+		'<td>' + BEAN_productList.productName +'</td>' +
+		'<td>' + BEAN_productList.degree +'</td>' +
+	'</tr>' ;
+
+	return html;
+};
+searchGrid.reRender = function(){
+	$("#searchGrid > tbody > tr").remove();
+	for	(var index = 0; index < searchGrid.dataList.length; index++) {
+		searchGrid.dataList[index].num  = index + 1;
+	    	searchGrid.add( searchGrid.getHtmlRow (searchGrid.dataList[index]) );
+	}
+	if(searchGrid.dataList.length > 0){
+		// checked
+		 $('input[name=selectSearchGrid]')[0].checked = true;
+	}
+};
+
+searchGrid.add = function ( htmlRow ) {
+	$( "#searchGrid"  ).append( htmlRow );
+};
+
+searchGrid.search  = function ( params ) {
+	var pList = syncMasterDataRequest.entrepreneur.productList;
+	searchGrid.dataList = new Array();
+	for (var i = 0; i < pList.length; i++) {
+		var product = pList[i];
+		if( params.productCode != undefined ){
+			if(product.productCode.indexOf(params.productCode) == -1 ){
+				continue;
+			}
+		}
+		searchGrid.dataList.push(product);
+	};
+
+	searchGrid.reRender ();
+};
+
+searchGrid.getSelectRadio = function () {
+	return $('input[name=selectSearchGrid]:checked').val();
+};
+
+searchGrid.getSelect = function () {
+	var pId = searchGrid.getSelectRadio();
+	if( pId != undefined || pId != ''){
+		for	(var index = 0; index < searchGrid.dataList.length; index++) {
+			var p = searchGrid.dataList[index];
+			if( p.productCode == pId ){
+				return p;
+			}
+		}
+	}
+	return '';
+};
+
+searchGrid.clear =function () {
+	searchGrid.dataList = new Array();
+	searchGrid.reRender();
+};
+
 
 
 												 

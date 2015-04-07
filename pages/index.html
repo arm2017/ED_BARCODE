@@ -61,6 +61,14 @@
 	#myGrid >tbody > tr:nth-child(odd){
 		background-color: #EFF5F9;
 	}
+
+	.loadingscr{
+		margin:  10px;
+	}
+	.searchGrid-radio{
+		width: 15px;
+		margin: 0;
+	}
 </style>
 
 </head>
@@ -418,8 +426,8 @@
 					    <input type="text" class="form-control" id="groupId" placeholder="ระบุกลุ่มสินค้า">
 					  </div>
 
-					   <button type="button" class="btn btn-default"> ค้าหา</button>
-					   <input type="email" class="form-control" id="groupIdName" placeholder="">
+					 <!--   <button type="button" class="btn btn-default"> ค้าหา</button> -->
+					   <input type="text" class="form-control" id="groupIdName" placeholder="productName">
 
 					</form>
 					<form class="form-inline addItems-space">
@@ -428,16 +436,41 @@
 					    <input type="text" class="form-control" id="taxId" placeholder="ระบุรหัสสินค้า">
 					  </div>
 
-					   <button type="button" class="btn btn-default"> ค้าหา</button>
-					   <input type="email" class="form-control" id="taxIdName" placeholder="">
+					   <!-- <button type="button" class="btn btn-default"> ค้าหา</button> -->
+					   <input type="text" class="form-control" id="taxIdName" placeholder="brandMajor">
 
 					</form>
 					<form class="form-inline addItems-space">
 					  <div class="form-group">
 					    <label for="exampleInputName2">ชนิดดีกรี</label>
 					    <input type="text" class="form-control" id="taxId" placeholder="">
+					      <button type="button" class="btn btn-default" onclick="searchGrid.search({productCode:''});"> ค้าหา</button>
 					  </div>
 					</form>
+
+					<!-- search panel -->
+					<div class="panel panel-info">
+					  <div class="panel-heading">ค้นหา</div>
+					  <div class="panel-body">
+						   	<table class="table table-bordered" id="searchGrid">
+						  		<thead>
+						  			<tr class="info">
+						  				<th>#</th>
+						  				<th>กลุ่มสินค้า</th>
+						  				<th>รหัสสินค้า</th>
+						  				<th>productName</th>
+						  				<th>ชนิดดีกรี</th>
+						  			</tr>
+						  		</thead>
+						  		<tbody>
+						  			<tr>
+						  				<td colspan="5"> </td>
+						  			</tr>
+						  		</tbody>
+
+							</table>
+					  </div>
+					</div>
 
 			      </div>
 			      <div class="modal-footer">
@@ -454,6 +487,40 @@
 			});
 		</script>
 		<!-- end grid modal -->
+
+		<!-- loading  -->
+		<div id="loadinghandle" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+			    	<div class="modal-header">
+			    	<h4 class="modal-title">กำลังทำงาน</h4>
+			    	</div>
+		      			<img src="../resoures/ajax-loader.gif" width="100" alt="..." class="img-rounded loadingscr">
+		     </div>
+		  </div>
+		</div>
+		<script type="text/javascript">
+			$('#loadinghandle').modal({
+				 keyboard: false,
+				 show:false,
+				 backdrop : 'static'
+			});
+			var loadingscr = {};
+			loadingscr.isShow = false;
+			loadingscr.show = function (){
+				if( loadingscr.isShow == false){
+					loadingscr.isShow = true;
+					$('#loadinghandle').modal('show');
+				}
+			};
+			loadingscr.hide = function (){
+				if( loadingscr.isShow == true){
+					loadingscr.isShow = false;
+					$('#loadinghandle').modal('hide');
+				}
+			};
+		</script>
+		<!-- loading  -->
 
 		</div>
 </body>
