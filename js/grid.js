@@ -115,9 +115,30 @@ myGrid.reRender = function(){
 myGrid.addItemPopup = function(){
 	// var type = $('#groupIdName').val();
 	// var nameType = $('#taxIdName').val();
+	// selectProduct
+	var selectProduct = searchGrid.getSelect();
+	// new Record
 	var r = myGrid.getRow();
-		r.col1 = type;
-		r.col2 = nameType;
+		r.col1 = selectProduct.productGroup;
+		r.col2 = selectProduct.productName;
+		r.col3 = selectProduct.degree;
+		r.col4 = selectProduct.size;
+		r.col5 = 0;
+		r.col6 = selectProduct.taxByCapacity;
+		r.col7 = selectProduct.lowestSellingPriceNoTax;
+		r.col8= selectProduct.taxPlusBySellingPrice;
+		r.col9= 0;
+		r.col10= 0;
+		r.col11= 0;
+		r.col12= 0;
+		r.col13= 0;
+		r.col14=0;
+		r.productCode = selectProduct.productCode;
+
+
+		log('add : ' +   r.productCode);
+
+	//addTo list
 	myGrid.dataList.push(r);
 
 	$('#addItems').modal('hide');
