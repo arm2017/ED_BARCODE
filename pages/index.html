@@ -8,6 +8,9 @@
 <!-- myGrid -->
 <script src="../js/grid.js"></script>
 
+<!-- alertMsg -->
+<script src="../js/alertMsg.js"></script>
+
 <!-- report -->
 <script src="../js/report.js"></script>
 
@@ -204,7 +207,7 @@
 													<th rowspan="2">ปริมาตรที่เสี่ยภาษี</th>
 													<th colspan="2">ราคาขายส่ง</th>
 													<!-- <th rowspan="2">มูลค่า</th> -->
-													<th rowspan="2">ภาษีตามูลค่า</th>
+													<th rowspan="2">ภาษีตามมูลค่า</th>
 													<th rowspan="2">ภาษีตามปริมาณ</th>
 													<th rowspan="2">ภาษีตามปริมาณ กรณีดีกรีเกิน</th>
 													<th rowspan="2">รวมภาษีตามปริมาณ</th>
@@ -370,9 +373,11 @@
 						</div>
 		</div>
 		<!-- alert msg -->
-		<div class="alert alert-info alert-dismissible" role="alert">
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  <strong>Warning!</strong> Better check yourself, you're not looking too good.
+		<div id="alertField">
+			<!-- <div class="alert alert-warning alert-dismissible" role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  <strong>Warning!</strong> Better check yourself, you're not looking too good.
+			</div> -->
 		</div>
 		<!-- alert msg -->
 
@@ -512,20 +517,6 @@
 				 show:false,
 				 backdrop : 'static'
 			});
-			var loadingscr = {};
-			loadingscr.isShow = false;
-			loadingscr.show = function (){
-				if( loadingscr.isShow == false){
-					loadingscr.isShow = true;
-					$('#loadinghandle').modal('show');
-				}
-			};
-			loadingscr.hide = function (){
-				if( loadingscr.isShow == true){
-					loadingscr.isShow = false;
-					$('#loadinghandle').modal('hide');
-				}
-			};
 		</script>
 		<!-- loading  -->
 

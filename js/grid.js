@@ -98,7 +98,7 @@ myGrid.onChangeValue = function (element, col_num ) {
 				removeIndex = index;
 
 				// myGrid.reRender();
-
+				myGrid.calcTax(myGrid.dataList[index]);
 				break;
 			}
 		}
@@ -204,6 +204,23 @@ $(document).ready (function(){
 	// $('input.liDate').val(addrList[3].substr(0,10)); 
 
 });
+
+myGrid.calcTax = function  ( row ) {
+	// calc
+	var col9 = row.col6 * row.col7 ;
+	row.col9 = col9;
+	// ตามปริมาตริ
+	var tax1 = (row.col6 * row.col3 * row.col4) / 100;
+	var tax2 = row.col5 * row.col6 ;
+	log( "tax1 : " + tax1 );
+	log( "tax2 : " + tax2 );
+	row.col10 = (tax1 > tax2)? tax1 : tax2 ;
+
+	// show
+	myGrid.reRender();
+};
+
+
 
 var searchGrid = {};
 searchGrid.dataList = new Array();

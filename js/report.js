@@ -76,7 +76,8 @@
 			htmlBoilerplatePDF({
 				paperBorder : '0.5cm'
 			}).concat.from(htmlDocs).to(bookPath, function () {
-			  log("Created " +  bookPath)
+			  log("Created " +  bookPath);
+			  alertMsg.show( alertMsg.reportSr120 );
 			  loadingscr.hide();
 			});
 
