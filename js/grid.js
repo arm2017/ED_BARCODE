@@ -216,8 +216,23 @@ myGrid.calcTax = function  ( row ) {
 	log( "tax2 : " + tax2 );
 	row.col10 = (tax1 > tax2)? tax1 : tax2 ;
 
+	row.col12= row.col10 + row.col11;
+
+	row.col14= row.col5 * row.col12;
+	row.col13= row.col5 * row.col9;
+
+	// sum
+	var sumcol13 = 0;
+	var sumcol14 = 0;
+		for	(var index = 0; index < myGrid.dataList.length; index++) {
+		    	var r = myGrid.dataList[index];
+		    	sumcol13 = sumcol13 + r.col13;
+		    	sumcol14 = sumcol14 + r.col14;
+		}
 	// show
 	myGrid.reRender();
+	$('#col15').val(sumcol13);
+	$('#col16').val(sumcol14);
 };
 
 

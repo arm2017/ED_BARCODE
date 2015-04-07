@@ -12,7 +12,7 @@
 	    		// alert(contents);
 
 	    		return contents;
-		}
+		}0
 
 		function sr120_11 () {
 
@@ -54,6 +54,9 @@
 
 				t_txt = t_txt.replace("{gridData}", allHtml);
 			}
+
+			t_txt = t_txt.replace("{col15}", $('#col15').val());
+			t_txt = t_txt.replace("{col16}", $('#col16').val());
 
 			//QR total
 			var tag = "1000#10.0000#10.0000#10.0000#10.0000#10.0000#10.0000#10.0000";
