@@ -33,6 +33,7 @@
 			t_txt = t_txt.replace("{6}",addTextInMark( addrMark[5] , addr.factoryAddress ));
 			//Qr addr
 			var qrImage = getQrByRawDataAndSize(addr.licenseNo,50);
+			log( "licenseNo :" + addr.licenseNo );
 			t_txt = t_txt.replace("{addQr}", qrImage );
 
 			// QR grid List

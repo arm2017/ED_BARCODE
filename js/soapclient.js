@@ -156,6 +156,8 @@ SOAPClient._onLoadWsdl = function(url, method, parameters, async, callback, req)
 }
 SOAPClient._sendSoapRequest = function(url, method, parameters, async, callback, wsdl)
 {
+try{
+
 	// get namespace
 	var ns = (wsdl.documentElement.attributes["targetNamespace"] + "" == "undefined") ? wsdl.documentElement.attributes.getNamedItem("targetNamespace").nodeValue : wsdl.documentElement.attributes["targetNamespace"].value;
 	// build SOAP request
@@ -191,6 +193,10 @@ SOAPClient._sendSoapRequest = function(url, method, parameters, async, callback,
 	xmlHttp.send(sr);
 	if (!async)
 		return SOAPClient._onSendSoapRequest(method, async, callback, wsdl, xmlHttp);
+
+}catch (ex ){
+	callback( 'error' , 'conecttion error ');
+}
 }
 
 SOAPClient._onSendSoapRequest = function(method, async, callback, wsdl, req) 

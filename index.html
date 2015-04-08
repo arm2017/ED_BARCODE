@@ -56,7 +56,7 @@
 			   var responeSoap = { 'status' : node[0].innerHTML  , 'description' : node[1].innerHTML}
 			   if(responeSoap.status == '1'){
 
-			   	alertMsg.show(responeSoap.description);
+			   	alertMsg.show(responeSoap.description , 'error');
 			   	loadingscr.hide();
 			   }
 
@@ -73,7 +73,7 @@
 			function getMasterData(){
 				  var url = "http://161.246.3.242:8081/EDBarcodeWeb/ws/EDBarcodeService";
 				    var pl = new SOAPClientParameters();
-				    pl.add("licenseNo", '');
+				    pl.add("licenseNo", '2558/456789ABCD');
 				    SOAPClient.invoke(url, "syncMasterDataRequest", pl, true, getMasterData_callBack);
 			}
 
@@ -81,8 +81,7 @@
 				
 				var syncMasterDataRequest =  convertXML(soapResponse);
 				if(syncMasterDataRequest.status != '0'){
-					$('#msgAlert').html( syncMasterDataRequest.description );
-			   		$('#msgAlert').show();
+			   		alertMsg.show(syncMasterDataRequest.description , 'error');
 					return false;
 				}
 

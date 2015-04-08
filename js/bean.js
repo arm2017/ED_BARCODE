@@ -6,11 +6,19 @@ BEAN.ListType = 'List';
  BEAN.productList = {productGroup : '' ,productCode : '' ,  productName : '' , brandMajor: '' ,brandMinor : '' , model : '' , size : '' , unit : '' , degree : '' ,taxByValue : '' 
 			,taxByCapacity : '' ,  taxByLiter : '' , lowestDegreeNoTax : '' , taxPlusByDegree : '' , lowestSellingPriceNoTax : '' , taxPlusBySellingPrice : '' , announcePriceDate : '' 
 			, announcePriceValue : '' };
+BEAN.submitOnlineResponse = { status : '' ,  description : '' , referenceCode : '' };	
+
 		//convertXML
 		function convertXML ( xmlDoc ) {
 				var syncMaster  = {};
 				syncMaster = injectBean (xmlDoc , 'syncMasterDataResponse');	
-				console.log( syncMaster );
+				logBean( syncMaster );
+				return syncMaster;
+		}
+		function convertXMLByname ( xmlDoc , masterBeanName) {
+				var syncMaster  = {};
+				syncMaster = injectBean (xmlDoc , masterBeanName );	
+				logBean( syncMaster );
 				return syncMaster;
 		}
 
@@ -60,6 +68,12 @@ BEAN.ListType = 'List';
 
 				return beanClone;
 		}
+
+function logBean( msg ){
+	console.log('bean js----->' );
+	console.log(msg );
+	console.log('<----- bean js' );
+}
 
 	
 
