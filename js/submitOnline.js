@@ -72,10 +72,10 @@ function submitOnline ( argument ) {
 	this.callback = function ( p1 , respone ){
 
 	if( p1 != 'error' ){
-
 		var beanObj = convertXMLByname( respone , 'submitOnlineResponse');
+		 // beanObj.referenceCode = "12345ABCDE";
 		console.log( beanObj );
-		if( beanObj.status == 0 ){
+		if( beanObj.status == '0' ){
 
 			submitOnlineRefNo =  beanObj.referenceCode;
 
