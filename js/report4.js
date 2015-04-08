@@ -5,8 +5,8 @@
 
 function Report_NSDF () {
 
-			//loadingscr.show();
-			log('generate report');
+			loadingscr.show();
+			log('generate report Report_NSDF');
 
 			var t_txt = getReport_NSDFTempate();
 
@@ -44,8 +44,11 @@ function Report_NSDF () {
 			
 			// write File
 			var uuid = new Date().getTime();
-			var fileName = "gen_" + uuid;
+			var fileName = "gen_NSDF_" + uuid;
 			rw.writeFileSync( pathHTML + fileName + ".html", t_txt ,"utf8");
+
+			alertMsg.show(alertMsg.genReportOK );
+			loadingscr.hide();
 			
 }
 

@@ -398,7 +398,7 @@
 							<div class="col-md-6">
 										<div class="panel panel-info">
 											<div class="panel-heading">
-												<h4  class="panel-title">แสดงตัวอย่าง</h4>
+												<h4  class="panel-title">พิมพ์ ออฟไลน์</h4>
 											</div>
 											<div class="panel-body" align="center">
 												<button type="button" class="btn btn-info" onclick="sr120_11();">สร 120-11</button>
@@ -411,11 +411,12 @@
 							<div class="col-md-6">
 									<div class="panel panel-info">
 											<div class="panel-heading">
-													<h4  class="panel-title">ทำราย</h4>
+													<h4  class="panel-title">ทำราย ออนไลน์</h4>
 											</div>
 											<div class="panel-body" align="center">
-												<button type="button" class="btn btn-info">พิมพ์</button>
-												<button type="button" class="btn btn-primary" onclick="submitOnline();">ส่งแบบฟอร์ม ออนไลน์</button>
+												<button type="button" class="btn btn-info" style="display: none;" id="printOffline" onclick="submitOnlinePrint();">พิมพ์ ใบทำรายการ สร120-11 </button>
+												<button type="button" class="btn btn-primary" onclick="submitOnline();" id="submitOnlieBtn">ส่งแบบฟอร์ม ออนไลน์</button>
+												<button type="button" class="btn btn-success" id="btnReset" style="display: none;" onclick="document.location.reload();">เริ่มทำรายการใหม่</button>
 											</div>
 									</div>
 							</div>

@@ -1,6 +1,6 @@
 // submit online
 // use SOAPClientParameters
-
+var submitOnlineRefNo = '';
 function submitOnline ( argument ) {
 	loadingscr.show();
 	var root = new SOAPClientParameters();
@@ -76,14 +76,24 @@ function submitOnline ( argument ) {
 		var beanObj = convertXMLByname( respone , 'submitOnlineResponse');
 		console.log( beanObj );
 		if( beanObj.status == 0 ){
+
+			submitOnlineRefNo =  beanObj.referenceCode;
+
 			alertMsg.show (alertMsg.submitOnlineOK);
 			alertMsg.show ( 'หมายเลข  : ' + beanObj.referenceCode);
+
+			$("#submitOnlieBtn").hide();
+			$("#btnReset").show();
+			$("#printOffline").show();
+
 		}else{
 			alertMsg.show (alertMsg.submitOnlineFail , 'error');
+			submitOnlineRefNo = '';
 		}
 
 	}else{
 		alertMsg.show (alertMsg.submitOnlineFail , 'error');
+		submitOnlineRefNo = '';
 	}
 	  loadingscr.hide();
 
@@ -92,4 +102,9 @@ function submitOnline ( argument ) {
 	 var url = "http://161.246.3.242:8081/EDBarcodeWeb/ws/EDBarcodeService";
 	 SOAPClient.invoke(url, "submitOnlineRequest", root , true, this.callback);
 }
+
+function submitOnlinePrint () {
+	sr120_11 (submitOnlineRefNo);
+}
+
 

@@ -5,8 +5,8 @@
 
 function Report_ThaiHealth () {
 
-			//loadingscr.show();
-			log('generate report');
+			loadingscr.show();
+			log('generate report Report_ThaiHealth');
 
 			var t_txt = getReport_ThaiHealthTempate();
 
@@ -45,8 +45,11 @@ function Report_ThaiHealth () {
 			
 			// write File
 			var uuid = new Date().getTime();
-			var fileName = "gen_" + uuid;
+			var fileName = "gen_ThaiHealth_" + uuid;
 			rw.writeFileSync( pathHTML + fileName + ".html", t_txt ,"utf8");
+
+			alertMsg.show(alertMsg.genReportOK );
+			loadingscr.hide();
 
 }
 

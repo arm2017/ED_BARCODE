@@ -3,6 +3,7 @@ var alertMsg = {};
 alertMsg.reportSr120 = "สร้าง สร 120 เรียบร้อย";
 alertMsg.submitOnlineOK = "ส่งแบบฟอร์มออนไลน์ เรียบร้อย แล้วครับ :)";
 alertMsg.submitOnlineFail = "ส่งแบบฟอร์มออนไลน์ ผิดผลาด :)";
+alertMsg.genReportOK = " สร้าง ส่งแบบฟอร์ม สำเร็จ";
 
 alertMsg.show = function (argument , type ) {
 	var pType = 'success';

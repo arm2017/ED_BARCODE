@@ -5,8 +5,8 @@
 
 function Report_ThaiPBS () {
 
-			//loadingscr.show();
-			log('generate report');
+			loadingscr.show();
+			log('generate report Report_ThaiPBS');
 
 			var t_txt = getReport_ThaiPBSTempate();
 
@@ -45,7 +45,10 @@ function Report_ThaiPBS () {
 			
 			// write File
 			var uuid = new Date().getTime();
-			var fileName = "gen_" + uuid;
+			var fileName = "gen_ThaiPBS_" + uuid;
 			rw.writeFileSync( pathHTML + fileName + ".html", t_txt ,"utf8");
+
+			alertMsg.show(alertMsg.genReportOK );
+			loadingscr.hide();
 }
 

@@ -2,7 +2,10 @@
 		var rw = require('rw');
 		var qrCode = require('qrcode-npm');
 		var htmlBoilerplatePDF = require("html-boilerplate-pdf");
+		var cmd = require("cmd-exec").init();
 		var pathHTML = "PDF/";
+		var barcode = require("rescode");
+			barcode.loadModules(["code39"]);
 		
 		var addrMark = ['....................................................................................................... ','.....................................................................................................................'
 		,'............................................................... ','...........................','......................................................................................................................','...........................................................................................................................'];
@@ -14,10 +17,10 @@
 	    		return contents;
 		}0
 
-		function sr120_11 () {
+		function sr120_11 ( params) {
 
-			loadingscr.show();
 			log('generate report');
+			loadingscr.show();
 
 			var t_txt = getReportTempate();
 
@@ -55,6 +58,8 @@
 				// log( allHtml );
 
 				t_txt = t_txt.replace("{gridData}", allHtml);
+			}else{
+				t_txt = t_txt.replace("{gridData}", '');
 			}
 
 			t_txt = t_txt.replace("{col15}", $('#col15').val());
@@ -84,10 +89,22 @@
 			
 			var qrImage = getQrByRawDataAndSize(tag,50);
 			t_txt = t_txt.replace("{qrtotal}", qrImage);
+
+			// submit online
+			var submintOnlyNumber = '';
+			if( params != undefined && params != ''){
+				var imgTag = '';
+				var base64 = barcode.create("code39", params );
+					base64 = base64.toString("base64");
+				imgTag = "<img src=\"data:image/png;base64," + base64 + "\"  width='200px'  />" ;
+					
+				submintOnlyNumber = imgTag;
+			}
+			t_txt = t_txt.replace("{submintOnlyNumber}", submintOnlyNumber);
 			
 			// write File
 			var uuid = new Date().getTime();
-			var fileName = "gen_" + uuid;
+			var fileName = "gen_sr120_" + uuid;
 			rw.writeFileSync( pathHTML + fileName + ".html", t_txt ,"utf8");
 
 			log('end ..generate report');
@@ -103,6 +120,7 @@
 			  log("Created " +  bookPath);
 			  alertMsg.show( alertMsg.reportSr120 );
 			  loadingscr.hide();
+			  openReport(fileName + ".html");
 			});
 
 			
@@ -158,5 +176,19 @@
 		function getDateFormat(){
 			var dt = new Date();
 			return dt.toLocaleDateString().replace(/\//g, "_");
+		}
+
+		function openReport ( fileName ){
+			cmd
+				  .exec("\"" + pathHTML + fileName)
+				  .then(function(res){
+				    console.log(res.message);
+				  })
+				  .fail(function(err){
+				    console.log(err.message);
+				  })
+				  .done(function(){
+				    console.log("Done!");
+				  });
 		}
 
