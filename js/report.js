@@ -32,7 +32,7 @@
 			t_txt = t_txt.replace("{5}", addTextInMark( addrMark[3] , '2015-02-01' ));
 			t_txt = t_txt.replace("{6}",addTextInMark( addrMark[5] , addr.factoryAddress ));
 			//Qr addr
-			var qrImage = getQrByRawDataAndSize(addr.taxNo,50);
+			var qrImage = getQrByRawDataAndSize(addr.licenseNo,50);
 			t_txt = t_txt.replace("{addQr}", qrImage );
 
 			// QR grid List
@@ -44,7 +44,8 @@
 				for (var i = 0; i < gridList.length; i++) {
 					var html = myGrid.getHtmlRowForReport(gridList[i]);
 					var r = gridList[i];
-					var tag = r.num + "#" + r.col3 + "#" +  r.col5  + "#"  +  r.col7  + "#" +  r.col8   ;
+					var tag = r.productCode + "|" + r.col5 + "|" +  r.col7  + "|"  +  r.col8  + "|" +  r.col9  + "|" +  r.col10 + "|" +  r.col11  ;
+					log("row : " + r.num + " data : " + tag );
 					var qrImage = getQrByRawDataAndSize(tag,50);
 					html = html.replace('{QrinRow}' , qrImage);
 					rows.push(html);
@@ -58,11 +59,30 @@
 			t_txt = t_txt.replace("{col15}", $('#col15').val());
 			t_txt = t_txt.replace("{col16}", $('#col16').val());
 
+			t_txt = t_txt.replace("{col19}",  $('#col19').val());
+			t_txt = t_txt.replace("{col20}", $('#col20').val());
+			t_txt = t_txt.replace("{col21}",  $('#col21').val());
+			t_txt = t_txt.replace("{col28}", $('#col28').val());
+
 			//QR total
-			var tag = "1000#10.0000#10.0000#10.0000#10.0000#10.0000#10.0000#10.0000";
+			var tag = "";
+				var sumaryTag = new Array();
+				sumaryTag.push( $('#col19').val() );
+				sumaryTag.push( $('#col20').val() );
+				sumaryTag.push( '' );
+				sumaryTag.push( '' );
+				sumaryTag.push( '' );
+				sumaryTag.push( '' );
+				sumaryTag.push( '' );
+				sumaryTag.push( '' );
+				sumaryTag.push( '' );
+
+			tag = sumaryTag.join('|');
+			
+			log( 'QR total : ' + tag );
+			
 			var qrImage = getQrByRawDataAndSize(tag,50);
 			t_txt = t_txt.replace("{qrtotal}", qrImage);
-			log( 'QR total' );
 			
 			// write File
 			var uuid = new Date().getTime();

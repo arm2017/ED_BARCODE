@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>TEST</title>
+<meta charset='utf-8'>
+<title>TEST</title>
 <!-- jQuery -->
 <script src="js/jquery-1.11.2.js"></script>
 
@@ -10,6 +11,9 @@
 
 <!-- bean  -->
 <script src="js/bean.js"></script>
+
+<!-- alertMsg -->
+<script src="js/alertMsg.js"></script>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="bootstrap-3.3.4/css/bootstrap.min.css">
@@ -36,6 +40,8 @@
 
 	   		function Login()
 			{
+			loadingscr.show();
+			
 			    var url = "http://161.246.3.242:8081/EDBarcodeWeb/ws/EDBarcodeService";
 			    var pl = new SOAPClientParameters();
 			    pl.add("userName", $("#exampleInputEmail1").val());
@@ -49,13 +55,14 @@
 			   var node = soapResponse.childNodes[0].childNodes[1].childNodes[0].childNodes;
 			   var responeSoap = { 'status' : node[0].innerHTML  , 'description' : node[1].innerHTML}
 			   if(responeSoap.status == '1'){
-			   	$('#msgAlert').html(responeSoap.description);
-			   	$('#msgAlert').show();
+
+			   	alertMsg.show(responeSoap.description);
+			   	loadingscr.hide();
 			   }
+
 			    if(responeSoap.status == '0'){
 			    	// sync data
 			    	getMasterData();
-			   		// window.location = 'pages/index.html';
 			   }
 			}
 
@@ -82,7 +89,8 @@
 				localStorage['syncMasterDataRequest'] =JSON.stringify(syncMasterDataRequest); 
 
 				// GO to index
-				// window.location = 'pages/index.html';
+				loadingscr.hide();
+				window.location = 'pages/index.html';
 
 			}
 
@@ -93,7 +101,7 @@
 			</div>
 			<div class="panel-body">
 			<!-- alert Error -->
-				<div class="alert alert-danger" role="alert" id='msgAlert'></div>
+				<div  id='alertField'></div>
 			<!-- alert Error -->
 			<form action="pages/index.html">
 				  <div class="form-group">
@@ -113,6 +121,26 @@
 			</div>
 
 		</div>	
+
+		<!-- loading  -->
+		<div id="loadinghandle" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+			    	<div class="modal-header">
+			    	<h4 class="modal-title">กำลังทำงาน</h4>
+			    	</div>
+		      			<img src="resoures/ajax-loader.gif" width="100" alt="..." class="img-rounded loadingscr">
+		     </div>
+		  </div>
+		</div>
+		<script type="text/javascript">
+			$('#loadinghandle').modal({
+				 keyboard: false,
+				 show:false,
+				 backdrop : 'static'
+			});
+		</script>
+		<!-- loading  -->
 	
 </div>
 </body>

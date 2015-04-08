@@ -233,6 +233,11 @@ myGrid.calcTax = function  ( row ) {
 	myGrid.reRender();
 	$('#col15').val(sumcol13);
 	$('#col16').val(sumcol14);
+	// sumary
+	$('#col19').val(sumcol13);
+	$('#col20').val(sumcol14);
+	$('#col21').val(sumcol13 + sumcol14);
+	$('#col28').val(sumcol13 + sumcol14);
 };
 
 
