@@ -1,3 +1,10 @@
+Number.prototype.format = function(n, x, s, c) {
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+        num = this.toFixed(Math.max(0, ~~n));
+
+    return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+};
+
 var myGrid = {};
 	myGrid.Id = "myGrid";
 	myGrid.label = "1234";
@@ -15,6 +22,9 @@ var myGrid = {};
 	};
 
 	myGrid.removebyId = function( objId ){
+
+		if( confirm("ยืนยันการลบ") == false) return false;
+
 		var removeIndex = -1;
 		for	(var index = 0; index < myGrid.dataList.length; index++) {
 			if( myGrid.dataList[index].objId == objId ){
@@ -231,13 +241,17 @@ myGrid.calcTax = function  ( row ) {
 		}
 	// show
 	myGrid.reRender();
-	$('#col15').val(sumcol13);
-	$('#col16').val(sumcol14);
+	var sum13 = sumcol13.format(2);
+	var sum14 = sumcol14.format(2);
+	$('#col15').val(sum13);
+	$('#col16').val(sum14);
+	$('#col15_2').html(sum13);
+	$('#col16_2').html(sum14);
 	// sumary
-	$('#col19').val(sumcol13);
-	$('#col20').val(sumcol14);
-	$('#col21').val(sumcol13 + sumcol14);
-	$('#col28').val(sumcol13 + sumcol14);
+	var summary = (sumcol13 + sumcol14).format(2);
+	$('.row1').get(0).value = summary;
+	$('.row2').val('0.00');
+	$('.row3').get(0).value = summary;
 };
 
 

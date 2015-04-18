@@ -34,7 +34,7 @@ function submitOnline ( argument ) {
 	productList['announcePriceDate'] = '';
 	productList['announcePriceValue'] = '';
 
-	entrepreneur['productList'] = productList;
+	// entrepreneur['productList'] = productList;
      	
      	var productTaxList = {};
      	productTaxList['recordNo'] = '';
@@ -46,28 +46,51 @@ function submitOnline ( argument ) {
      	productTaxList['taxByCapacity'] = '';
      	productTaxList['taxByValuePlus'] = '';
 
+     	// data record
+     	var list = myGrid.dataList;
+     	var productTaxListArray = new Array();
+     	for (var i = 0; i < list.length; i++) {
+     		var r = list[i];
+     		var newProduct = jQuery.extend({}, productTaxList );
+     		newProduct.recordNo = i + 1;
+     		newProduct.productCode = r.productCode;
+     		newProduct.piece =  r.col5;
+     		newProduct.sellingPriceByOwner =  r.col7;
+     		newProduct.sellingPriceByDepartment =  r.col8;
+     		newProduct.taxByValue =  r.col9;
+     		newProduct.taxByCapacity =  r.col10;
+     		newProduct.taxByValuePlus =  r.col11;
+     		var productTaxListSP = new SOAPClientParameters();
+     		productTaxListSP.add("productTaxList" , newProduct);
+     		productTaxListArray.push(productTaxListSP);
+     	};
+
+     	var TotalTax = myGrid.getTotalTax();
 
      	var alcoholTaxFormSummary = {};
-     	alcoholTaxFormSummary['sumTaxByValue'] = '';
-     	alcoholTaxFormSummary['sumTaxByCapacity'] = '';
-     	alcoholTaxFormSummary['reductTaxProduct'] = '';
+     	alcoholTaxFormSummary['sumTaxByValue'] = TotalTax[0];
+     	alcoholTaxFormSummary['sumTaxByCapacity'] = TotalTax[1];
+     	alcoholTaxFormSummary['reductTaxProduct'] = 0;
      	alcoholTaxFormSummary['receipt'] = '';
-     	alcoholTaxFormSummary['reduceTaxProductBaht'] = '';
-     	alcoholTaxFormSummary['reduceTaxByDepBookNo'] = '';
-     	alcoholTaxFormSummary['reduceTaxByDepBookNoBaht'] = '';
-     	alcoholTaxFormSummary['taxRateByMOI'] = '';
-     	alcoholTaxFormSummary['taxByMOI'] = '';
-     	alcoholTaxFormSummary['other'] = '';
-     	alcoholTaxFormSummary['taxByThaiHealth'] = '';
-     	alcoholTaxFormSummary['taxByThaiPBS'] = '';
-     	alcoholTaxFormSummary['taxByNSDF'] = '';
+     	alcoholTaxFormSummary['reduceTaxProductBaht'] = 0;
+     	alcoholTaxFormSummary['reduceTaxByDepBookNo'] = 0;
+     	alcoholTaxFormSummary['reduceTaxByDepBookNoBaht'] = 0;
+     	alcoholTaxFormSummary['taxRateByMOI'] = 0;
+     	alcoholTaxFormSummary['taxByMOI'] = 0;
+     	alcoholTaxFormSummary['other'] = 0;
+     	alcoholTaxFormSummary['taxByThaiHealth'] = 0;
+     	alcoholTaxFormSummary['taxByThaiPBS'] = 0;
+     	alcoholTaxFormSummary['taxByNSDF'] = 0;
 
+     
+     	var licenseNo = syncMasterDataRequest.entrepreneur.licenseNo ;
 
-     	root.add('alcoholTaxForm', { 'entrepreneur' : entrepreneur , 
-     		'productTaxList' : productTaxList,
+     	root.add('alcoholTaxForm', { 
+     		'licenseNo' : licenseNo,
+     		'SOAPClientParameters' : productTaxListArray,
      		'alcoholTaxFormSummary' : alcoholTaxFormSummary
      	} );
-	// console.log( root.toXml() );
+	console.log( root.toXml() );
 
 	this.callback = function ( p1 , respone ){
 

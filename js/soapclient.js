@@ -10,6 +10,10 @@
 function SOAPClientParameters()
 {
 	var _pl = new Array();
+	var _type = "Other";
+	this.setType = function ( ptype){
+
+	}
 	this.add = function(name, value) 
 	{
 		_pl[name] = value; 
@@ -91,7 +95,7 @@ SOAPClientParameters._serialize = function(o)
                             case "Date":
                                 type = "DateTime"; break;
                         }
-                        s += "<" + type + ">" + SOAPClientParameters._serialize(o[p]) + "</" + type + ">"
+                       	s += "<" + type + ">" + SOAPClientParameters._serialize(o[p]) + "</" + type + ">"
                     }
                     else    // associative array
                         s += "<" + p + ">" + SOAPClientParameters._serialize(o[p]) + "</" + p + ">"
@@ -99,8 +103,16 @@ SOAPClientParameters._serialize = function(o)
             }
             // Object or custom function
             else
-                for(var p in o)
-                    s += "<" + p + ">" + SOAPClientParameters._serialize(o[p]) + "</" + p + ">";
+                for(var p in o){
+                	if(p === 'SOAPClientParameters'){
+                		var listObj = o[p];
+                		for ( var iobj  in listObj){
+                			 s += listObj[iobj].toXml();
+                		}
+                	}else{
+                  	  s += "<" + p + ">" + SOAPClientParameters._serialize(o[p]) + "</" + p + ">";
+                	}
+                }
             break;
         default:
             break; // throw new Error(500, "SOAPClientParameters: type '" + typeof(o) + "' is not supported");

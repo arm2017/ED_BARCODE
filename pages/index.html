@@ -35,7 +35,7 @@
 
 <style type="text/css">
 	.addrLabel-width {
-		width: 180px;
+		width: 200px;
 		text-align: right;
 	}
 	.addr-space-div{
@@ -80,99 +80,120 @@
 		width: 15px;
 		margin: 0;
 	}
+
+	.sumarry > thead > tr > th {
+		text-align: center;
+	}
+	.number-input{
+		text-align: right;
+	}
+
+	body {
+		background-color: #fbfbf9;
+	}
 </style>
 
 </head>
-<body>
+<body >
+<script>
+		var gui = require('nw.gui');
+		var win = gui.Window.get();
+		win.on('close', function() {
+		    // Hide the window to give user the feeling of closing immediately
+		    // this.hide();
+
+		    // If the new window is still open then close it.
+		    if (confirm('ยืนยันการปิดโปรแกรม') == true){
+		    	 this.close(true);
+		    }
+		    
+		    // After closing the new window, close the main window.
+		    // this.show(true);
+		  });
+</script>
 		
 		<div class="container-fluid">
 			
 			<!-- header	 -->
 			<div class="panel panel-default">
-				  <div class="panel-body" style="background-color:#00ffff">
-				    <img src="../resoures/logo.png" class="img-responsive" alt="Responsive image">
+				  <div class="panel-body" style="background-color:#00ffff" >
+				  <div class="row">
+				  		<div class="col-md-9" >
+					    		<img src="../resoures/logo2.png" class="img-responsive" alt="Responsive image">
+				  		</div>
+
+						<div class="col-md-3">
+							<div class="panel panel-default">
+								  <div class="panel-body">
+									 <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 123456  
+									 <br>
+									 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> version 0.15
+									  <br>
+									 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> 18/4/2015
+									 <span class="label label-success">อัพเดตล่าสุด</span>
+									 <br>
+									 <button type="button" class="btn btn-warning btn-xs" style="margin-top:5px;">
+											<span class="glyphicon glyphicon-refresh" aria-hidden="true"> อัพเดตข้อมูล
+									 </button>
+
+								  </div>
+							</div>
+						</div>
 				  </div>
+
+				  </div>
+
 			</div>
 				
 			<!-- endHader			 -->
 			<!-- Address and info -->
 			<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-12">
 						<!-- Address -->
 						<div class="panel panel-info">
 						<div class="panel-heading">
 						    <h3 class="panel-title">สร 120-11</h3>
 						  </div>
-							<div class="panel-body" align="center" style="height:253px">
+							<div class="panel-body" align="center" >
 								
 
 										<div class="input-group addr-space-div">
 											<span class="input-group-addon addrLabel-width" >ชือผู้ได้รับอนุญาติทำสุรา</span>
-											<input type="text" class="form-control addinput" placeholder="" aria-describedby="basic-addon2">
+											<input type="text" class="form-control addinput" placeholder="" aria-describedby="basic-addon2" readonly>
 										</div>
 										<div class="input-group addr-space-div">
 											<span class="input-group-addon addrLabel-width" >ชื่อโรงานทำสุรา</span>
-											<input type="text" class="form-control addinput" placeholder="" aria-describedby="basic-addon2">
+											<input type="hidden" class="form-control addinput" placeholder="" aria-describedby="basic-addon2">
+											<select class="form-control">
+											  <option>บริษัท สยามไวเนอรี่ จำกัด โรงาน 1</option>
+											  <option>บริษัท สยามไวเนอรี่ จำกัด โรงาน 2</option>
+											  <option>บริษัท สยามไวเนอรี่ จำกัด โรงาน 3</option>
+											</select>
 										</div>
 										<div class="input-group addr-space-div">
 											<span class="input-group-addon addrLabel-width" >ใบอนุญาติทำสุราเลขที่</span>
-											<input type="text" class="form-control addinput" placeholder="" aria-describedby="basic-addon2">
+											<input type="text" class="form-control addinput" placeholder="" aria-describedby="basic-addon2" readonly>
 										</div>
 										<div class="input-group addr-space-div">	
 											<span class="input-group-addon addrLabel-width"  >เลขที่ประจำตัว</span>
-											<input type="text" class="form-control addinput" placeholder="" aria-describedby="basic-addon2">
+											<input type="text" class="form-control addinput" placeholder="" aria-describedby="basic-addon2" readonly>
 										</div>	
 
 										<div class="input-group addr-space-div">
 											<span class="input-group-addon addrLabel-width" >ที่อยู่</span>
 											<!-- <input type="text" class="form-control " placeholder="" aria-describedby="basic-addon2"> -->
-											<textarea class="form-control addinput" rows="3"></textarea>
+											<textarea class="form-control addinput" rows="3" readonly></textarea>
 										</div>
 									
 							</div>
 						</div>	
 
 					</div>
-					<div class="col-md-6">
-						<!-- Address -->
-						<div class="panel panel-info">
-						 <div class="panel-heading">
-						    <h3 class="panel-title">สำหรับเจ้าพนักงาน</h3>
-						  </div>
-							<div class="panel-body" align="center">
-										<div class="panel panel-info">
-											<div class="panel-body" align="center">
-												<div class="row">
-													<div class="col-md-12">เสียภาษีสำหรับผู้ที่ได้รับอนุณาติตามหนังสืกรมสรรพสามิต</div>
-													<div class="col-md-12">
-													<form class="form-inline">
-														<div class="form-group">
-															<label for="exampleInputName2">วัน เดือน ปี</label>
-															<input type="date" id="exampleInputName2" class="form-control liDate"  style="width:200px;" placeholder="วัน เดือน ปี">
-														</div>
-													</form>
-													</div>
-												</div>
-											</div>
-										</div>
+					<!-- <div class="col-md-6">
+						Address
+						
 
-										<div class="input-group addr-space-div">
-											<span class="input-group-addon addrLabel-width" >ใบเสร็จรับเงินเลขที่/เล่มที่</span>
-											<input type="text" class="form-control " placeholder="" aria-describedby="basic-addon2">
-										</div>
-										<div class="input-group addr-space-div">
-											<span class="input-group-addon addrLabel-width" >วัน เดือน ปี</span>
-											<input type="date" class="form-control " placeholder="" aria-describedby="basic-addon2">
-										</div>
-										<div class="input-group addr-space-div">
-											<span class="input-group-addon addrLabel-width" >เจ้าพนังานผู้รับ</span>
-											<input type="text" class="form-control " placeholder="" aria-describedby="basic-addon2">
-										</div>
-									
-							</div>
-						</div>	
-
-					</div>
+					</div> -->
 			</div>
 					
 
@@ -182,99 +203,108 @@
 						
 								<div class="panel panel-info">
 									<div class="panel-body" >
-									<!-- toolbar -->
-									<div class="btn-group" role="group" aria-label="...">
-										  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addItems">
-										  	  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> เพิ่ม
-										  </button>
-										 <!--  <button type="button" class="btn btn-default" >
-										    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-										  </button>
-										  <button type="button" class="btn btn-default">
-										  	  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-										  </button> -->
-									</div>
-									<!-- toolbar -->
-									<!-- grid list -->
-										<table class="table table-bordered table-list-hader-align" id="myGrid">
-											<thead >
-												<tr >
-													<th rowspan="3" >ลำดับ</th>
-													<th rowspan="3" >(๓) ชนิดสุรา</th>
-													<th colspan="7" >รายการสุรา</th>
-													<th colspan="4">ภาษีสุราต่อภาชนะ</th>
-													<th colspan="2">รวมภาษีสุรา</th>
-													<th rowspan="3"> ลบ </th>
-													
-												</tr>
-												<tr >
-													<th rowspan="2">ชื่อสุรา</th>
-													<th rowspan="2">ดีกรี</th>
-													<th rowspan="2">ขนาดบรรจุ</th>
-													<th rowspan="2">จำนวนภาชนะ</th>
-													<th rowspan="2">ปริมาตรที่เสี่ยภาษี</th>
-													<th colspan="2">ราคาขายส่ง</th>
-													<!-- <th rowspan="2">มูลค่า</th> -->
-													<th rowspan="2">ภาษีตามมูลค่า</th>
-													<th rowspan="2">ภาษีตามปริมาณ</th>
-													<th rowspan="2">ภาษีตามปริมาณ กรณีดีกรีเกิน</th>
-													<th rowspan="2">รวมภาษีตามปริมาณ</th>
-													<th rowspan="2">ตามมูลค่า</th>
-													<th rowspan="2">ตามปริมาณ</th>
-												</tr>
-												<tr >
-													<th >ตามแจ้ง</th>
-													<th>ตามประกาศ</th>
-												</tr>
-											</thead>
-										 	<tbody>
-										 		<!-- <tr class="info">
-												  <td >1</td>
-												  <td >...</td>
-												  <td >...</td>
-												  <td >...</td>
-												  <td >...</td>
-												  <td ><input type="text" class="form-control" style="width:80px;" placeholder="" value="0"></td>
-												  <td >...</td>
-												  <td ><input type="text" class="form-control" style="width:80px;" placeholder="" value="0"></td>
-												  <td ><input type="text" class="form-control" style="width:80px;" placeholder="" value="0"></td>
-												  <td >...</td>
-												  <td >...</td>
-												  <td >...</td>
-												  <td >...</td>
-												  <td >...</td>
-												  <td >...</td>
-												  <td >...</td>
-												</tr> -->
-										 		
-										 	</tbody>
-										</table>
-									<!-- grid list -->
-									<!-- grid sum -->
-										<table class="table table-list-hader-align">
-											<tbody>
-												<tr>
-													<td style="text-align:right;">
-														รวม
-													</td>
-													<td width="30%">
-														<div class="input-group">
-														 	<span class="input-group-addon">ตามมูลค่า</span>
-															<input type="text" id="col15" class="form-control sumtax" aria-label="" value="0" disabled>
-															<span class="input-group-addon">บาท</span>
-														</div>
-													</td>
-													<td width="30%">
-														<div class="input-group">
-														 	<span class="input-group-addon">ตามปริมาตร</span>
-															<input type="text" id="col16" class="form-control sumtax" aria-label="" value="0" disabled>
-															<span class="input-group-addon">บาท</span>
-														</div>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									<!-- grid sum -->
+										<!-- toolbar -->
+									<!-- 	<div class="btn-group" role="group" aria-label="...">
+											  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addItems">
+											  	  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> เพิ่ม
+											  </button>
+											  <button type="button" class="btn btn-default" >
+											    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+											  </button>
+											  <button type="button" class="btn btn-default">
+											  	  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+											  </button>
+										</div> -->
+										<nav class="navbar navbar-default">
+										  <div class="container-fluid">
+										    <div class="navbar-header">
+										       	<button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#addItems"> 
+										       		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> เพิ่ม
+										       	</button>
+										    </div>
+										  </div>
+										</nav>
+										<!-- toolbar -->
+										<!-- grid list -->
+											<table class="table table-bordered table-list-hader-align" id="myGrid">
+												<thead >
+													<tr >
+														<th rowspan="3" >ลำดับ</th>
+														<th rowspan="3" >(๓) ชนิดสุรา</th>
+														<th colspan="7" >(๔) รายการสุรา</th>
+														<th colspan="4" >(๕) ภาษีสุราต่อภาชนะ</th>
+														<th colspan="2" >(๖) รวมภาษีสุรา</th>
+														<th rowspan="3" > ลบ </th>
+														
+													</tr>
+													<tr >
+														<th rowspan="2">(๔.๑) ชื่อสุรา</th>
+														<th rowspan="2">(๔.๒) ดีกรี</th>
+														<th rowspan="2">(๔.๓) ขนาดบรรจุ</th>
+														<th rowspan="2">(๔.๔)  จำนวนภาชนะ</th>
+														<th rowspan="2">(๔.๕) ปริมาณที่เสี่ยภาษี (ลิตร)</th>
+														<th colspan="2">(๔.๖) <br> ราคาขายส่งช่วง สุดท้ายของสุรา (บาท/ภาชนะ) ไม่รวมภาษีมูลค่าเพิ่ม</th>
+														<!-- <th rowspan="2">มูลค่า</th> -->
+														<th rowspan="2">(๕.๑) ภาษีตามมูลค่า (บาท/ภาชนะ)</th>
+														<th rowspan="2">(๕.๒) ภาษีตามปริมาณ (บาท/ภาชนะ)</th>
+														<th rowspan="2">(๕.๓) <br> ภาษีตามปริมาณ กรณีดีกรีเกิน  (บาท/ภาชนะ)</th>
+														<th rowspan="2">(๕.๔) <br> รวมภาษีสุรา ตามปริมาณ (บาท/ภาชนะ) (๕.๒+๕.๓)</th>
+														<th rowspan="2">(๖.๑) <br> ตามมูลค่า บาท (๔.๔ * ๕.๑)</th>
+														<th rowspan="2">(๖.๒) <br> ตามปริมาณ บาท (๔.๔ * ๕.๔)</th>
+													</tr>
+													<tr >
+														<th >ตามแจ้ง</th>
+														<th>ตามประกาศ</th>
+													</tr>
+												</thead>
+											 	<tbody>
+											 		<!-- <tr class="info">
+													  <td >1</td>
+													  <td >...</td>
+													  <td >...</td>
+													  <td >...</td>
+													  <td >...</td>
+													  <td ><input type="text" class="form-control" style="width:80px;" placeholder="" value="0"></td>
+													  <td >...</td>
+													  <td ><input type="text" class="form-control" style="width:80px;" placeholder="" value="0"></td>
+													  <td ><input type="text" class="form-control" style="width:80px;" placeholder="" value="0"></td>
+													  <td >...</td>
+													  <td >...</td>
+													  <td >...</td>
+													  <td >...</td>
+													  <td >...</td>
+													  <td >...</td>
+													  <td >...</td>
+													</tr> -->
+											 		
+											 	</tbody>
+											</table>
+										<!-- grid list -->
+										<!-- grid sum -->
+											<table class="table table-list-hader-align">
+												<tbody>
+													<tr>
+														<td style="text-align:right;">
+															รวม
+														</td>
+														<td width="30%">
+															<div class="input-group">
+															 	<span class="input-group-addon">ตามมูลค่า</span>
+																<input type="text" id="col15" class="form-control sumtax" aria-label="" value="0" disabled>
+																<span class="input-group-addon">บาท</span>
+															</div>
+														</td>
+														<td width="30%">
+															<div class="input-group">
+															 	<span class="input-group-addon">ตามปริมาตร</span>
+																<input type="text" id="col16" class="form-control sumtax" aria-label="" value="0" disabled>
+																<span class="input-group-addon">บาท</span>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										<!-- grid sum -->
 									</div>
 								</div>
 						</div>
@@ -282,7 +312,7 @@
 			<!-- GridData -->
 		<!-- Total & Sum -->
 		<div class="row">
-						<div class="col-md-6">
+<!-- 						<div class="col-md-6">
 								<div class="panel panel-info">
 								  <div class="panel-heading">16</div>
 								  <div class="panel-body">
@@ -313,68 +343,84 @@
 
 								  </div>
 								</div>
-						</div>
-						<div class="col-md-6">
+						</div> -->
+						<div class="col-md-12">
 								<div class="panel panel-info">
 									<div class="panel-heading">
 										<h3  class="panel-title">ยกมา</h3>
 									</div>
 									<div class="panel-body">
-
-										<div class="input-group addr-space-div">
-										  <span class="input-group-addon sumTax-label">รวมภาษีตามมูลค่า</span>
-										  <input type="number" class="form-control ttx" aria-label="Amount (to the nearest dollar)" value="0" id="col19" disabled>
-										  <span class="input-group-addon">บาท</span>
+										<div align="right">
+											<table class="table" style="width:350px;">
+												<tr>
+													<td> (๖.๑) รวมภาษีตามมูลค่า</td>
+													<td> <div id="col15_2"></div></td>
+													<td>บาท</td>
+												</tr>
+												<tr>
+													<td> (๖.๒) รวมภาษีตามปริมาณ</td>
+													<td><div id="col16_2"></div></td>
+													<td>บาท</td>
+												</tr>
+											</table>
 										</div>
 
-										<div class="input-group addr-space-div">
-										  <span class="input-group-addon sumTax-label">รวมภาษีสุราตามปริมาณ</span>
-										  <input type="number" class="form-control ttx" aria-label="Amount (to the nearest dollar)" value="0"  id="col20" disabled>
-										  <span class="input-group-addon">บาท</span>
-										</div>
+										<table class="table table-condensed sumarry">
+											<thead>
+												<tr class="info">
+													<th></th>
+													<th> สุรา</th>
+													<th> มหาดไทย</th>
+													<th> กองทุน สสส.</th>
+													<th> กองทุน สสท.</th>
+													<th> กองทุน กฟฬ.</th>
+												</tr>
+											</thead>
 
-										<div class="input-group addr-space-div">
-										  <span class="input-group-addon sumTax-label">รวมภาษีสุรา</span>
-										  <input type="number" class="form-control ttx" aria-label="Amount (to the nearest dollar)" value="0"  id="col21" disabled>
-										  <span class="input-group-addon">บาท</span>
-										</div>
-
-										<div class="input-group addr-space-div">
-										  <span class="input-group-addon sumTax-label">หักค่าภาษี</span>
-										  <input type="number" class="form-control ttx" aria-label="Amount (to the nearest dollar)"  id="col22" disabled>
-										  <span class="input-group-addon">บาท</span>
-										</div>
-
-										<div class="input-group addr-space-div">
-										  <span class="input-group-addon sumTax-label">หัก คืนภาษี</span>
-										  <input type="number" class="form-control ttx" aria-label="Amount (to the nearest dollar)"  id="col23" disabled>
-										  <span class="input-group-addon">บาท</span>
-										</div>
-
-										<div class="input-group addr-space-div">
-										  <span class="input-group-addon sumTax-label">ภาษีเก็บเพื่ม</span>
-										  <input type="number" class="form-control ttx" aria-label="Amount (to the nearest dollar)"  id="col25" disabled>
-										  <span class="input-group-addon">บาท</span>
-										</div>
-
-										<div class="input-group addr-space-div">
-										  <span class="input-group-addon sumTax-label">ภาษีที่ต้องชำระทั้งสิ้น</span>
-										  <input type="number" class="form-control ttx" aria-label="Amount (to the nearest dollar)" value=""  id="col26" disabled>
-										  <span class="input-group-addon">บาท</span>
-										</div>
-
-										<div class="input-group addr-space-div">
-										  <span class="input-group-addon sumTax-label">อื่น</span>
-										  <input type="number" class="form-control ttx" aria-label="Amount (to the nearest dollar)" value="0"  id="col27" disabled>
-										  <span class="input-group-addon">บาท</span>
-										</div>
-
-										<div class="input-group addr-space-div">
-										  <span class="input-group-addon sumTax-label">รวม</span>
-										  <input type="number" class="form-control ttx" aria-label="Amount (to the nearest dollar)" value="0"  id="col28" disabled>
-										  <span class="input-group-addon">บาท</span>
-										</div>
-
+											<tbody>
+												<tr>
+													<td>(๗) รวมภาษีสุรา (๖.๑)+(๖.๒)</td>
+													<td><input type="text" class="form-control number-input row1" placeholder="" readonly></td>
+													<td><input type="text" class="form-control number-input row1" placeholder="" readonly></td>
+													<td><input type="text" class="form-control number-input row1" placeholder="" readonly></td>
+													<td><input type="text" class="form-control number-input row1" placeholder="" readonly></td>
+													<td><input type="text" class="form-control number-input row1" placeholder="" readonly></td>
+												</tr>	
+												<tr>
+													<td>(๙) หักคืนภาษีสุรา</td>
+													<td><input type="text" class="form-control number-input row2" placeholder="" readonly ></td>
+													<td><input type="text" class="form-control number-input row2" placeholder="" readonly></td>
+													<td><input type="text" class="form-control number-input row2" placeholder="" readonly></td>
+													<td><input type="text" class="form-control number-input row2" placeholder="" readonly></td>
+													<td><input type="text" class="form-control number-input row2" placeholder="" readonly></td>
+												</tr>
+												<tr>
+													<td>(๑๐) คงเหลือภาษีสุรา</td>
+													<td><input type="text" class="form-control number-input row3" placeholder="" readonly ></td>
+													<td><input type="text" class="form-control number-input row3" placeholder="" readonly></td>
+													<td><input type="text" class="form-control number-input row3" placeholder="" readonly></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>(๑๓) อื่นๆ</td>
+													<td><input type="text" class="form-control number-input row4" placeholder="" readonly ></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>(๑๔) รวมภาษีที่ต้องชำระ</td>
+													<td></td>
+													<td><input type="text" class="form-control row5" placeholder="" readonly ></td>
+													<td><input type="text" class="form-control row5" placeholder="" readonly ></td>
+													<td><input type="text" class="form-control row5" placeholder="" readonly ></td>
+													<td><input type="text" class="form-control row5" placeholder="" readonly ></td>
+													
+												</tr>
+											</tbody>
+										</table>
 
 									</div>
 								</div>
