@@ -153,7 +153,7 @@
 						<!-- Address -->
 						<div class="panel panel-info">
 						<div class="panel-heading">
-						    <h3 class="panel-title">สร 120-11</h3>
+						    <h3 class="panel-title">สร. 120-11</h3>
 						  </div>
 							<div class="panel-body" align="center" >
 								
@@ -172,13 +172,19 @@
 											</select>
 										</div>
 										<div class="input-group addr-space-div">
-											<span class="input-group-addon addrLabel-width" >ใบอนุญาติทำสุราเลขที่</span>
+											<span class="input-group-addon addrLabel-width" >ใบอนุญาตทำสุราเลขที่</span>
 											<input type="text" class="form-control addinput" placeholder="" aria-describedby="basic-addon2" readonly>
 										</div>
+										
 										<div class="input-group addr-space-div">	
-											<span class="input-group-addon addrLabel-width"  >เลขที่ประจำตัว</span>
+											<span class="input-group-addon addrLabel-width"  >เลขประจำตัว</span>
 											<input type="text" class="form-control addinput" placeholder="" aria-describedby="basic-addon2" readonly>
 										</div>	
+
+										<div class="input-group addr-space-div">
+											<span class="input-group-addon addrLabel-width" >ลงวันที่</span>
+											<input type="text" class="form-control addinput" placeholder="" aria-describedby="basic-addon2"  readonly>
+										</div>
 
 										<div class="input-group addr-space-div">
 											<span class="input-group-addon addrLabel-width" >ที่อยู่</span>
@@ -241,17 +247,17 @@
 													<tr >
 														<th rowspan="2">(๔.๑) ชื่อสุรา</th>
 														<th rowspan="2">(๔.๒) ดีกรี</th>
-														<th rowspan="2">(๔.๓) ขนาดบรรจุ</th>
+														<th rowspan="2">(๔.๓) ขนาดบรรจุ (ลิตร)</th>
 														<th rowspan="2">(๔.๔)  จำนวนภาชนะ</th>
-														<th rowspan="2">(๔.๕) ปริมาณที่เสี่ยภาษี (ลิตร)</th>
-														<th colspan="2">(๔.๖) <br> ราคาขายส่งช่วง สุดท้ายของสุรา (บาท/ภาชนะ) ไม่รวมภาษีมูลค่าเพิ่ม</th>
+														<th rowspan="2">(๔.๕) ปริมาณสุราที่เสียภาษี (ลิตร)</th>
+														<th colspan="2">(๔.๖) <br>รายการขายส่งช่วงสุดท้ายของสุรา (บาท/ภาชนะ) ไม่รวมภาษีมูลค่าเพิ่ม</th>
 														<!-- <th rowspan="2">มูลค่า</th> -->
 														<th rowspan="2">(๕.๑) ภาษีตามมูลค่า (บาท/ภาชนะ)</th>
 														<th rowspan="2">(๕.๒) ภาษีตามปริมาณ (บาท/ภาชนะ)</th>
-														<th rowspan="2">(๕.๓) <br> ภาษีตามปริมาณ กรณีดีกรีเกิน  (บาท/ภาชนะ)</th>
+														<th rowspan="2">(๕.๓) <br>ภาษีตามปริมาณ กรณีภาษีดีกรีเกิน (บาท/ภาชนะ)</th>
 														<th rowspan="2">(๕.๔) <br> รวมภาษีสุรา ตามปริมาณ (บาท/ภาชนะ) (๕.๒+๕.๓)</th>
-														<th rowspan="2">(๖.๑) <br> ตามมูลค่า บาท (๔.๔ * ๕.๑)</th>
-														<th rowspan="2">(๖.๒) <br> ตามปริมาณ บาท (๔.๔ * ๕.๔)</th>
+														<th rowspan="2">(๖.๑) <br> ตามมูลค่า  (๔.๔ * ๕.๑)</th>
+														<th rowspan="2">(๖.๒) <br> ตามปริมาณ (๔.๔ * ๕.๔)</th>
 													</tr>
 													<tr >
 														<th >ตามแจ้ง</th>
@@ -297,7 +303,7 @@
 														</td>
 														<td width="30%">
 															<div class="input-group">
-															 	<span class="input-group-addon">ตามปริมาตร</span>
+															 	<span class="input-group-addon">ตามปริมาณ</span>
 																<input type="text" id="col16" class="form-control sumtax" aria-label="" value="0" disabled>
 																<span class="input-group-addon">บาท</span>
 															</div>
@@ -448,7 +454,7 @@
 												<h4  class="panel-title">พิมพ์ ออฟไลน์</h4>
 											</div>
 											<div class="panel-body" align="center">
-												<button type="button" class="btn btn-info" onclick="sr120_11();">สร 120-11</button>
+												<button type="button" class="btn btn-info" onclick="sr120_11();">สร. 120-11</button>
 												<button type="button" class="btn btn-info" onclick="Report_ThaiHealth();">สสส</button>
 												<button type="button" class="btn btn-info" onclick="Report_ThaiPBS();">สสท</button>
 												<button type="button" class="btn btn-info" onclick="Report_NSDF();">กพฬ</button>
@@ -458,7 +464,7 @@
 							<div class="col-md-6">
 									<div class="panel panel-info">
 											<div class="panel-heading">
-													<h4  class="panel-title">ทำราย ออนไลน์</h4>
+													<h4  class="panel-title">ทำรายการ ออนไลน์</h4>
 											</div>
 											<div class="panel-body" align="center">
 												<button type="button" class="btn btn-info" style="display: none;" id="printOffline" onclick="submitOnlinePrint();">พิมพ์ ใบทำรายการ สร120-11 </button>

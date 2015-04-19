@@ -223,6 +223,7 @@ $(document).ready (function(){
 	obj[1].value = addr.factoryName;
 	obj[2].value = addr.licenseNo;
 	obj[3].value = addr.taxNo;
+	obj[4].value = '01/01/2558-31/12/2558';
 	$('textarea.addinput').val(addr.factoryAddress); 
 	// $('input.liDate').val(addrList[3].substr(0,10)); 
 
