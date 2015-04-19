@@ -4,6 +4,18 @@ Number.prototype.format = function(n, x, s, c) {
 
     return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
 };
+Number.prototype.formatRoudDown = function(n, x, s, c) {
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')';
+    var max = Math.max(0, ~~n);
+     var   num = "0.00";
+     if( this.toString().split(".").length == 2){
+     		num =  this.toString().split(".")[0] +"."+ this.toString().split(".")[1].substr(0,max)
+     }else{
+     	 num = this.toFixed(Math.max(0, ~~n));
+     }
+
+    return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+};
 
 var myGrid = {};
 	myGrid.Id = "myGrid";
@@ -13,6 +25,7 @@ var myGrid = {};
 
 	myGrid.add = function ( row ) {
 		$( "#" + myGrid.Id  ).append( row );
+
 	};
 
 	myGrid.getRow = function(){
@@ -48,19 +61,19 @@ var myGrid = {};
 		 '<td>'+ row.num +'</td>' +		
 		 '<td>' + row.col1 + '</td>' +
 		 '<td>' + row.col2+ '</td>' +
-		 '<td>' + row.col3 +'</td>' +
-		 '<td>' + row.col4 +'</td>' +
-		 '<td>' + "<input id='p_" + row.objId + "' type='text' class='form-control' style='width:80px;' placeholder='' onchange=\"myGrid.onChangeValue(this,'col5');\" value='" + row.col5 + "'>"  + '</td>'  + 
-		 '<td>' + row.col6 +'</td>' +
-		 '<td>' +  "<input id='p_" + row.objId + "'  type='text' class='form-control' style='width:80px;' placeholder='' onchange=\"myGrid.onChangeValue(this,'col7')\"  value='" + row.col7 + "'>" + '</td>' +
-		 '<td>' +  "<input id='p_" + row.objId + "'  type='text' class='form-control' style='width:80px;' placeholder='' onchange=\"myGrid.onChangeValue(this,'col8')\"  value='" + row.col8 + "'>" +'</td>'  +
-		 '<td>' +  row.col9 +'</td>'+
-		 '<td>' +  row.col10 +'</td>'+
-		 '<td>' +  row.col11 +'</td>'+
-		 '<td>' +  row.col12+'</td>'+
-		 '<td>' +  row.col13 +'</td>'+
-		 '<td>' +  row.col14 +'</td>'+
-		 '<td>' +  deleteHtml +'</td>'+
+		 '<td class=\'number-input\'>' + parseFloat(row.col3).format(2) +'</td>' +
+		 '<td class=\'number-input\'>' + parseFloat(row.col4).format(2) +'</td>' +
+		 '<td>' + "<input id='p_" + row.objId + "' type='text' class='form-control input-number-only' style='width:80px;' placeholder='' onchange=\"myGrid.onChangeValue(this,'col5');\" value='" + row.col5 + "'>"  + '</td>'  + 
+		 '<td class=\'number-input\'>' + parseFloat(row.col6).format(4)  +'</td>' +
+		 '<td>' +  "<input id='p_" + row.objId + "'  type='text' class='form-control input-number-only' style='width:80px;' placeholder='' onchange=\"myGrid.onChangeValue(this,'col7')\"  value='" + row.col7 + "'>" + '</td>' +
+		 '<td>' +  "<input id='p_" + row.objId + "'  type='text' class='form-control input-number-only' style='width:80px;' placeholder='' onchange=\"myGrid.onChangeValue(this,'col8')\"  value='" + row.col8 + "'>" +'</td>'  +
+		 '<td class=\'number-input\'>' +  row.col9.format(4)  +'</td>'+
+		 '<td class=\'number-input\'>' +  row.col10.format(4)  +'</td>'+
+		 '<td class=\'number-input\'>' +  row.col11.format(4)  +'</td>'+
+		 '<td class=\'number-input\'>' +  row.col12.format(4) +'</td>'+
+		 '<td class=\'number-input\'>' +  (row.col13).format(4) +'</td>'+
+		 '<td class=\'number-input\'>' +  row.col14.format(4) +'</td>'+
+		 '<td class=\'number-input\'>' +  deleteHtml +'</td>'+
 		 '</tr>';
 
 		 return html;
@@ -229,7 +242,7 @@ myGrid.calcTax = function  ( row ) {
 	row.col12= row.col10 + row.col11;
 
 	row.col14= row.col5 * row.col12;
-	row.col13= row.col5 * row.col9;
+	row.col13= (row.col5 * row.col9);
 
 	// sum
 	var sumcol13 = 0;
@@ -252,6 +265,36 @@ myGrid.calcTax = function  ( row ) {
 	$('.row1').get(0).value = summary;
 	$('.row2').val('0.00');
 	$('.row3').get(0).value = summary;
+
+	// 1. มหาดไทย (๗) = รวมอัตราภาษีสุรา * 0.1
+	// 2. กองทุน สสส. (๗) = รวมอัตราภาษีสุรา * 0.02
+	// 3. กองทุน สสท. (๗) = รวมอัตราภาษีสุรา * 0.015
+	// 4. กองทุน กพฬ. (๗) = รวมอัตราภาษีสุรา * 0.02
+	
+	summary = sumcol13 + sumcol14 ;
+	var taxby1 = ( summary * 0.1).format(2);
+	$('.row1').get(1).value = taxby1;
+	$('.row2').get(1).value= taxby1;
+	$('.row3').get(1).value= taxby1;
+	console.log( summary );
+	$('.row5').get(0).value= ( summary + (summary * 0.1) ).format(2) ;
+	//2
+	 taxby1 = (summary * 0.02).formatRoudDown(2);
+	$('.row1').get(2).value = taxby1;
+	$('.row2').get(2).value= taxby1;
+	$('.row3').get(2).value= taxby1;
+	$('.row5').get(1).value= taxby1;
+	//3
+	 taxby1 = (summary * 0.015).format(2);
+	$('.row1').get(3).value = taxby1;
+	$('.row2').get(3).value= taxby1;
+	$('.row5').get(2).value= taxby1;
+	//4
+	 taxby1 = (summary * 0.02).format(2);
+	$('.row1').get(4).value = taxby1;
+	$('.row2').get(4).value= taxby1;
+	$('.row5').get(3).value= taxby1;
+
 };
 
 
