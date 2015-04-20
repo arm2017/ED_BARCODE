@@ -4,6 +4,7 @@ alertMsg.reportSr120 = "สร้าง สร 120 เรียบร้อย";
 alertMsg.submitOnlineOK = "ส่งแบบฟอร์มออนไลน์ เรียบร้อย แล้วครับ :)";
 alertMsg.submitOnlineFail = "ส่งแบบฟอร์มออนไลน์ ผิดผลาด :)";
 alertMsg.genReportOK = " สร้าง ส่งแบบฟอร์ม สำเร็จ";
+alertMsg.saveDraf = "บันทักเรียบร้อย";
 
 alertMsg.show = function (argument , type ) {
 	var pType = 'success';
@@ -17,11 +18,11 @@ alertMsg.show = function (argument , type ) {
 			 " <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button> " + 
 			  "<strong> " + argument + " </strong> " + 
 			"</div>" ;
-		$("#alertField").append( div );	
+		$(".alertField").append( div );	
 };
 
 alertMsg.clear = function (argument) {
-	$("#alertField").html('');
+	$(".alertField").html('');
 };
 
 

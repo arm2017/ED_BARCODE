@@ -25,7 +25,6 @@ var myGrid = {};
 
 	myGrid.add = function ( row ) {
 		$( "#" + myGrid.Id  ).append( row );
-
 	};
 
 	myGrid.getRow = function(){
@@ -168,6 +167,10 @@ myGrid.addItemPopup = function(){
 	$('#groupIdName').val('');
 	$('#taxIdName').val('');
 	myGrid.reRender();
+
+	//add input Number 
+	$("#myGrid > tbody > tr > td > input[type='text']").removeNumeric();
+	$("#myGrid > tbody > tr > td > input[type='text']").numeric();
 };
 
 
@@ -225,7 +228,12 @@ $(document).ready (function(){
 	obj[3].value = addr.taxNo;
 	obj[4].value = '01/01/2558-31/12/2558';
 	$('textarea.addinput').val(addr.factoryAddress); 
-	// $('input.liDate').val(addrList[3].substr(0,10)); 
+
+	//load draf
+	var savedraf = localStorage['saveDraf'];
+	if(savedraf != undefined && savedraf != ''){
+		myGrid.loadDraf();
+	}	
 
 });
 
@@ -277,7 +285,7 @@ myGrid.calcTax = function  ( row ) {
 	$('.row1').get(1).value = taxby1;
 	$('.row2').get(1).value= taxby1;
 	$('.row3').get(1).value= taxby1;
-	console.log( summary );
+	
 	$('.row5').get(0).value= ( summary + (summary * 0.1) ).format(2) ;
 	//2
 	 taxby1 = (summary * 0.02).formatRoudDown(2);
@@ -297,9 +305,27 @@ myGrid.calcTax = function  ( row ) {
 	$('.row5').get(3).value= taxby1;
 
 };
+myGrid.saveDraf = function () {
+	var jsonstr =	JSON.stringify(myGrid.dataList);
+	localStorage['saveDraf'] = jsonstr;
+
+	log('saveDraf');
+	alertMsg.clear();
+	alertMsg.show( alertMsg.saveDraf );
+};
+myGrid.loadDraf = function (argument) {
+	var jsonstr = localStorage['saveDraf'] ;
+	var jlist  = JSON.parse( jsonstr );
+	myGrid.dataList = jlist;
+	myGrid.reRender();
+	for( index in myGrid.dataList){ 
+		myGrid.calcTax(myGrid.dataList[index]);
+	};
+	log('loadDraf');
+};
 
 
-
+// **************************searchGrid*******************************
 var searchGrid = {};
 searchGrid.dataList = new Array();
 

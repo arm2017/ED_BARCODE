@@ -42,6 +42,8 @@
 			// QR grid List
 			var gridsize =  myGrid.dataList.length;
 			log( 'Grid size : ' + gridsize);
+			var sumcol15 = 0;
+			var sumcol16 = 0;
 			if(gridsize > 0 ){
 				var rows = new Array();
 				var gridList =  myGrid.dataList;
@@ -53,6 +55,8 @@
 					var qrImage = getQrByRawDataAndSize(tag,50);
 					html = html.replace('{QrinRow}' , qrImage);
 					rows.push(html);
+					sumcol15 += r.col13;
+					sumcol16 += r.col14;
 				};
 				var allHtml = rows.join("\n");
 				// log( allHtml );
@@ -62,19 +66,19 @@
 				t_txt = t_txt.replace("{gridData}", '');
 			}
 
-			t_txt = t_txt.replace("{col15}", $('#col15').val());
-			t_txt = t_txt.replace("{col16}", $('#col16').val());
+			t_txt = t_txt.replace("{col15}", sumcol15 );
+			t_txt = t_txt.replace("{col16}", sumcol16 );
 
-			t_txt = t_txt.replace("{col19}",  $('#col19').val());
-			t_txt = t_txt.replace("{col20}", $('#col20').val());
-			t_txt = t_txt.replace("{col21}",  $('#col21').val());
-			t_txt = t_txt.replace("{col28}", $('#col28').val());
+			t_txt = t_txt.replace("{col19}", sumcol15 );
+			t_txt = t_txt.replace("{col20}", sumcol16 );
+			t_txt = t_txt.replace("{col21}",  sumcol15 + sumcol16);
+			t_txt = t_txt.replace("{col28}",  ' ');
 
 			//QR total
 			var tag = "";
 				var sumaryTag = new Array();
-				sumaryTag.push( $('#col19').val() );
-				sumaryTag.push( $('#col20').val() );
+				sumaryTag.push( sumcol15 );
+				sumaryTag.push( sumcol16 );
 				sumaryTag.push( '' );
 				sumaryTag.push( '' );
 				sumaryTag.push( '' );
@@ -115,12 +119,12 @@
 			  , bookPath =  pathHTML + fileName  + ".pdf" ;
 			 
 			htmlBoilerplatePDF({
-				paperBorder : '0.5cm'
+				paperBorder : '0.4cm'
 			}).concat.from(htmlDocs).to(bookPath, function () {
 			  log("Created " +  bookPath);
 			  alertMsg.show( alertMsg.reportSr120 );
 			  loadingscr.hide();
-			  openReport(fileName + ".html");
+			  //openReport(fileName + ".html");
 			});
 
 			

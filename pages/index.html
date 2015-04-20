@@ -91,6 +91,13 @@
 
 	body {
 		background-color: #fbfbf9;
+		font-size: 12px;
+	}
+	.panel-title , .modal-header{
+		font-size: 14px;
+	}
+	.input-group-addon , .form-control ,.btn {
+		font-size: 12px;
 	}
 </style>
 
@@ -210,23 +217,21 @@
 						
 								<div class="panel panel-info">
 									<div class="panel-body" >
+										<!-- alert -->
+										<div id="alertField" class="alertField"></div>
 										<!-- toolbar -->
-									<!-- 	<div class="btn-group" role="group" aria-label="...">
-											  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addItems">
-											  	  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> เพิ่ม
-											  </button>
-											  <button type="button" class="btn btn-default" >
-											    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-											  </button>
-											  <button type="button" class="btn btn-default">
-											  	  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-											  </button>
-										</div> -->
+									
 										<nav class="navbar navbar-default">
 										  <div class="container-fluid">
 										    <div class="navbar-header">
 										       	<button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#addItems"> 
 										       		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> เพิ่ม
+										       	</button>
+										       	<button type="button" class="btn btn-default navbar-btn" onclick="myGrid.saveDraf();"> 
+										       		<span class="glyphicon glyphicon-save" aria-hidden="true"></span> บันทึก
+										       	</button>
+										       	<button type="button" class="btn btn-default navbar-btn" > 
+										       		<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> ประวัติการทำรายการ
 										       	</button>
 										    </div>
 										  </div>
@@ -434,7 +439,7 @@
 						</div>
 		</div>
 		<!-- alert msg -->
-		<div id="alertField">
+		<div id="alertField" class="alertField">
 			<!-- <div class="alert alert-warning alert-dismissible" role="alert">
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			  <strong>Warning!</strong> Better check yourself, you're not looking too good.
@@ -491,7 +496,7 @@
 		    <div class="modal-content">
 		     		 <div class="modal-header">
 		     		  	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        				<h4 class="modal-title">ค้นหา</h4>
+        				<strong>ค้นหา</strong>
 			      </div>
 			      <div class="modal-body">
 			       	<form class="form-inline addItems-space">
