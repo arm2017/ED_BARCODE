@@ -3,7 +3,7 @@ BEAN.BeanType = 'Bean';
 BEAN.ListType = 'List';
  BEAN.syncMasterDataResponse = { status : '' , description : '' , entrepreneur : BEAN.BeanType };
  BEAN.entrepreneur = { licenseNo : ''  , licenseAllowedName : '' ,  factoryName : '' , licenseStartDate : '' , licenseEndDate : '' , taxNo : '' , factoryAddress : '' , productList : BEAN.ListType };
- BEAN.productList = {productGroup : '' ,productCode : '' ,  productName : '' , brandMajor: '' ,brandMinor : '' , model : '' , size : '' , unit : '' , degree : '' ,taxByValue : '' 
+ BEAN.productList = {productGroup : '' ,productCode : '' ,  productName : '' , size : '' , unit : '' , degree : '' ,taxByValue : '' 
 			,taxByCapacity : '' ,  taxByLiter : '' , lowestDegreeNoTax : '' , taxPlusByDegree : '' , lowestSellingPriceNoTax : '' , taxPlusBySellingPrice : '' , announcePriceDate : '' 
 			, announcePriceValue : '' };
 BEAN.submitOnlineResponse = { status : '' ,  description : '' , referenceCode : '' };	

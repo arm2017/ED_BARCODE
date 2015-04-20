@@ -17,6 +17,18 @@ Number.prototype.formatRoudDown = function(n, x, s, c) {
     return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
 };
 
+String.prototype.escapeSpecialChars = function() {
+    return this.replace(/\\n/g, "")
+               .replace(/\\r/g, "")
+               .replace(/\\t/g, "")
+               .replace(/\\b/g, "")
+               .replace(/\\f/g, "")
+               .replace(/[\u0000-\u0019]+/g,"")
+               .replace(/[\uFEFF]+/g,"")
+               ;
+};
+
+
 var myGrid = {};
 	myGrid.Id = "myGrid";
 	myGrid.label = "1234";
@@ -48,6 +60,9 @@ var myGrid = {};
 			myGrid.dataList.splice(removeIndex , 1);
 			myGrid.reRender();
 		}
+
+		//update
+		myGrid.updateSummary();
 	};
 
 	myGrid.getHtmlRow = function( row ){
@@ -85,7 +100,7 @@ var myGrid = {};
 		// var deleteHtml = "<button  id='" + row.objId + "'  type='button' class='btn btn-default btn-xs' data-toggle='tooltip' data-placement='top' title='remove' onClick='myGrid.removebyId(this.id);'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> </button>";
 
 	html = '<tr>' +
-		 '<td width=\'55px\'> {QrinRow}' + '</td>' +		
+		 '<td>' + row.num + '</td>' +
 		 '<td>' + row.col1 + '</td>' +
 		 '<td>' + row.col2+ '</td>' +
 		 '<td>' + row.col3 +'</td>' +
@@ -100,6 +115,7 @@ var myGrid = {};
 		 '<td>' + row.col12+'</td>'+
 		 '<td>' + row.col13 +'</td>'+
 		 '<td>' + row.col14 +'</td>'+
+		  '<td width=\'55px\'> {QrinRow}' + '</td>' +	
 		 '</tr>';
 
 		 return html;
@@ -214,20 +230,50 @@ var TaxType = {};
 
 //InJact Data
 $(document).ready (function(){
+ 
+	var profile =  localStorage['profile'];
+	log("profile in cache : " + profile );
+	if( profile == undefined || profile == '' ){
+		// load form text
+			var contents = rw.readFileSync("userdata/profile.cfg", "utf8");
+			var ps =contents.split(",");
+			var psObj = {
+				licenseNo : ps[0],
+				licenseAllowedName : ps[1],
+				factoryName : ps[2],
+				startDate : ps[3],
+				enddate : ps[4],
+				taxNo : ps[5],
+				factoryAddress : ps[6],
+
+			};
+			
+			localStorage['profile'] = profile = JSON.stringify(psObj) ;
+			console.log( "load from file " + profile );
+	}
+	// load profile
+	console.log("load profile");
+ 	var  profileObj = JSON.parse(profile);
+ 	var obj = $('input.addinput');
+	obj[0].value = profileObj.licenseAllowedName;
+	obj[1].value = profileObj.factoryName;
+	obj[2].value = profileObj.licenseNo;
+	obj[3].value = profileObj.taxNo;
+	obj[4].value = profileObj.startDate + "-" + profileObj.enddate;
+	$('textarea.addinput').val(profileObj.factoryAddress); 
+
+	//load productList
 
 	var jsonsyncMasterDataRequest = localStorage['syncMasterDataRequest'];
-	// Gobal data
-	syncMasterDataRequest = JSON.parse(jsonsyncMasterDataRequest);
+	if(jsonsyncMasterDataRequest == undefined || jsonsyncMasterDataRequest == ''){
+		log("load productList from file ");
+		var contents = rw.readFileSync("userdata/productList.cfg", "utf8");
+		console.log( "... file .. OK" );
 
-	var addr = syncMasterDataRequest.entrepreneur;
-
-	var obj = $('input.addinput');
-	obj[0].value = addr.licenseAllowedName;
-	obj[1].value = addr.factoryName;
-	obj[2].value = addr.licenseNo;
-	obj[3].value = addr.taxNo;
-	obj[4].value = '01/01/2558-31/12/2558';
-	$('textarea.addinput').val(addr.factoryAddress); 
+		localStorage['syncMasterDataRequest'] = jsonsyncMasterDataRequest  = contents ;
+	}
+	//load for productList json
+	syncMasterDataRequest = JSON.parse(jsonsyncMasterDataRequest.escapeSpecialChars() );
 
 	//load draf
 	var savedraf = localStorage['saveDraf'];
@@ -305,6 +351,15 @@ myGrid.calcTax = function  ( row ) {
 	$('.row5').get(3).value= taxby1;
 
 };
+
+myGrid.updateSummary = function (argument) {
+	console.log("updateSummary");
+
+	for ( var b in myGrid.dataList ) {
+		myGrid.calcTax( myGrid.dataList[b] );
+	};
+};
+
 myGrid.saveDraf = function () {
 	var jsonstr =	JSON.stringify(myGrid.dataList);
 	localStorage['saveDraf'] = jsonstr;
