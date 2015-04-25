@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<!-- jQuery -->
+<script src="../js/jquery-1.11.2.js"></script>
+<script src="../js/jquery.numeric.js"></script>
+
+<script src="../js/TableDnD-master/js/jquery.tablednd.0.9.rc1.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="../bootstrap-3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="../bootstrap-3.3.4/css/bootstrap-theme.min.css">
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="../bootstrap-3.3.4/js/bootstrap.min.js"></script>
+
+<title>เพิ่ม รายการ</title>
+</head>
+<body>
+	<div class="container-fluid">
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">ค้นหารายการ</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-5">
+
+						<form class="form-horizontal">
+
+							<div class="form-group">
+								<label for="groupId" class="col-sm-3 control-label">ชนิดสุรา</label>
+								<div class="col-sm-9">
+									<input type="text" class=" form-control" id="groupId"
+										placeholder="">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="groupname" class="col-sm-3 control-label">ชื่อสุรา</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="groupname"
+										" 	placeholder="">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="degree" class="col-sm-3 control-label">ดีกรี</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="degree"
+										placeholder="">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="size" class="col-sm-3 control-label">ขนาด</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="size"
+										placeholder="">
+								</div>
+							</div>
+
+						</form>
+
+					</div>
+					<div class="col-sm-7">
+
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="mainModel" class="col-sm-3 control-label">เครื่องหมายการค้าหลัก</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="mainModel"
+										placeholder="">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="subModel" class="col-sm-3 control-label">เครื่องหมายการค้ารอง</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="subModel"
+										placeholder="">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="typeModel" class="col-sm-3 control-label">แบบรุ่น</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="typeModel"
+										placeholder="">
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+
+				<div align="center">
+					<button type="button" class="btn btn-info">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						ค้นหา
+					</button>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- 		สำหรับรายการ -->
+		<div class="panel panel-primary">
+			<div class="panel-heading">เลือกรายการ</div>
+			<div class="panel-body">
+				<style>
+#selectproduct>thead>tr>th>a {
+	color: black;
+}
+</style>
+				<table id="selectproduct" class="table table-striped" width="100%">
+					<thead>
+						<tr style="background-color: #bce8f1; color: black;">
+							<th>รายการสินค้า</th>
+							<th>เครื่องหมายการค้าหลัก</th>
+							<th>เครื่องหมายการค้ารอง</th>
+							<th>แบบ/รุ่น</th>
+							<th text>ขนาด</th>
+							<th textAlign="right">ดีกรี</th>
+							<th>ราคาตามแจ้ง</th>
+							<th>ราคาตามประกาศ</th>
+							<th>ลบ</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+							<td>5</td>
+							<td>6</td>
+							<td>7</td>
+							<td>8</td>
+							<td>-</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>2</td>
+							<td>2</td>
+							<td>2</td>
+							<td>2</td>
+							<td>2</td>
+							<td>2</td>
+							<td>2</td>
+							<td><button onclick="remvoerow(this)">-</button></td>
+						</tr>
+
+					</tbody>
+				</table>
+
+				<script type="text/javascript">
+					jQuery(document).ready(function() {
+
+						// 						jQuery("#selectproduct").dynatable({
+						// 							table : {
+						// 							// 								defaultColumnIdStyle : 'underscore'
+						// 							},
+						// 							features : {
+						// 								paginate : false,
+						// 								search : false,
+						// 								recordCount : false,
+						// 								perPageSelect : false
+						// 							}
+						// 						});
+					});
+
+					function remvoerow(btn) {
+						if (confirm("ยืนยันการลบ")) {
+							jQuery(btn).parent().parent().remove();
+						}
+					}
+				</script>
+
+
+
+				<div align="center">
+					<button type="button" class="btn btn-default" onclick="window.location='index.html'">
+						<span class="glyphicon glyphicon-remove"
+							aria-hidden="true"></span> ยกเลิก
+					</button>
+						&nbsp;
+					<button type="button" class="btn btn-primary">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						ตกลง
+					</button>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div id="myModal" class="modal bs-example-modal-lg" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<table id="selectproduct" class="table table-striped" width="100%">
+						<thead>
+							<tr style="background-color: #bce8f1; color: black;">
+								<th>เลือก</th>
+								<th>รายการสินค้า</th>
+								<th>เครื่องหมายการค้าหลัก</th>
+								<th>เครื่องหมายการค้ารอง</th>
+								<th>แบบ/รุ่น</th>
+								<th text>ขนาด</th>
+								<th textAlign="right">ดีกรี</th>
+								<th>ราคาตามแจ้ง</th>
+								<th>ราคาตามประกาศ</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input class="searchchkb" type="checkbox"
+									id="blankCheckbox" value="1"></td>
+								<td>1</td>
+								<td>2</td>
+								<td>3</td>
+								<td>4</td>
+								<td>5</td>
+								<td>6</td>
+								<td>7</td>
+								<td>8</td>
+							</tr>
+							<tr>
+								<td><input class="searchchkb" type="checkbox"
+									id="blankCheckbox" value="1"></td>
+								<td>1</td>
+								<td>2</td>
+								<td>3</td>
+								<td>4</td>
+								<td>5</td>
+								<td>6</td>
+								<td>7</td>
+								<td>8</td>
+							</tr>
+
+						</tbody>
+					</table>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							<span class="glyphicon glyphicon glyphicon-remove"
+								aria-hidden="true"></span>ยกเลิก
+						</button> &nbsp;
+						<button type="button" class="btn btn-primary">
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>ตกลง
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				$('#myModal').modal({
+					keyboard : false,
+					show : true,
+					backdrop : 'static'
+				});
+			});
+		</script>
+	</div>
+</body>
+</html>

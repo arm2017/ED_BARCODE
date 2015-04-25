@@ -25,7 +25,7 @@
 			var t_txt = getReportTempate();
 
 			var jsonsyncMasterDataRequest = localStorage['syncMasterDataRequest'];
-			var syncMasterDataRequest = JSON.parse(jsonsyncMasterDataRequest);
+			var syncMasterDataRequest = JSON.parse(jsonsyncMasterDataRequest.escapeSpecialChars());
 			var addr = syncMasterDataRequest.entrepreneur;
 
 			t_txt = t_txt.replace("{1}",  addTextInMark( addrMark[0] , addr.licenseAllowedName  ));

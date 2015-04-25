@@ -230,7 +230,7 @@ var TaxType = {};
 
 //InJact Data
 $(document).ready (function(){
- 
+ 	var rw = require('rw');
 	var profile =  localStorage['profile'];
 	log("profile in cache : " + profile );
 	if( profile == undefined || profile == '' ){
@@ -254,13 +254,13 @@ $(document).ready (function(){
 	// load profile
 	console.log("load profile");
  	var  profileObj = JSON.parse(profile);
- 	var obj = $('input.addinput');
-	obj[0].value = profileObj.licenseAllowedName;
-	obj[1].value = profileObj.factoryName;
-	obj[2].value = profileObj.licenseNo;
-	obj[3].value = profileObj.taxNo;
-	obj[4].value = profileObj.startDate + "-" + profileObj.enddate;
-	$('textarea.addinput').val(profileObj.factoryAddress); 
+ // 	var obj = $('input.addinput');
+	// obj[0].value = profileObj.licenseAllowedName;
+	// obj[1].value = profileObj.factoryName;
+	// obj[2].value = profileObj.licenseNo;
+	// obj[3].value = profileObj.taxNo;
+	// obj[4].value = profileObj.startDate + "-" + profileObj.enddate;
+	// $('textarea.addinput').val(profileObj.factoryAddress); 
 
 	//load productList
 
@@ -452,6 +452,18 @@ searchGrid.clear =function () {
 	searchGrid.reRender();
 };
 
+function log( msg ){
+	console.log( "***** Grid JS ******");
+	console.log( msg );
+}
+
+function clearMasterData(){
+	var ks = Object.keys( localStorage );
+	for( k in ks){
+		localStorage[ks[k]] = '';
+		delete localStorage[ks[k]] ;
+	}
+}
 
 
 												 
