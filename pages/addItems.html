@@ -5,6 +5,7 @@
 <!-- jQuery -->
 <script src="../js/jquery-1.11.2.js"></script>
 <script src="../js/jquery.numeric.js"></script>
+<script src="../js/loadProductsFromFile.js"></script>
 
 <script src="../js/TableDnD-master/js/jquery.tablednd.0.9.rc1.js"></script>
 
@@ -35,31 +36,47 @@
 							<div class="form-group">
 								<label for="groupId" class="col-sm-3 control-label">ชนิดสุรา</label>
 								<div class="col-sm-9">
-									<input type="text" class=" form-control" id="groupId"
-										placeholder="">
+<!-- 									<input type="text" class=" form-control" id="groupId" -->
+<!-- 										placeholder=""> -->
+											<select id="suraType" class="form-control"></select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="groupname" class="col-sm-3 control-label">ชื่อสุรา</label>
+							
+<!-- 							<div class="form-group"> -->
+<!-- 								<label for="groupname" class="col-sm-3 control-label">ชื่อสุรา</label> -->
+<!-- 								<div class="col-sm-9"> -->
+<!-- 									<input type="text" class="form-control" id="groupname" -->
+<!-- 										" 	placeholder=""> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+
+						   <div class="form-group">
+								<label for="typeModel" class="col-sm-3 control-label">แบบรุ่น</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="groupname"
-										" 	placeholder="">
+<!-- 									<input type="text" class="form-control" id="typeModel" -->
+<!-- 										placeholder=""> -->
+										<select id="modelType" class="form-control"></select>
+										
 								</div>
 							</div>
+							
 
 							<div class="form-group">
 								<label for="degree" class="col-sm-3 control-label">ดีกรี</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="degree"
-										placeholder="">
+<!-- 									<input type="text" class="form-control" id="degree" -->
+<!-- 										placeholder=""> -->
+											<select id="degree" class="form-control"></select>
+										
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="size" class="col-sm-3 control-label">ขนาด</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="size"
-										placeholder="">
+<!-- 									<input type="text" class="form-control" id="size" -->
+<!-- 										placeholder=""> -->
+											<select id="size" class="form-control"></select>
 								</div>
 							</div>
 
@@ -72,22 +89,17 @@
 							<div class="form-group">
 								<label for="mainModel" class="col-sm-3 control-label">เครื่องหมายการค้าหลัก</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="mainModel"
-										placeholder="">
+<!-- 									<input type="text" class="form-control" id="mainModel" -->
+<!-- 										placeholder=""> -->
+											<select id="mainModel" class="form-control"></select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="subModel" class="col-sm-3 control-label">เครื่องหมายการค้ารอง</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="subModel"
-										placeholder="">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="typeModel" class="col-sm-3 control-label">แบบรุ่น</label>
-								<div class="col-sm-9">
-									<input type="text" class="form-control" id="typeModel"
-										placeholder="">
+<!-- 									<input type="text" class="form-control" id="subModel" -->
+<!-- 										placeholder=""> -->
+											<select id="subModel" class="form-control"></select>
 								</div>
 							</div>
 
@@ -96,7 +108,7 @@
 				</div>
 
 				<div align="center">
-					<button type="button" class="btn btn-info">
+					<button type="button" class="btn btn-primary" onclick="search();">
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 						ค้นหา
 					</button>
@@ -115,9 +127,10 @@
 	color: black;
 }
 </style>
-				<table id="selectproduct" class="table table-striped" width="100%">
+				<table id="products" class="table table-striped" width="100%">
 					<thead>
 						<tr style="background-color: #bce8f1; color: black;">
+							<th >rowId</th>
 							<th>รายการสินค้า</th>
 							<th>เครื่องหมายการค้าหลัก</th>
 							<th>เครื่องหมายการค้ารอง</th>
@@ -126,50 +139,103 @@
 							<th textAlign="right">ดีกรี</th>
 							<th>ราคาตามแจ้ง</th>
 							<th>ราคาตามประกาศ</th>
-							<th>ลบ</th>
+							<th> &nbsp; </th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>2</td>
-							<td>3</td>
-							<td>4</td>
-							<td>5</td>
-							<td>6</td>
-							<td>7</td>
-							<td>8</td>
-							<td>-</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>2</td>
-							<td>2</td>
-							<td>2</td>
-							<td>2</td>
-							<td>2</td>
-							<td>2</td>
-							<td>2</td>
-							<td><button onclick="remvoerow(this)">-</button></td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td>0001</td> -->
+<!-- 							<td>1</td> -->
+<!-- 							<td>2</td> -->
+<!-- 							<td>3</td> -->
+<!-- 							<td>4</td> -->
+<!-- 							<td>5</td> -->
+<!-- 							<td>6</td> -->
+<!-- 							<td>7</td> -->
+<!-- 							<td>8</td> -->
+<!-- 							<td>-</td> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<td>0002</td> -->
+<!-- 							<td>2</td> -->
+<!-- 							<td>2</td> -->
+<!-- 							<td>2</td> -->
+<!-- 							<td>2</td> -->
+<!-- 							<td>2</td> -->
+<!-- 							<td>2</td> -->
+<!-- 							<td>2</td> -->
+<!-- 							<td>2</td> -->
+<!-- 							<td><button onclick="remvoerow(this)">-</button></td> -->
+<!-- 						</tr> -->
 
 					</tbody>
 				</table>
 
 				<script type="text/javascript">
 					jQuery(document).ready(function() {
+							 Array.insert = function (array , index, item) {
+								 array.splice(index, 0, item);
+							};
+							
+							$('#products > tbody > tr > *:nth-child(1)').hide();
+							$('#products > thead > tr > *:nth-child(1)').hide();
+							
+							//inti select option
+							var items = JSON.parse(  localStorage["suraType"] ) ;
+							Array.insert(items , 0 , "-"  );
+							$.each(items, function (i, item) {
+							    $('#suraType').append($('<option>', { 
+							        value: item ,
+							        text : item 
+							    }));
+							});
+							
+							items = JSON.parse(  localStorage["mainModel"] ) ;
+							Array.insert(items , 0 , "-"  );
+							$.each(items, function (i, item) {
+							    $('#mainModel').append($('<option>', { 
+							        value: item ,
+							        text : item 
+							    }));
+							});
 
-						// 						jQuery("#selectproduct").dynatable({
-						// 							table : {
-						// 							// 								defaultColumnIdStyle : 'underscore'
-						// 							},
-						// 							features : {
-						// 								paginate : false,
-						// 								search : false,
-						// 								recordCount : false,
-						// 								perPageSelect : false
-						// 							}
-						// 						});
+							items = JSON.parse(  localStorage["subModel"] ) ;
+							Array.insert(items , 0 , "-"  );
+							$.each(items, function (i, item) {
+							    $('#subModel').append($('<option>', { 
+							        value: item ,
+							        text : item 
+							    }));
+							});
+
+							items = JSON.parse(  localStorage["modelType"] ) ;
+							Array.insert(items , 0 , "-"  );
+							$.each(items, function (i, item) {
+							    $('#modelType').append($('<option>', { 
+							        value: item ,
+							        text : item 
+							    }));
+							});
+
+							items = JSON.parse(  localStorage["size"] ) ;
+							Array.insert(items , 0 , "-"  );
+							$.each(items, function (i, item) {
+							    $('#size').append($('<option>', { 
+							        value: item ,
+							        text : item 
+							    }));
+							});
+
+							items = JSON.parse(  localStorage["degree"] ) ;
+							Array.insert(items , 0 , "-"  );
+							$.each(items, function (i, item) {
+							    $('#degree').append($('<option>', { 
+							        value: item ,
+							        text : item 
+							    }));
+							});
+							
+							
 					});
 
 					function remvoerow(btn) {
@@ -177,16 +243,139 @@
 							jQuery(btn).parent().parent().remove();
 						}
 					}
+					
+					//products
+					$(function() {
+						var currentInstance;
+						jQuery.prototype.producttable = function(){
+							var instance = this;
+							if (currentInstance != undefined) {
+								return currentInstance;
+							}
+							
+							this.datas = [];
+							
+							this.add = function (arrayData){
+								var item = {};
+								item.rowid = new Date().getTime();
+								item.data = arrayData;
+								this.datas.push(item );
+								console.log ( item );
+							}
+							
+							this.findByRowid = function ( rowid ){
+								for( var i = 0 ; i < this.datas.length ; i++){
+									if( this.datas[i]["rowid"] == rowid){
+										return this.datas[i];
+									}
+								}
+							};
+							
+							this.findIndexByRowid = function ( rowid ){
+								for( var i = 0 ; i < this.datas.length ; i++){
+									if( this.datas[i]["rowid"] == rowid){
+										return i;
+									}
+								}
+								return -1;
+							};
+							
+							this.reMoveByRowid = function ( rowid ){
+								var index = this.findIndexByRowid(rowid);
+								console.log( "remove : " + rowid );
+								console.log( "index : " + index );
+								if(index >= 0)
+									this.datas.splice(index ,1);
+							};
+							
+							this.domUpdate = function ( issorts ){
+								
+								if(issorts === true ){
+									
+									var sorts = currentInstance.children("tbody").children("tr").find(".tdRowid");
+									var sortdatas = [];
+									sorts.each(function(index ,value ){
+										var v = value.innerText ;
+										console.log(v);
+										var fdata = currentInstance.findByRowid(v);
+										if( fdata != undefined){
+											sortdatas.push(fdata);
+										}
+									});
+									if(sortdatas.length > 0 ){
+										//for new data
+										this.datas.splice(0,sortdatas.length);
+								
+										for( var index in this.datas ){ 
+											sortdatas.push( this.datas[index] );
+										};
+										this.datas = sortdatas;
+									}
+								
+								}
+								
+								var html = [];
+								var btndel = "<button type=\"button\" value=\"$index\"  class=\"btn btn-default btn-xs btnproductsdelete\">   <span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span> ลบ  </button>";
+								for( index in this.datas){
+									var d = this.datas[index];
+// 									console.log( d );
+									var htmlstr  = "";
+									htmlstr = htmlstr.concat("<tr>")
+									.concat("<td class=\"tdRowid\">").concat( d.rowid ).concat ("</td> ")
+									.concat("<td>").concat( d.data[0] ).concat("</td>")
+									.concat("<td>").concat( d.data[1] ).concat("</td>")
+									.concat("<td>").concat( d.data[2] ).concat("</td>")
+									.concat("<td>").concat( d.data[3] ).concat("</td>")
+									.concat("<td>").concat( d.data[4] ).concat("</td>")
+									.concat("<td>").concat( d.data[5] ).concat("</td>")
+									.concat("<td>").concat( d.data[6] ).concat("</td>")
+									.concat("<td>").concat( d.data[7] ).concat("</td>")
+									.concat("<td>").concat( btndel.replace("$index" , d.rowid ) ).concat("</td>")
+									.concat("</tr>")
+									;
+									
+									html.push(htmlstr);
+									
+								}
+								console.log( "update dom : " + this.datas.length );
+								currentInstance.children("tbody").html('');
+								for ( h in html ){
+//				 					console.log( h );
+									currentInstance.children("tbody").append( html[h] );
+								}
+							};
+							
+							this.movetable = function(){
+								$("#products").tableDnD();
+								$('#products > tbody > tr > *:nth-child(1)').hide();
+								$(".btnproductsdelete").click(function(){
+									if( confirm(" ยืนยันการลบ ?")){
+										var btnValue = this.attributes["value"].value;
+										console.log( btnValue  );
+										currentInstance.reMoveByRowid( btnValue );
+										currentInstance.domUpdate(false);
+										currentInstance.movetable();
+									}
+								});
+							};
+							
+							
+							currentInstance = this;
+							return currentInstance;
+						}
+					});
+					
 				</script>
 
 
 
 				<div align="center">
-					<button type="button" class="btn btn-default" onclick="window.location='index.html'">
-						<span class="glyphicon glyphicon-remove"
-							aria-hidden="true"></span> ยกเลิก
+					<button type="button" class="btn btn-default"
+						onclick="window.location='index.html'">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						ยกเลิก
 					</button>
-						&nbsp;
+					&nbsp;
 					<button type="button" class="btn btn-primary">
 						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 						ตกลง
@@ -197,8 +386,9 @@
 		</div>
 
 
-		<div id="myModal" class="modal bs-example-modal-lg" tabindex="-1"
-			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div id="showSearchItem" class="modal bs-example-modal-lg"
+			tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+			aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<table id="selectproduct" class="table table-striped" width="100%">
@@ -230,7 +420,7 @@
 							</tr>
 							<tr>
 								<td><input class="searchchkb" type="checkbox"
-									id="blankCheckbox" value="1"></td>
+									id="blankCheckbox" value="2"></td>
 								<td>1</td>
 								<td>2</td>
 								<td>3</td>
@@ -247,8 +437,9 @@
 						<button type="button" class="btn btn-default" data-dismiss="modal">
 							<span class="glyphicon glyphicon glyphicon-remove"
 								aria-hidden="true"></span>ยกเลิก
-						</button> &nbsp;
-						<button type="button" class="btn btn-primary">
+						</button>
+						&nbsp;
+						<button type="button" class="btn btn-primary" onclick="confirmSearch();">
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>ตกลง
 						</button>
 					</div>
@@ -257,13 +448,90 @@
 		</div>
 
 		<script type="text/javascript">
+			var DataList;
 			jQuery(document).ready(function() {
-				$('#myModal').modal({
+				$('#showSearchItem').modal({
 					keyboard : false,
-					show : true,
+					show : false,
 					backdrop : 'static'
 				});
+
+				// load From localStorage["products"]
+				var json = localStorage["products"];
+				if (json == "" || json == undefined) {
+					console.log("localStorage[products] is empty");
+					return "";
+				}
+
+				console.log("load json");
+				DataList = JSON.parse(json);
+
 			});
+
+			// search button
+			function search() {
+				console.log("search");
+				// 				<tr>
+				// 				<td><input class="searchchkb" type="checkbox"	 value="1"></td>
+				// 				<td>1</td>
+				// 				<td>2</td>
+				// 				<td>3</td>
+				// 				<td>4</td>
+				// 				<td>5</td>
+				// 				<td>6</td>
+				// 				<td>7</td>
+				// 				<td>8</td>
+				// 			</tr>
+				var html = [];
+				searchList = DataList;
+				for( index in searchList){
+					console.log( index );
+					var d = searchList[index];
+					var htmlstr  = "";
+					htmlstr = htmlstr.concat("<tr>")
+					.concat(" <td><input name=\"itemSearch\" class=\"searchchkb\" type=\"checkbox\"	 value=\"").concat( index ).concat ("\"></td> ")
+					.concat("<td>").concat( d[0] ).concat("</td>")
+					.concat("<td>").concat( d[1] ).concat("</td>")
+					.concat("<td>").concat( d[2] ).concat("</td>")
+					.concat("<td>").concat( d[3] ).concat("</td>")
+					.concat("<td>").concat( d[4] ).concat("</td>")
+					.concat("<td>").concat( d[5] ).concat("</td>")
+					.concat("<td>").concat( d[6] ).concat("</td>")
+					.concat("<td>").concat( d[7] ).concat("</td>")
+					.concat("</tr>")	;
+					
+					html.push(htmlstr);
+					
+				}
+				
+// 				console.log(html );
+				console.log("search ietm : " + html.length);
+				$('#showSearchItem').modal('show');
+				$("#selectproduct > tbody").html('');
+				for ( h in html ){
+// 					console.log( h );
+					$("#selectproduct  > tbody").append( html[h] );
+				}
+				
+			}
+			
+			function confirmSearch(){
+				var items = jQuery("input[name='itemSearch']:checked");
+				$('#showSearchItem').modal('hide');
+				
+				for(var i = 0 ; i< items.length ; i++){
+					var item = items[i];
+					var value = item.value;
+					console.log( "Select : " + value );
+					$("#products").producttable().add(searchList[parseInt(value)]);
+				}
+				
+				if( items.length > 0){
+					$("#products").producttable().domUpdate(true);
+					$("#products").producttable().movetable();
+				} 
+				
+			}
 		</script>
 	</div>
 </body>
