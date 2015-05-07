@@ -53,6 +53,14 @@ blockquote>footer {
 #myGrid > thead > tr > th {
 	text-align: center;
 }
+
+#myGrid > tbody > tr:nth-child(even) {
+	background-color: #fbfbf9;
+}
+#myGrid > tbody > tr:nth-child(odd) {
+	background-color: #E7E7E7;
+}
+
 </style>
 
 </head>
@@ -286,7 +294,7 @@ blockquote>footer {
 									<td width="30%">
 										<div class="input-group">
 											<span class="input-group-addon">ตามมูลค่า</span> <input
-												type="text" id="col15" class="form-control sumtax"
+												type="text" id="sum13" class="form-control sumtax"
 												aria-label="" value="0" disabled> <span
 												class="input-group-addon">บาท</span>
 										</div>
@@ -294,7 +302,7 @@ blockquote>footer {
 									<td width="30%">
 										<div class="input-group">
 											<span class="input-group-addon">ตามปริมาณ</span> <input
-												type="text" id="col16" class="form-control sumtax"
+												type="text" id="sum14" class="form-control sumtax"
 												aria-label="" value="0" disabled> <span
 												class="input-group-addon">บาท</span>
 										</div>
@@ -432,6 +440,7 @@ blockquote>footer {
 		<script type="text/javascript">
 			function validateStep1() {
 				localStorage["step"] = 2;
+				$("#myGrid").suratable().save();
 				window.location = "index2.html";
 			}
 		</script>

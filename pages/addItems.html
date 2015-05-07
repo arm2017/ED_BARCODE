@@ -181,8 +181,9 @@
 							$('#products > thead > tr > *:nth-child(1)').hide();
 							
 							//inti select option
+							var markAll = "ทั้งหมด";
 							var items = JSON.parse(  localStorage["suraType"] ) ;
-							Array.insert(items , 0 , "-"  );
+							Array.insert(items , 0 , markAll  );
 							$.each(items, function (i, item) {
 							    $('#suraType').append($('<option>', { 
 							        value: item ,
@@ -191,7 +192,7 @@
 							});
 							
 							items = JSON.parse(  localStorage["mainModel"] ) ;
-							Array.insert(items , 0 , "-"  );
+							Array.insert(items , 0 , markAll  );
 							$.each(items, function (i, item) {
 							    $('#mainModel').append($('<option>', { 
 							        value: item ,
@@ -200,7 +201,7 @@
 							});
 
 							items = JSON.parse(  localStorage["subModel"] ) ;
-							Array.insert(items , 0 , "-"  );
+							Array.insert(items , 0 , markAll  );
 							$.each(items, function (i, item) {
 							    $('#subModel').append($('<option>', { 
 							        value: item ,
@@ -209,7 +210,7 @@
 							});
 
 							items = JSON.parse(  localStorage["modelType"] ) ;
-							Array.insert(items , 0 , "-"  );
+							Array.insert(items , 0 , markAll  );
 							$.each(items, function (i, item) {
 							    $('#modelType').append($('<option>', { 
 							        value: item ,
@@ -218,7 +219,7 @@
 							});
 
 							items = JSON.parse(  localStorage["size"] ) ;
-							Array.insert(items , 0 , "-"  );
+							Array.insert(items , 0 , markAll  );
 							$.each(items, function (i, item) {
 							    $('#size').append($('<option>', { 
 							        value: item ,
@@ -227,7 +228,7 @@
 							});
 
 							items = JSON.parse(  localStorage["degree"] ) ;
-							Array.insert(items , 0 , "-"  );
+							Array.insert(items , 0 , markAll  );
 							$.each(items, function (i, item) {
 							    $('#degree').append($('<option>', { 
 							        value: item ,
@@ -238,12 +239,7 @@
 							
 					});
 
-					function remvoerow(btn) {
-						if (confirm("ยืนยันการลบ")) {
-							jQuery(btn).parent().parent().remove();
-						}
-					}
-					
+							
 					//products
 					$(function() {
 						var currentInstance;
@@ -359,11 +355,22 @@
 								});
 							};
 							
-							
+							this.save = function (){
+								console.log( "save..." );
+								currentInstance.domUpdate(true);
+								var strjson = JSON.stringify ( this.datas );	
+								localStorage["additms"] = strjson;
+							}
+														
 							currentInstance = this;
 							return currentInstance;
 						}
 					});
+					
+					function confirmaddItems(){
+						$("#products").producttable().save();
+						window.location='index.html';
+					};
 					
 				</script>
 
@@ -376,7 +383,7 @@
 						ยกเลิก
 					</button>
 					&nbsp;
-					<button type="button" class="btn btn-primary">
+					<button type="button" class="btn btn-primary" onclick="confirmaddItems();">
 						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 						ตกลง
 					</button>
@@ -406,30 +413,30 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td><input class="searchchkb" type="checkbox"
-									id="blankCheckbox" value="1"></td>
-								<td>1</td>
-								<td>2</td>
-								<td>3</td>
-								<td>4</td>
-								<td>5</td>
-								<td>6</td>
-								<td>7</td>
-								<td>8</td>
-							</tr>
-							<tr>
-								<td><input class="searchchkb" type="checkbox"
-									id="blankCheckbox" value="2"></td>
-								<td>1</td>
-								<td>2</td>
-								<td>3</td>
-								<td>4</td>
-								<td>5</td>
-								<td>6</td>
-								<td>7</td>
-								<td>8</td>
-							</tr>
+<!-- 							<tr> -->
+<!-- 								<td><input class="searchchkb" type="checkbox" -->
+<!-- 									id="blankCheckbox" value="1"></td> -->
+<!-- 								<td>1</td> -->
+<!-- 								<td>2</td> -->
+<!-- 								<td>3</td> -->
+<!-- 								<td>4</td> -->
+<!-- 								<td>5</td> -->
+<!-- 								<td>6</td> -->
+<!-- 								<td>7</td> -->
+<!-- 								<td>8</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td><input class="searchchkb" type="checkbox" -->
+<!-- 									id="blankCheckbox" value="2"></td> -->
+<!-- 								<td>1</td> -->
+<!-- 								<td>2</td> -->
+<!-- 								<td>3</td> -->
+<!-- 								<td>4</td> -->
+<!-- 								<td>5</td> -->
+<!-- 								<td>6</td> -->
+<!-- 								<td>7</td> -->
+<!-- 								<td>8</td> -->
+<!-- 							</tr> -->
 
 						</tbody>
 					</table>
