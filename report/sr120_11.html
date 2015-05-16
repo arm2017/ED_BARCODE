@@ -21,6 +21,12 @@
         text-align: center;
     }
 
+	@media print {
+		#newpage{ 
+			page-break-after: always;
+		}
+	}
+
     </style>
 </head>
 <body >
@@ -140,7 +146,6 @@
                 <div align="center">  (๖) </div>
                 รวมภาษีสุรา
             </td>
-            <td rowspan="3"></td>
         </tr>
         <tr>
             <td width="74" rowspan="2" valign="top">
@@ -279,7 +284,7 @@
                     {qrtotal}
                 </div> 
                 <div align="center">
-                    {submintOnlyNumber}
+                   
                 </div>
             </div>
         </td>
@@ -288,5 +293,7 @@
 
 </table>
 <!-- footer -->
+<div id="newpage" ></div>
 </body>
 </html>
+

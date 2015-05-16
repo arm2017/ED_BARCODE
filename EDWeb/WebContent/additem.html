@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html ng-app="additemApp">
+<head>
+<meta charset="utf-8">
+<title>เพิ่มรายการ</title>
+<script src="lib/angular-1.3.15/angular.js"></script>
+<script src="js/additem.js"></script>
+<script src="lib/jquery-1.11.2.js"></script>
+<script src="lib/TableDnD-master/js/jquery.tablednd.0.8.min.js"></script>
+<link rel="stylesheet" href="lib/bootstrap-3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet"	href="lib/bootstrap-3.3.4/css/bootstrap-theme.min.css">
+<script src="lib/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body ng-controller="additemAppCrl">
+	<div class="container-fluid">
+
+
+		<!-- 	search panel -->
+		<div class="panel panel-primary">
+			<div class="panel-heading">ค้นหารายการ</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-5">
+
+						<form class="form-horizontal">
+
+							<div class="form-group">
+								<label for="groupId" class="col-sm-3 control-label">ชนิดสุรา</label>
+								<div class="col-sm-9">
+									<select class="form-control" ng-model="search.s0"
+										ng-options="s for s in search[0]"></select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="typeModel" class="col-sm-3 control-label">แบบรุ่น</label>
+								<div class="col-sm-9">
+									<select class="form-control" ng-model="search.s1"
+										ng-options="s for s in search[1]"></select>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label for="degree" class="col-sm-3 control-label">ดีกรี</label>
+								<div class="col-sm-9">
+									<select class="form-control" ng-model="search.s2"
+										ng-options="s for s in search[2]"></select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="size" class="col-sm-3 control-label">ขนาด</label>
+								<div class="col-sm-9">
+									<select class="form-control" ng-model="search.s3"
+										ng-options="s for s in search[3]"></select>
+								</div>
+							</div>
+
+						</form>
+
+					</div>
+					<div class="col-sm-7">
+
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="mainModel" class="col-sm-3 control-label">เครื่องหมายการค้าหลัก</label>
+								<div class="col-sm-9">
+									<select class="form-control" ng-model="search.s4"
+										ng-options="s for s in search[4]"></select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="subModel" class="col-sm-3 control-label">เครื่องหมายการค้ารอง</label>
+								<div class="col-sm-9">
+									<select class="form-control" ng-model="search.s5"
+										ng-options="s for s in search[5]"></select>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+
+				<div align="center">
+					<button type="button" class="btn btn-primary"
+						ng-click="btnSearch();">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						ค้นหา
+					</button>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- 	search panel -->
+		<!--  popup panel -->
+		<div id="showSearchItem" class="modal bs-example-modal-lg"
+			tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">เลือกรายการ</h4>
+					</div>
+					<table id="selectproduct" class="table table-striped" width="100%">
+						<thead>
+							<tr style="background-color: #bce8f1; color: black;">
+								<th>เลือก</th>
+								<th>ชนิดสุรา</th>
+								<th>เครื่องหมายการค้าหลัก</th>
+								<th>เครื่องหมายการค้ารอง</th>
+								<th>แบบ/รุ่น</th>
+								<th text>ขนาด</th>
+								<th textAlign="right">ดีกรี</th>
+								<th>ราคาตามแจ้ง</th>
+								<th>ราคาตามประกาศ</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in itemfilter">
+								<td><input type="checkbox" ng-model="item.checkbox"
+									style="width: 25px;"></td>
+								<td>{{item[0]}}</td>
+								<td>{{item[1]}}</td>
+								<td>{{item[2]}}</td>
+								<td>{{item[3]}}</td>
+								<td>{{item[4]}}</td>
+								<td>{{item[5]}}</td>
+								<td>{{item[6]}}</td>
+								<td>{{item[7]}}</td>
+							</tr>
+
+						</tbody>
+					</table>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							<span class="glyphicon glyphicon glyphicon-remove"
+								aria-hidden="true"></span>ยกเลิก
+						</button>
+						&nbsp;
+						<button type="button" class="btn btn-primary"
+							ng-click="confirmSearch();">
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>ตกลง
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(function() {
+				$('#showSearchItem').modal({
+					keyboard : false,
+					show : false,
+					backdrop : 'static'
+				});
+			});
+		</script>
+		<!--  popup panel -->
+		<!-- 		show select item -->
+		<div class="panel panel-primary">
+			<div class="panel-heading">ค้นหารายการ</div>
+			<div class="panel-body">
+				<table class="table table-striped" id="moveabletable">
+					<thead>
+						<tr style="background-color: #bce8f1; color: black;">
+							<th>$$swrap</th>
+							<th>$$hashKey</th>
+							<th>ชนิดสุรา</th>
+							<th>เครื่องหมายการค้าหลัก</th>
+							<th>เครื่องหมายการค้ารอง</th>
+							<th>แบบ/รุ่น</th>
+							<th text>ขนาด</th>
+							<th textAlign="right">ดีกรี</th>
+							<th>ราคาตามแจ้ง</th>
+							<th>ราคาตามประกาศ</th>
+							<th>ลบ</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in selectItem">
+							<td>sw</td>
+							<td>{{item.$$hashKey}}</td>
+							<td>{{item[0]}}</td>
+							<td>{{item[1]}}</td>
+							<td>{{item[2]}}</td>
+							<td>{{item[3]}}</td>
+							<td>{{item[4]}}</td>
+							<td>{{item[5]}}</td>
+							<td>{{item[6]}}</td>
+							<td>{{item[7]}}</td>
+							<td>
+								<button type="button" class="btn btn-default btn-xs"
+									ng-click="btnRemove()">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+		<!-- 		show select item -->
+
+		<div align="center">
+			<button type="button" class="btn btn-default" ng-click="btnback()">
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				ยกเลิก
+			</button>
+			<button type="button" class="btn btn-primary" ng-click="btnnext()">
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+				ตกลง
+			</button>
+		</div>
+
+	</div>
+</body>
+</html>

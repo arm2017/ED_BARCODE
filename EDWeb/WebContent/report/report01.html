@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html ng-app="report01">
+<head>
+<meta charset="utf-8">
+<title>สร.120-11</title>
+<script src="../lib/angular-1.3.15/angular.js"></script>
+<script src="../lib/jquery-1.11.2.js"></script>
+<script src="control/report01.js"></script>
+<style type="text/css">
+.header {
+	border: 1px solid black;
+}
+
+.btm{
+	border-bottom: 1px solid;
+}
+.brr{
+	border-right: 1px solid;
+}
+.blf{
+	border-left: 1px solid;
+}
+.btp{
+	border-top: 1px solid;
+}
+
+
+table {
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-color: black;
+}
+
+.body1 {
+	font-size: 12px !important;
+}
+.body2 {
+	font-size: 8px !important;
+}
+
+.textRight {
+	text-align: right;
+}
+
+span {
+	text-decoration: underline;
+}
+
+.nb{
+	border: 0;
+}
+</style>
+</head>
+<body ng-controller="report01Ctrl" ng-class="body">
+	<div id="header" class="header">
+
+		<table style="width: 100%;" border="0">
+			<tr>
+				<td class="btm brr">
+					<div class="logo" align="center">
+						<img alt="logo" src="lg01.jpg" width="80">
+						<div>สร.๑๒๐-๑๑</div>
+					</div>
+				</td>
+				<td class="btm brr">
+					<div class="header-text" align="center">
+						<p>กรมสรรพสามิต กระทรวงการคลัง</p>
+						<p>แบบรายการภาษีสุรา ตามพระราชบัญญัติภาษีสุรา พ.ศ. ๒๔๙๓</p>
+					</div>
+				</td>
+				<td class="btm brr">
+					<div class="forstaff">
+						<div align="center">สำหรับเจ้าพนักงาน</div>
+						<div>ทะเบียนรับเลขที่
+							...............................................</div>
+						<div>วัน เดือน ปี ที่รับ
+							...............................................</div>
+						<div>เจ้าพนักงานผู้รับ
+							...............................................</div>
+					</div>
+				</td>
+				<td rowspan="3" ><img alt="logo" src="lg01.jpg" width="180" height="180">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="brr">
+					<div class="address">
+						<div align="center">(๑)</div>
+						<div>
+							ผู้ได้รับอนุญาตทำสุรา <span>{{addrinfo.username}}</span>
+						</div>
+						<div>
+							ชื่อโรงงานสุรา <span>{{addrinfo.factoryName}}</span>
+						</div>
+						<div>
+							ใบอนุณาตทำสุราเลขที่ <span>{{addrinfo.licence}}</span> ลงวันที่ <span>{{addrinfo.licenceDate}}</span>
+						</div>
+						<div>
+							เลขประจำตัว <span>{{addrinfo.idNumber}}</span>
+						</div>
+						<div>
+							ที่อยู่เลขที่ <span>{{addrinfo.addr}}</span>
+						</div>
+					</div>
+
+				</td>
+				<td class="brr">
+					<div class="btm" style="width: 100%;">
+						<div align="center">(๒)</div>
+						<div>เสียภาษีสำหรับสุราที่ได้รับอนุณาตตามหนังสือกรมสรรพสามิต</div>
+						<div>ที่ ..................................... ลงวันที่
+							........ เดือน ....... พ.ศ. .............</div>
+					</div>
+					<div class="staffinfo">
+						<table border="0">
+							<tr>
+								<td style="text-align: center;">สำหรับ<br> เจ้าพนักงาน</td>
+								<td style="  border-left: 1px solid;height: 110px;">
+									<div align="center">(๑๗)</div>
+									<div>ใบเสร็จรับเงินเลขที่/เล่มที่...................................</div>
+									<div>วัน เดือน ปี
+										.........................................................</div>
+									<div>เจ้าพนังงานผู้รับ
+										................................................</div>
+									<div align="center">(..............................................................
+										)</div>
+								</td>
+							</tr>
+						</table>
+
+					</div>
+				</td>
+
+			</tr>
+		</table>
+
+	</div>
+
+	<div class="gridItems" style="margin-top: 5px;">
+
+		<table class="table table-bordered" border="1">
+			<thead>
+				<tr class="tableheader">
+					<th rowspan="3">ลำดับ</th>
+					<th rowspan="3">(๓) ชนิดสุรา</th>
+					<th colspan="7">(๔) รายการสุรา</th>
+					<th colspan="4">(๕) ภาษีสุราต่อภาชนะ</th>
+					<th colspan="2">(๖) รวมภาษีสุรา</th>
+
+				</tr>
+				<tr class="tableheader">
+					<th rowspan="2">(๔.๑) ชื่อสุรา</th>
+					<th rowspan="2">(๔.๒) ดีกรี</th>
+					<th rowspan="2">(๔.๓) ขนาดบรรจุ (ลิตร)</th>
+					<th rowspan="2">(๔.๔) จำนวนภาชนะ</th>
+					<th rowspan="2">(๔.๕) ปริมาณสุราที่เสียภาษี (ลิตร)</th>
+					<th colspan="2">(๔.๖) <br>รายการขายส่งช่วงสุดท้ายของสุรา
+						(บาท/ภาชนะ) ไม่รวมภาษีมูลค่าเพิ่ม
+					</th>
+					<!-- <th rowspan="2">มูลค่า</th> -->
+					<th rowspan="2">(๕.๑) ภาษีตามมูลค่า (บาท/ภาชนะ)</th>
+					<th rowspan="2">(๕.๒) ภาษีตามปริมาณ (บาท/ภาชนะ)</th>
+					<th rowspan="2">(๕.๓) <br>ภาษีตามปริมาณ กรณีภาษีดีกรีเกิน
+						(บาท/ภาชนะ)
+					</th>
+					<th rowspan="2">(๕.๔) <br> รวมภาษีสุรา ตามปริมาณ
+						(บาท/ภาชนะ) (๕.๒+๕.๓)
+					</th>
+					<th rowspan="2">(๖.๑) <br> ตามมูลค่า (๔.๔ * ๕.๑)
+					</th>
+					<th rowspan="2">(๖.๒) <br> ตามปริมาณ (๔.๔ * ๕.๔)
+					</th>
+				</tr>
+				<tr class="tableheader">
+					<th>ตามแจ้ง</th>
+					<th>ตามประกาศ</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="g in gridlist track by $index">
+					<td>{{$index + 1}}</td>
+					<td>{{ g.col3}}</td>
+					<td>{{g.col4_1}}</td>
+					<td>{{g.col4_2}}</td>
+					<td>{{g.col4_3}}</td>
+					<td class="textRight">{{displayNumber(g.col4_4,4)}}</td>
+					<td class="textRight">{{displayNumber(g.col4_5,4)}}</td>
+					<td class="textRight">{{displayNumber(g.col4_61,4)}}</td>
+					<td class="textRight">{{displayNumber(g.col4_62,4)}}</td>
+					<td class="textRight">{{displayNumber(g.col5_1,4)}}</td>
+					<td class="textRight">{{displayNumber(g.col5_2,4)}}</td>
+					<td class="textRight">{{displayNumber(g.col5_3,4)}}</td>
+					<td class="textRight">{{displayNumber(g.col5_4,4)}}</td>
+					<td class="textRight">{{displayNumber(g.col6_1,4)}}</td>
+					<td class="textRight">{{displayNumber(g.col6_2,4)}}</td>
+
+				</tr>
+
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="7" rowspan="12">
+						<div class="rule16">
+							<div>(๑๖)</div>
+							<div>
+								ข้าพเจ้าขอรับรองว่ารายการที่แสดงในแบบรายการภาษีสุรา<br>
+								นี้ถูกต้องครบถ้วนตามความเป็นจริงทุกประการ และได้แนบ <br>
+								เอกสารรายละเอียดประอบจำนวน ..... ฉบับ และโปรดออกหนังสือ<br>
+								สั่งจ่าย
+							</div>
+							<div>
+								□ แสตมป์สุรา <br> □ น้ำสุรา <br> □
+								เครื่องหมายแสดงการเสียภาษีสุรา
+							</div>
+							<div>ให้แก่บริษัทด้วย</div>
+							<div align="center">ลงชื่อ
+								..................................................................</div>
+							<div align="center">
+								(..................................................................)</div>
+							<div align="center">ผู้เสียภาษี</div>
+							<div align="center">ยื่นวันที่ .......
+								เดือน..................... พ.ศ. ...............</div>
+						</div>
+
+					</td>
+					<td colspan="6" class="nb" >&nbsp;</td>
+					<td colspan="2" style="text-align: center;">บาท</td>
+				</tr>
+				<tr>
+					<td colspan="6"  class="nb" >ยกมา &nbsp;&nbsp; (๖.๑)
+						รวมภาษีสุราตามมูลค่า...............................บาท
+						(เศษของบาทให้ปัดทิ้ง)</td>
+					<td colspan="2" class="textRight">{{displayNumber(
+						taxforpint[0] , 2)}}</td>
+				</tr>
+				<tr>
+					<td colspan="6"  class="nb" >(๖.๒)
+						รวมภาษีสุราตามปริมาณ............................บาท</td>
+					<td colspan="2" class="textRight">{{displayNumber(
+						taxforpint[1] , 2)}}</td>
+				</tr>
+				<tr>
+					<td colspan="6"  class="nb" >(๗) รวมภาษีสุรา (6.1) + (6.2)</td>
+					<td colspan="2" class="textRight">{{displayNumber(
+						taxforpint[2] , 2)}}</td>
+				</tr>
+				<tr>
+					<td colspan="6"  class="nb" >(๘) หัก ค่าภาษีสุรา.................ที่ช
+						าระไว้แล้วจาก.......................</td>
+					<td colspan="2" class="textRight">{{displayNumber(
+						taxforpint[3] , 2)}}</td>
+				</tr>
+				<tr>
+					<td colspan="6"  class="nb" >(๙) หัก คืนภาษี สุราตามหนังสือกรมฯ
+						ที่.......................................</td>
+					<td colspan="2" class="textRight">{{displayNumber(
+						taxforpint[4] , 2)}}</td>
+				</tr>
+				<tr>
+					<td colspan="6"  class="nb" >(๑๐) คงเหลือภาษี สุรา</td>
+					<td colspan="2" class="textRight">{{displayNumber(
+						taxforpint[5] , 2)}}</td>
+				</tr>
+				<tr>
+					<td colspan="6"  class="nb" >(๑๑) ภาษี เก็บเพิ่มเพื่อกระทรวงมหาดไทย
+						ร้อยละ............................</td>
+					<td colspan="2" class="textRight">{{displayNumber(
+						taxforpint[6] , 2)}}</td>
+				</tr>
+				<tr>
+					<td colspan="6"  class="nb" >(๑๒) รวมภาษีที่ต้องช าระทั้งสิ้น (10) + (11)</td>
+					<td colspan="2" class="textRight">{{displayNumber(
+						taxforpint[7] , 2)}}</td>
+				</tr>
+				<tr>
+					<td colspan="6"  class="nb" >(๑๓) อื่นๆ</td>
+					<td colspan="2" class="textRight">{{displayNumber(
+						taxforpint[8] , 2)}}</td>
+				</tr>
+				<tr>
+					<td colspan="6"  class="nb" >(๑๔) รวม (๑๒)+ (๑๓)</td>
+					<td colspan="2" class="textRight">{{displayNumber(
+						taxforpint[9] , 2)}}</td>
+				</tr>
+				<tr>
+					<td colspan="9"  class="nb" >(ตัวอักษร)
+						..........................................................................................</td>
+				</tr>
+			</tfoot>
+		</table>
+
+
+	</div>
+
+</body>
+</html>

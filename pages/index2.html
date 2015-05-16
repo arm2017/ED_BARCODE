@@ -85,7 +85,75 @@
 		window.location = "step4print.html";
 
 	}
+	
+	$(function(){
+		
+		console.log("install Number.prototype.format");
+		Number.prototype.format = function(n, x, s, c) {
+		    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+		        num = this.toFixed(Math.max(0, ~~n));
+
+		    return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+		};
+
+			//show sum tax
+			var mgjson = localStorage["MainGrid"] ;
+			var mgobj = JSON.parse( mgjson );
+			
+			var rs =  mgobj;
+			var sum13 = 0;
+			var sum14 = 0;
+			for( var index in rs ){
+				var r = rs[index].row;
+				sum13 += r[13];
+				sum14 += r[14];
+			}
+			
+			
+			console.log( "sum13 =" +  sum13);
+			console.log( "sum14 =" +  sum14);
+			$("#col6_1").html(sum13.format(4) );
+			$("#col6_2").html(sum14.format(4) );
+			
+			var sumall  =  sum13+ sum14;
+			$("#col7").html(sumall.format(4) );
+			
+			var col8 = 0;
+			$("#col8").html(col8.format(4) );
+			
+			var col9 = 0;
+			$("#col9").html(col9.format(4) );
+
+			var col10 = sumall - col8 - col9;
+			$("#col10").html(col10.format(4) );
+			
+			var royaltax = 10;
+			$("#royaltax").val(royaltax);
+			var col11 = col10 * 10 / 100;
+			$("#col11").html(col11.format(4) );
+
+			var col12 = col10 + col11;
+			$("#col12").html(col12.format(4) );
+
+			var col13 = 0;
+			$("#col13").html(col13.format(4) );
+			
+			var col14 = col12 + col13;
+			$("#col14").html(col14.format(4) );
+			
+			
+	});
+	
 </script>
+
+<style type="text/css">
+
+div[id^='col'] {
+	width: 100%;
+	text-align: right;
+}
+
+</style>
 </head>
 <body>
 	<div class="container-fluid">
@@ -110,18 +178,18 @@
 						<tr>
 							<td>(๖.๑) รวมภาษีตามมูลค่า</td>
 							<td>
-								<div id="col15_2"></div>
+								<div id="col6_1"></div>
 							</td>
 							<td>บาท</td>
 						</tr>
 						<tr>
 							<td>(๖.๒) รวมภาษีตามปริมาณ</td>
-							<td><div id="col16_2"></div></td>
+							<td><div id="col6_2"></div></td>
 							<td>บาท</td>
 						</tr>
 						<tr>
 							<td>(๗) รวมภาษีสุรา (๖.๑)+(๖.๒)</td>
-							<td><div id="col17"></div></td>
+							<td><div id="col7"></div></td>
 							<td>บาท</td>
 						</tr>
 						<tr>
@@ -141,7 +209,7 @@
 									</tr>
 								</table>
 							</td>
-							<td style="vertical-align: bottom;"><div id="col18">0</div></td>
+							<td style="vertical-align: bottom;"><div id="col8">0</div></td>
 							<td style="vertical-align: bottom;">บาท</td>
 						</tr>
 						<tr>
@@ -156,12 +224,12 @@
 								</table>
 
 							</td>
-							<td><div id="col19"></div></td>
+							<td><div id="col9"></div></td>
 							<td>บาท</td>
 						</tr>
 						<tr>
 							<td>(๑๐) คงเหลือภาษีสุรา</td>
-							<td><div id="col20"></div></td>
+							<td><div id="col10"></div></td>
 							<td>บาท</td>
 						</tr>
 						<tr>
@@ -169,28 +237,28 @@
 								<table>
 									<tr>
 										<td>(๑๑) ภาษี เก็บเพิ่มเพื่อกระทรวงมหาดไทยร้อยละ</td>
-										<td><input type="text" class="form-control"
+										<td><input type="text" class="form-control" id="royaltax"
 											placeholder=""></td>
 									</tr>
 								</table>
 
 							</td>
-							<td><div id="col21"></div></td>
+							<td><div id="col11"></div></td>
 							<td>บาท</td>
 						</tr>
 						<tr>
 							<td>(๑๒) รวมภาษีที่ต้องชำระ (๑๐) + (๑๑)</td>
-							<td><div id="col22"></div></td>
+							<td><div id="col12"></div></td>
 							<td>บาท</td>
 						</tr>
 						<tr>
 							<td>(๑๓) อื่นๆ</td>
-							<td><div id="col23"></div></td>
+							<td><div id="col13"></div></td>
 							<td>บาท</td>
 						</tr>
 						<tr>
 							<td>(๑๔) รวม (๑๒) + (๑๓)</td>
-							<td><div id="col24"></div></td>
+							<td><div id="col14"></div></td>
 							<td>บาท</td>
 						</tr>
 					</table>

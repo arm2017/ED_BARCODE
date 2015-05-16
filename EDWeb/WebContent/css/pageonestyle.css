@@ -1,0 +1,41 @@
+@CHARSET "utf-8";
+
+.tableheader {
+	background-color: #8ECAFF;
+}
+
+body {
+	background-color: #fbfbf9;
+	font-size: 14px;
+}
+
+blockquote {
+	border-left: 5px solid #84D9ED;
+}
+
+blockquote>p {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+blockquote>footer {
+	font-size: 16px;
+	font-weight: normal;
+	color: black;
+}
+
+#myGrid>thead>tr>th {
+	text-align: center;
+}
+
+#myGrid>tbody>tr:nth-child(even) {
+	background-color: #fbfbf9;
+}
+
+#myGrid>tbody>tr:nth-child(odd) {
+	background-color: #F2F2F2;
+}
+
+.textRight{
+	text-align: right;
+}

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html ng-app="report03">
+<head>
+<meta charset="utf-8">
+<title>กกท.</title>
+<script src="../lib/angular-1.3.15/angular.js"></script>
+<script src="../lib/jquery-1.11.2.js"></script>
+<script src="control/report03.js"></script>
+<style type="text/css">
+
+body {
+	font-size: 10px;
+}
+
+table {
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-color: black;
+}
+
+.nb{
+	border: 0;
+}
+
+.brr{
+	border-bottom:0;
+	border-top:0;
+	border-left:0;
+	border-right: 1px solid;
+	text-align: center;
+}
+
+span {
+	text-decoration: underline;
+}
+
+.imagechk {
+ 	width:            18px; 
+ 	height:           18px; 
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3wUPCSwiXL+KuQAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVYdFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aHAAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tInAAABeUlEQVQ4jbWUsY6CQBCGv5MzUQpitLBR8BGksLGys/QZ1qewt1VfwdZH8AVsrGyplphYkEgkFgTYCFd5OQ7lcjlvmkl2Z779ZzKzb1mWZbzQKq+E/Qvw/fuBUor9fs/lcuF2uz1M0jSNZrPJYDCgWq3m7t6+93C321Gv1+n1eqVKXNcliiKGw2HuvFCy7/tYlkWapmRZlvNSSmazGVJKTNPE9/3CQwVgHMfEcUySJDkfBAHL5RIpJfP5nNPpRBRFBeDDHsZxXAhcrVZ4ngfAaDTCMAyUUj8rvFsYhqzXa8IwZLPZ4DgOALZtM5lMnqUVFd5hi8WC4/GI4zicz2cAut0uQoinsKcKdV2n0+kAfMJ0XUcIga7rvwcCTKfT3EgIITBNsxQGD0rWNC0HBWi1Wti2XUj+Gnu3wmBvt1tqtRqWZZUqcV2XJEkYj8flQM/zOBwOBEFQunqNRoN+v0+73S4HKqW4Xq+kaVqqsFKpYBjGz7v8V3v59/UBz1C6OToARxUAAAAASUVORK5CYII=');
+}
+
+.imageunchk {
+	width:            18px;
+	height:           18px;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3wUPCSw6T9MS7wAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVYdFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aHAAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tInAAAA10lEQVQ4jc2ToQ6EMAyGf9ghMLBgcMAjYDC8PwbFIwyJWCCoLQ3bqSPsAhzJIahZ+mf92q6rZ621uMH8OyC3gl5bh4jQti3GccSyLLsBjDEkSYKqqhAEwap72zdqmgZhGKIoitPsQggopVDX9ao5rUkpkec5jDGw1h6eWZZBSnncmtYaWuvTaj6mlDoGEdFlEBE5/vPG/3AQY+xy4PddBxTHMfq+/wkRQoBz7mjOzx6GAV3XYZqm0xXhnKMsS6Rpug8iIszzDGPMaUW+7yOKouNd+8dum9obaNhzcCg7xXcAAAAASUVORK5CYII=');
+}
+
+</style>
+</head>
+<body ng-controller="report03Ctrl">
+
+	<table border="1" style="width: 100%;">
+		<tr>
+			<td>
+				<div align="center">
+					<img alt="" src="report03.jpg" width="60">
+					<div>
+						แบบ สสท.๑/๐๑
+					</div>
+				</div>
+
+			</td>
+			<td>
+				<div align="center">
+
+					<p>แบบรายการเงินบำรุงองค์การขององค์การการกระจายเสียงและ</p>
+					<p>แพร่ภาพสาธารณะแห่งประเทศไทยตามพระราชบัญญัติองค์การ</p>
+					<p>กระจายเสียงและแพร่ภาพสาธารณะแห่งประเทศไทย พ.ศ. ๒๕๕๑</p>
+
+				</div>
+
+			</td>
+			<td>
+				<div>
+					<div align="center">สำหรับเจ้าพนักงาน</div>
+					<div>ทะเบียนรับเลขที่………………………………..</div>
+					<div>วัน เดือน ปี ที่รับ………………………………..</div>
+					<div>เจ้าพนักงานผู้รับ………………………………..</div>
+
+
+				</div>
+
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" rowspan="2">
+				<div align="center">(๑)</div>
+				<div>ชื่อ……<span>{{addrinfo.username}}</span></div>
+				<div>ชื่อโรงงาน………<span>{{addrinfo.factoryName}}</span></div>
+				<div>เลขประจำตัวผู้เสียภาษีอากร…<span>{{addrinfo.idNumber}}</span></div>
+				<div>ที่ตั้ง ....<span>{{addrinfo.addr}}</span></div>
+<!-- 				<div>ที่ตั้ง……………………………หมู่ที่…………………..ตรอก/ซอย……………………………………..</div> -->
+<!-- 				<div>ถนน…………………………………………..แขวง/ตำล………………………………………………...</div> -->
+<!-- 				<div>เขต/อำเภอ……………………………………จังหวัด…………………………………………………...</div> -->
+<!-- 				<div>รหัสไปรษณีย์…………………………โทรศัพท์……………………………..โทรสาร…………………..</div> -->
+				<div>โทรศัพท์……………………………..โทรสาร…………………..</div>
+			</td>
+			<td>
+				<div>
+					<div align="center">(๒)</div>
+					<div>เงินบำรุงกองทุนที่คำนวณจากภาษี</div>
+					<div>  <img width="18" class="imagechk" border="0"> สุรา &nbsp; <img width="18" class="imageunchk" border="0">ชำระปกติ</div>
+					<div> <img width="18" class="imageunchk" border="0"> ยาสูบ  <img width="18" class="imageunchk" border="0">ชำระเพิ่มเติม</div>
+
+
+				</div>
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+				<div>
+					<div align="center">(๓)</div>
+					<div>ใบเสร็จรับเงินเลขที่/เล่มที่………………………</div>
+					<div>วัน เดือน ปี……………………………………..</div>
+					<div>เจ้าพนักงานผู้รับ………………………………..</div>
+
+				</div>
+			</td>
+		</tr>
+
+
+
+	</table>
+	<table border="1" style="width: 100%;margin-top: 5px;">
+		<tr>
+			<td rowspan="2" width="40%">
+				<div align="center">
+					<div>(๔)</div>
+					<div>ใบเสร็จรับเงินค่าภาษีสุรา</div>
+					<div>หรือ ค่าแสตมป์ยาสูบ</div>
+
+				</div>
+			</td>
+			<td colspan="3">
+				<div align="center">
+					<div>(๕)</div>
+					<div>รายการเงินบำรุงองค์การ</div>
+
+
+				</div>
+
+			</td>
+			<td colspan="2">
+				<div align="center">
+					<div>(๖)</div>
+					<div>เงินบำรุงกองทุน</div>
+					<div>(อัตราร้อยละ ๑.๕ ของภาษีที่เก็บ</div>
+					<div>จากสุราและยาสูบ)</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div align="center">ค่าภาษีสุรา หรือ ค่าแสตมป์ยาสูบ</div>
+			</td>
+			<td>บาท</td>
+			<td width="5%">
+				<div align="center">สตางค์</div>
+			</td>
+			<td><div align="center">บาท</div></td>
+			<td width="5%">
+				<div align="center">สตางค์</div>
+			</td>
+		</tr>
+		<tr ng-repeat="i in tbody track by $index">
+			<td>
+				<div style="height: 20px"></div>
+			</td>
+			<td>{{i.title}}</td>
+			<td align="right">{{i.baht}}</td>
+			<td align="right">{{i.stang}}</td>
+			<td align="right">{{i.taxbath}}</td>
+			<td align="right">{{i.taxstang}}</td>
+		</tr>
+
+		<tr>
+			<td  class="brr" >(๑๒)</td>
+			<td colspan="3" class="nb" >(๗) รวมเงินบำรุงกองทุน</td>
+			<td align="right">{{tbody[0].taxbath}}</td>
+			<td align="right">{{tbody[0].taxstang}}</td>
+		</tr>
+		<tr>
+			<td  class="brr" >ข้าพเจ้าขอรับรองว่ารายการที่แสดงในแบบรายการ</td>
+			<td colspan="3"  class="nb" >(๘) เงินเพิ่ม</td>
+			<td align="right">0</td>
+			<td align="right">00</td>
+		</tr>
+		<tr>
+			<td  class="brr" >เงินบำรุงกองทุนนี้ ถูกต้องครบถ้วนตามความเป็นจริง</td>
+			<td colspan="3"  class="nb" >(๙) รวม (๗) + (๘)</td>
+			<td align="right">{{tbody[0].taxbath}}</td>
+			<td align="right">{{tbody[0].taxstang}}</td>
+		</tr>
+		<tr>
+			<td  class="brr" >ทุกประการ และได้แนบแบบ…………………………</td>
+			<td colspan="3"  class="nb" >(๑๐) หัก คืน เงินบำรุงกองทุนตามหนังสือที่ กค</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td  class="brr" >เลขที่…………..……….จำนวน………….……..ชุด</td>
+			<td colspan="3"  class="nb" >(๑๑) รวมส่งเงินบำรุงกองทุนทั้งสิ้น</td>
+			<td align="right">{{tbody[0].taxbath}}</td>
+			<td align="right">{{tbody[0].taxstang}}</td>
+		</tr>
+
+	</table>
+	<div align="right">
+		<table  style="margin-top: 20px;">
+			<tr>
+				<td>(ตัวอักษร)…………………………………………………………………………………………</td>
+			</tr>
+		</table>
+	</div>
+	<div align="right" style="margin-top: 10px;">
+		<table>	
+			<tr>
+				<td>(ลงชื่อ)…………………………………………….ผู้ชำระเงินบำรุงองค์การฯ</td><td></td>
+			</tr>
+			<tr>
+				<td align="center">  (…………………………………..........)	</td>
+				<td align="center">เรียน   สรรพสามิตพื้นที่กรุงเทพมหานคร  3</td>
+			</tr>
+			<tr>
+				<td align="center"> นักวิชาการสรรพสามิตชำนาญการ</td>
+				<td align="center">เพื่อโปรดพิจารณารับเงินบำรุงองค์การขององค์การ</td>
+			</tr>
+			<tr>
+				<td align="center">ลงวันที่…………………………………………..</td>
+				<td align="center">กระจายเสียงและแพร่ภาพสาธารณะแห่งประเทศไทยจากค่าภาษีสุรา</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="center">จำนวน……………………………………….บาท</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="center"><div style="margin-top: 20px;">………………………………………………….</div></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="center">(………………………………………..)</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="center">นักวิชาการสรรพสามิตชำนาญการ</td>
+			</tr>
+		
+		
+		</table>
+	</div>
+
+</body>
+</html>

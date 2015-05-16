@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="Pagethree">
+<head>
+<meta charset="utf-8">
+<title>ED Barcode</title>
+<script src="lib/angular-1.3.15/angular.js"></script>
+<script src="js/pagethree.js"></script>
+<script src="lib/jquery-1.11.2.js"></script>
+<script src="lib/jquery.numeric.js"></script>
+<link rel="stylesheet" href="lib/bootstrap-3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/pageonestyle.css">
+<link rel="stylesheet"
+	href="lib/bootstrap-3.3.4/css/bootstrap-theme.min.css">
+<script src="lib/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+.number {
+	text-align: right;
+}
+</style>
+</head>
+<body ng-controller="pagethreeCtrl">
+	<div class="container-fluid">
+
+		<div class="panel panel-default">
+			<div class="panel-body" align="center">
+				<img src="img/step3.png" alt="step1">
+			</div>
+		</div>
+
+		<!-- 		summary -->
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">รวมภาษี</h3>
+			</div>
+			<div class="panel-body">
+				<!-- หนังสือสั่งจ่าย -->
+				<label>ออกหนังสือสั่งจ่าย</label>
+				<div class="radio">
+					<label> <input type="radio" name="billType"
+						class="billType" id="optionsRadios1" value="1" checked>
+						แสตมป์สุรา
+					</label>
+				</div>
+				<div class="radio">
+					<label> <input type="radio" name="billType"
+						class="billType" id="optionsRadios2" value="2"> น้ำสุรา
+					</label>
+				</div>
+				<div class="radio">
+					<label> <input type="radio" name="billType"
+						class="billType" id="optionsRadios3" value="3">
+						เครื่องหมายแสดงการเสียภาษีสุรา
+					</label>
+				</div>
+				<!-- หนังสือสั่งจ่าย -->
+
+			</div>
+		</div>
+		<!-- 		summary -->
+		<div class="panel panel-info">
+			<div class="panel-body">
+				<div align="center">
+					<button type="button" class="btn btn-default" ng-click="back()">
+						<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+						ย้อนกลับ
+					</button>
+					<button type="button" class="btn btn-primary" ng-click="next()">
+						<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+						ถัดไป
+					</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

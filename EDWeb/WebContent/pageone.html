@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html ng-app="Pageone">
+<head>
+<meta charset="utf-8">
+<title>ED Barcode</title>
+<script src="lib/angular-1.3.15/angular.js"></script>
+<script src="js/Pageone.js"></script>
+<script src="lib/jquery-1.11.2.js"></script>
+<script src="lib/jquery.numeric.js"></script>
+<link rel="stylesheet" href="lib/bootstrap-3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/pageonestyle.css">
+<link rel="stylesheet"
+	href="lib/bootstrap-3.3.4/css/bootstrap-theme.min.css">
+<script src="lib/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body ng-controller="pageoneCtrl">
+	<div class="container-fluid">
+
+		<div class="panel panel-default">
+			<div class="panel-body" align="center">
+				<img src="img/step1.png" alt="step1">
+			</div>
+		</div>
+
+		<!-- Address and info -->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Address -->
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">สร. 120-11</h3>
+					</div>
+					<div class="panel-body" align="center">
+
+						<div class="panel panel-default"
+							style="width: 250px; position: absolute; right: 30px;">
+							<div class="panel-body" align="left">
+								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+								{{updateinfo.userid}}<br> <span
+									class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+								{{updateinfo.updateDate}} <span class="label label-success">อัพเดตล่าสุด</span>
+								<br>
+								<button type="button" class="btn btn-warning btn-xs"
+									ng-click="updateRequest();" style="margin: 5px;">
+									<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+									อัพเดตข้อมูล
+								</button>
+
+								<div class="panel-footer">
+									<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+									{{updateinfo.version}} <br>
+								</div>
+							</div>
+
+						</div>
+
+						<table style="width: 100%">
+							<tr>
+								<td style="text-align: center;" width="20%"><img
+									src="img/Logo_Excise.jpg" width="150" alt="..."
+									class="img-thumbnail"> <br>
+									<h4>The Excise Department</h4>
+									<h5>สร. 120-11</h5></td>
+								<td>
+									<table style="width: 100%">
+										<tr>
+											<td><blockquote>
+													<p>ชือผู้ได้รับอนุญาติทำสุรา</p>
+													<footer> {{addrinfo.username}} </footer>
+												</blockquote>
+												<blockquote>
+													<p>ชื่อโรงานทำสุรา</p>
+													<footer> {{addrinfo.factoryName}}</footer>
+												</blockquote></td>
+											<td>
+												<blockquote>
+													<p>ใบอนุญาตทำสุราเลขที่</p>
+													<footer>{{addrinfo.licence}}</footer>
+												</blockquote>
+												<blockquote>
+													<p>เลขประจำตัว</p>
+													<footer>{{addrinfo.idNumber}}</footer>
+												</blockquote>
+											</td>
+										</tr>
+										<tr>
+											<td><blockquote>
+													<p>ลงวันที่</p>
+													<footer>{{addrinfo.licenceDate}}</footer>
+												</blockquote></td>
+											<td><blockquote>
+													<p>ที่อยู่</p>
+													<footer>{{addrinfo.addr}}</footer>
+												</blockquote></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+
+						</table>
+
+						<!-- 	end Address and info-->
+
+
+						<div class="panel panel-info">
+							<div class="panel-body">
+								<!-- toolbar -->
+
+								<nav class="navbar navbar-default">
+									<div class="container-fluid">
+										<div class="navbar-header">
+											<button type="button" class="btn btn-default navbar-btn" ng-click="addItem()">
+												<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+												เพิ่ม
+											</button>
+											<button type="button" class="btn btn-default navbar-btn" ng-click="save()">
+												<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+												บันทึก
+											</button>
+											<button type="button" class="btn btn-default navbar-btn" >
+												<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+												ประวัติการทำรายการ
+											</button>
+										</div>
+									</div>
+								</nav>
+								<!-- toolbar -->
+								<table class="table table-bordered" id="myGrid">
+									<thead>
+										<tr class="tableheader">
+											<th rowspan="3">ลำดับ</th>
+											<th rowspan="3">(๓) ชนิดสุรา</th>
+											<th colspan="7">(๔) รายการสุรา</th>
+											<th colspan="4">(๕) ภาษีสุราต่อภาชนะ</th>
+											<th colspan="2">(๖) รวมภาษีสุรา</th>
+											<th rowspan="3">ลบ</th>
+
+										</tr>
+										<tr class="tableheader">
+											<th rowspan="2">(๔.๑) ชื่อสุรา</th>
+											<th rowspan="2">(๔.๒) ดีกรี</th>
+											<th rowspan="2">(๔.๓) ขนาดบรรจุ (ลิตร)</th>
+											<th rowspan="2">(๔.๔) จำนวนภาชนะ</th>
+											<th rowspan="2">(๔.๕) ปริมาณสุราที่เสียภาษี (ลิตร)</th>
+											<th colspan="2">(๔.๖) <br>รายการขายส่งช่วงสุดท้ายของสุรา
+												(บาท/ภาชนะ) ไม่รวมภาษีมูลค่าเพิ่ม
+											</th>
+											<!-- <th rowspan="2">มูลค่า</th> -->
+											<th rowspan="2">(๕.๑) ภาษีตามมูลค่า (บาท/ภาชนะ)</th>
+											<th rowspan="2">(๕.๒) ภาษีตามปริมาณ (บาท/ภาชนะ)</th>
+											<th rowspan="2">(๕.๓) <br>ภาษีตามปริมาณ
+												กรณีภาษีดีกรีเกิน (บาท/ภาชนะ)
+											</th>
+											<th rowspan="2">(๕.๔) <br> รวมภาษีสุรา ตามปริมาณ
+												(บาท/ภาชนะ) (๕.๒+๕.๓)
+											</th>
+											<th rowspan="2">(๖.๑) <br> ตามมูลค่า (๔.๔ * ๕.๑)
+											</th>
+											<th rowspan="2">(๖.๒) <br> ตามปริมาณ (๔.๔ * ๕.๔)
+											</th>
+										</tr>
+										<tr class="tableheader">
+											<th>ตามแจ้ง</th>
+											<th>ตามประกาศ</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr ng-repeat="g in gridlist track by $index">
+											<td>{{$index + 1}}</td>
+											<td>{{ g.col3}}</td>
+											<td>{{g.col4_1}}</td>
+											<td>{{g.col4_2}}</td>
+											<td>{{g.col4_3}}</td>
+											<td><input type="text" class="form-control"	style="width: 80px;" value="" ng-model="g.col4_4" ng-change="updatechange()" ></td>
+											<td class="textRight" >{{displayNumber(g.col4_5,4)}}</td>
+											<td><input type="text" class="form-control"	style="width: 80px;"  value=""  ng-model="g.col4_61" ng-change="updatechange()"  ></td>
+											<td><input type="text" class="form-control"	style="width: 80px;"  value=""   ng-model="g.col4_62" ng-change="updatechange()" ></td>
+											<td class="textRight" >{{displayNumber(g.col5_1,4)}}</td>
+											<td class="textRight" >{{displayNumber(g.col5_2,4)}}</td>
+											<td class="textRight" >{{displayNumber(g.col5_3,4)}}</td>
+											<td class="textRight" >{{displayNumber(g.col5_4,4)}}</td>
+											<td class="textRight" >{{displayNumber(g.col6_1,4)}}</td>
+											<td class="textRight" >{{displayNumber(g.col6_2,4)}}</td>
+											<td>
+											<button type="button" class="btn btn-default btn-xs" ng-click="btnRemove();"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+											</td>
+										</tr>
+									</tbody>
+
+								</table>
+								<!-- grid sum -->
+								<table class="table">
+									<tbody>
+										<tr class="tableheader">
+											<td style="text-align: right; vertical-align: middle;">รวม</td>
+											<td width="30%">
+												<div class="input-group">
+													<span class="input-group-addon">ตามมูลค่า</span>
+													 <input 	type="text" class="form-control"	aria-label="" value="{{displayNumber(sumTax1,4)}}" readonly> <span
+														class="input-group-addon">บาท</span>
+												</div>
+											</td>
+											<td width="30%">
+												<div class="input-group">
+													<span class="input-group-addon">ตามปริมาณ</span> 
+														<input	 type="text" class="form-control"	aria-label="" value="{{displayNumber(sumTax2,4)}}" readonly> 
+														<span	class="input-group-addon">บาท</span>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<!-- grid sum -->
+							</div>
+						</div>
+
+						<!-- 				table -->
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		
+		<div class="panel panel-info">
+			<div class="panel-body">
+				<div align="center">
+					<button type="button" class="btn btn-primary" ng-click="next()">
+						<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+						ถัดไป
+					</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</body>
+</html>
