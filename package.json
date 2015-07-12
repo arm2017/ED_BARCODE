@@ -7,7 +7,7 @@
     "toolbar": true,
     "title": "ED ED-BarCode"
   },
-  "main": "index.html",
+  "main": "EDWeb/WebContent/loadingDataScreen.html",
   "dependencies": {
     "del": "^1.1.1",
     "jade": "*"

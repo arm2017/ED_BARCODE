@@ -31,7 +31,7 @@
 		<!-- 		summary -->
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">รวมภาษี</h3>
+				<h3 class="panel-title">รวมภาษีสุรา</h3>
 			</div>
 			<div class="panel-body" align="center">
 
@@ -39,20 +39,20 @@
 				<div align="center">
 					<table class="table" style="width: 100%;">
 						<tr>
-							<td>(๖.๑) รวมภาษีตามมูลค่า</td>
+							<td>(๖.๑) รวมภาษีสุราตามมูลค่า</td>
 							<td class="number">
-								{{displayNumber(sumTax1,4)}}
+								{{displayNumber(sumTax1,2)}}
 							</td>
 							<td>บาท</td>
 						</tr>
 						<tr>
-							<td>(๖.๒) รวมภาษีตามปริมาณ</td>
-							<td class="number">{{displayNumber(sumTax2,4)}}</td>
+							<td>(๖.๒) รวมภาษีสุราตามปริมาณ</td>
+							<td class="number">{{displayNumber(sumTax2,2)}}</td>
 							<td>บาท</td>
 						</tr>
 						<tr>
 							<td>(๗) รวมภาษีสุรา (๖.๑)+(๖.๒)</td>
-								<td class="number">{{displayNumber(row7,4)}}</td>
+								<td class="number">{{displayNumber(row7,2)}}</td>
 							<td>บาท</td>
 						</tr>
 						<tr>
@@ -72,7 +72,7 @@
 									</tr>
 								</table>
 							</td>
-							<td style="vertical-align: bottom;" class="number">{{displayNumber(row8,4)}}</td>
+							<td style="vertical-align: bottom;" class="number">{{displayNumber(row8,2)}}</td>
 							<td style="vertical-align: bottom;">บาท</td>
 						</tr>
 						<tr>
@@ -80,47 +80,47 @@
 
 								<table>
 									<tr>
-										<td>(๙) หัก คืนภาษี สุราตามหนังสือกรมฯ ที่</td>
+										<td>(๙) หัก คืนภาษีสุราตามหนังสือกรมฯ ที่</td>
 										<td><input type="text" class="form-control"
 											placeholder=""></td>
 									</tr>
 								</table>
 
 							</td>
-							<td class="number">{{displayNumber(row9,4)}}</td>
+							<td class="number">{{displayNumber(row9,2)}}</td>
 							<td>บาท</td>
 						</tr>
 						<tr>
 							<td>(๑๐) คงเหลือภาษีสุรา</td>
-							<td class="number">{{displayNumber(row10,4)}}</td>
+							<td class="number">{{displayNumber(row10,2)}}</td>
 							<td>บาท</td>
 						</tr>
 						<tr>
 							<td>
 								<table>
 									<tr>
-										<td>(๑๑) ภาษี เก็บเพิ่มเพื่อกระทรวงมหาดไทยร้อยละ</td>
+										<td>(๑๑) ภาษีเก็บเพิ่มเพื่อกระทรวงมหาดไทยร้อยละ</td>
 										<td><input type="text" class="form-control" 	value="{{royalTax}}"></td>
 									</tr>
 								</table>
 
 							</td>
-							<td class="number">{{displayNumber(row11,4)}}</td>
+							<td class="number">{{displayNumber(row11,2)}}</td>
 							<td>บาท</td>
 						</tr>
 						<tr>
-							<td>(๑๒) รวมภาษีที่ต้องชำระ (๑๐) + (๑๑)</td>
-							<td class="number">{{displayNumber(row12,4)}}</td>
+							<td>(๑๒) รวมภาษีที่ต้องชำระทั้งสิ้น (๑๐) + (๑๑)</td>
+							<td class="number">{{displayNumber(row12,2)}}</td>
 							<td>บาท</td>
 						</tr>
 						<tr>
 							<td>(๑๓) อื่นๆ</td>
-							<td class="number">{{displayNumber(row13,4)}}</td>
+							<td class="number">{{displayNumber(row13,2)}}</td>
 							<td>บาท</td>
 						</tr>
 						<tr>
 							<td>(๑๔) รวม (๑๒) + (๑๓)</td>
-							<td class="number">{{displayNumber(row14,4)}}</td>
+							<td class="number">{{displayNumber(row14,2)}}</td>
 							<td>บาท</td>
 						</tr>
 					</table>

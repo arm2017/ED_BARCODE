@@ -8,7 +8,8 @@
 <script src="lib/jquery-1.11.2.js"></script>
 <script src="lib/TableDnD-master/js/jquery.tablednd.0.8.min.js"></script>
 <link rel="stylesheet" href="lib/bootstrap-3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet"	href="lib/bootstrap-3.3.4/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="lib/bootstrap-3.3.4/css/bootstrap-theme.min.css">
 <script src="lib/bootstrap-3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body ng-controller="additemAppCrl">
@@ -17,7 +18,7 @@
 
 		<!-- 	search panel -->
 		<div class="panel panel-primary">
-			<div class="panel-heading">ค้นหารายการ</div>
+			<div class="panel-heading">ค้นหาสินค้า</div>
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-sm-5">
@@ -33,7 +34,7 @@
 							</div>
 
 							<div class="form-group">
-								<label for="typeModel" class="col-sm-3 control-label">แบบรุ่น</label>
+								<label for="typeModel" class="col-sm-3 control-label">แบบ/รุ่น</label>
 								<div class="col-sm-9">
 									<select class="form-control" ng-model="search.s1"
 										ng-options="s for s in search[1]"></select>
@@ -49,13 +50,13 @@
 								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="size" class="col-sm-3 control-label">ขนาด</label>
-								<div class="col-sm-9">
-									<select class="form-control" ng-model="search.s3"
-										ng-options="s for s in search[3]"></select>
-								</div>
-							</div>
+<!-- 							<div class="form-group"> -->
+<!-- 								<label for="size" class="col-sm-3 control-label">ขนาดบรรจุ(ลิตร)</label> -->
+<!-- 								<div class="col-sm-9"> -->
+<!-- 									<select class="form-control" ng-model="search.s3" -->
+<!-- 										ng-options="s for s in search[3]"></select> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 
 						</form>
 
@@ -75,6 +76,14 @@
 								<div class="col-sm-9">
 									<select class="form-control" ng-model="search.s5"
 										ng-options="s for s in search[5]"></select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="size" class="col-sm-3 control-label">ขนาดบรรจุ(ลิตร)</label>
+								<div class="col-sm-9">
+									<select class="form-control" ng-model="search.s3"
+										ng-options="s for s in search[3]"></select>
 								</div>
 							</div>
 
@@ -159,35 +168,35 @@
 		<!--  popup panel -->
 		<!-- 		show select item -->
 		<div class="panel panel-primary">
-			<div class="panel-heading">ค้นหารายการ</div>
+			<div class="panel-heading">สินค้าที่เลือก</div>
 			<div class="panel-body">
 				<table class="table table-striped" id="moveabletable">
 					<thead>
 						<tr style="background-color: #bce8f1; color: black;">
-							<th>$$swrap</th>
-							<th>$$hashKey</th>
+<!-- 							<th>$$swrap</th> -->
+<!-- 							<th>$$hashKey</th> -->
 							<th>ชนิดสุรา</th>
 							<th>เครื่องหมายการค้าหลัก</th>
 							<th>เครื่องหมายการค้ารอง</th>
 							<th>แบบ/รุ่น</th>
-							<th text>ขนาด</th>
+							<th text>ขนาดบรรจุ(ลิตร)</th>
 							<th textAlign="right">ดีกรี</th>
-							<th>ราคาตามแจ้ง</th>
+<!-- 							<th>ราคาตามแจ้ง</th> -->
 							<th>ราคาตามประกาศ</th>
 							<th>ลบ</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="item in selectItem">
-							<td>sw</td>
-							<td>{{item.$$hashKey}}</td>
+<!-- 							<td>sw</td> -->
+<!-- 							<td>{{item.$$hashKey}}</td> -->
 							<td>{{item[0]}}</td>
 							<td>{{item[1]}}</td>
 							<td>{{item[2]}}</td>
 							<td>{{item[3]}}</td>
 							<td>{{item[4]}}</td>
 							<td>{{item[5]}}</td>
-							<td>{{item[6]}}</td>
+<!-- 							<td>{{item[6]}}</td> -->
 							<td>{{item[7]}}</td>
 							<td>
 								<button type="button" class="btn btn-default btn-xs"
@@ -210,8 +219,7 @@
 				ยกเลิก
 			</button>
 			<button type="button" class="btn btn-primary" ng-click="btnnext()">
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-				ตกลง
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ตกลง
 			</button>
 		</div>
 

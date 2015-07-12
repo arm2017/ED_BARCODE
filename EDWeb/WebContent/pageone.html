@@ -65,7 +65,7 @@
 									<table style="width: 100%">
 										<tr>
 											<td><blockquote>
-													<p>ชือผู้ได้รับอนุญาติทำสุรา</p>
+													<p>ชือผู้ได้รับอนุญาตทำสุรา</p>
 													<footer> {{addrinfo.username}} </footer>
 												</blockquote>
 												<blockquote>
@@ -78,7 +78,7 @@
 													<footer>{{addrinfo.licence}}</footer>
 												</blockquote>
 												<blockquote>
-													<p>เลขประจำตัว</p>
+													<p>เลขที่ประจำตัว</p>
 													<footer>{{addrinfo.idNumber}}</footer>
 												</blockquote>
 											</td>
@@ -128,11 +128,11 @@
 								<table class="table table-bordered" id="myGrid">
 									<thead>
 										<tr class="tableheader">
-											<th rowspan="3">ลำดับ</th>
+											<th rowspan="3">ที่</th>
 											<th rowspan="3">(๓) ชนิดสุรา</th>
-											<th colspan="7">(๔) รายการสุรา</th>
-											<th colspan="4">(๕) ภาษีสุราต่อภาชนะ</th>
-											<th colspan="2">(๖) รวมภาษีสุรา</th>
+											<th colspan="7">(๔) <br> รายการสุรา</th>
+											<th colspan="4">(๕) <br>ภาษีสุราต่อภาชนะ</th>
+											<th colspan="2">(๖) <br>รวมภาษีสุรา</th>
 											<th rowspan="3">ลบ</th>
 
 										</tr>
@@ -180,8 +180,8 @@
 											<td class="textRight" >{{displayNumber(g.col5_2,4)}}</td>
 											<td class="textRight" >{{displayNumber(g.col5_3,4)}}</td>
 											<td class="textRight" >{{displayNumber(g.col5_4,4)}}</td>
-											<td class="textRight" >{{displayNumber(g.col6_1,4)}}</td>
-											<td class="textRight" >{{displayNumber(g.col6_2,4)}}</td>
+											<td class="textRight" >{{displayNumber(g.col6_1,2)}}</td>
+											<td class="textRight" >{{displayNumber(g.col6_2,2)}}</td>
 											<td>
 											<button type="button" class="btn btn-default btn-xs" ng-click="btnRemove();"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 											</td>
@@ -197,14 +197,14 @@
 											<td width="30%">
 												<div class="input-group">
 													<span class="input-group-addon">ตามมูลค่า</span>
-													 <input 	type="text" class="form-control"	aria-label="" value="{{displayNumber(sumTax1,4)}}" readonly> <span
+													 <input 	type="text" class="form-control"	aria-label="" value="{{displayNumber(sumTax1,2)}}" readonly> <span
 														class="input-group-addon">บาท</span>
 												</div>
 											</td>
 											<td width="30%">
 												<div class="input-group">
 													<span class="input-group-addon">ตามปริมาณ</span> 
-														<input	 type="text" class="form-control"	aria-label="" value="{{displayNumber(sumTax2,4)}}" readonly> 
+														<input	 type="text" class="form-control"	aria-label="" value="{{displayNumber(sumTax2,2)}}" readonly> 
 														<span	class="input-group-addon">บาท</span>
 												</div>
 											</td>
