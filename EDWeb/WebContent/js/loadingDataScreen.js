@@ -8,17 +8,146 @@ String.prototype.escapeSpecialChars = function() {
 			.replace(/\\b/g, "").replace(/\\f/g, "").replace(
 					/[\u0000-\u0019]+/g, "").replace(/[\uFEFF]+/g, "");
 };
+function ParserXml(textXml) {
+	var xmlDoc;
+	if (window.DOMParser) {
+		parser = new DOMParser();
+		xmlDoc = parser.parseFromString(textXml, "text/xml");
+	} else // code for IE
+	{
+		xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+		xmlDoc.async = false;
+		xmlDoc.loadXML(textXml);
+	}
+	console.log(xmlDoc);
+
+	this.getByTagName = function(strName, index) {
+		var str = "";
+		if (xmlDoc.getElementsByTagName(strName).length > 0
+				&& index === undefined) {
+			if (xmlDoc.getElementsByTagName(strName)[0].childNodes.length == 1) {
+				str = xmlDoc.getElementsByTagName(strName)[0].childNodes[0].nodeValue;
+			} else {
+				if (xmlDoc.getElementsByTagName(strName)[0].childNodes.length == 0) {
+					// console.log("empty Value " + strName);
+				} else {
+					console.log("it root xml tag, Node > 1 :  " + strName);
+				}
+				console.log("it root xml tag, Node > 1" + strName);
+			}
+		} else if (xmlDoc.getElementsByTagName(strName).length > 0
+				&& index < xmlDoc.getElementsByTagName(strName).length) {
+			if (xmlDoc.getElementsByTagName(strName)[index].childNodes.length == 1) {
+				str = xmlDoc.getElementsByTagName(strName)[index].childNodes[0].nodeValue;
+			} else {
+				if (xmlDoc.getElementsByTagName(strName)[index].childNodes.length == 0) {
+					// console.log("empty Value " + strName);
+				} else {
+					console.log("it root xml tag, Node > 1 :  " + strName);
+				}
+			}
+		}
+		return str;
+	};
+
+	this.getVal = function(tagName, index) {
+		return this.getByTagName(tagName, index);
+	}
+
+	this.getSize = function(strName) {
+		var size = 0;
+		size = xmlDoc.getElementsByTagName(strName).length;
+		return size;
+	};
+
+	this.countChild = function(tagName, index) {
+		return xmlDoc.getElementsByTagName("GoodsList")[index].children.length;
+	};
+}
 loadingApp.controller('loadingCrl', function($scope, $http) {
 	console.log("loadingCrl");
 	var contents = rw.readFileSync("userdata/proudcts.cfg", "utf8");
+	var Response = rw.readFileSync("userdata/Response.txt", "utf8");
+	$xmlService = new ParserXml(Response);
+
 	var lines = contents.split("\n");
 	console.log("lines > " + lines.length);
 
-	var item = [];
-	var s = [];
-	for (var i = 0; i < 6; i++) {
-		s[i] = [];
+	// xml data
+	var countGoodsList = $xmlService.getSize("GoodsList");
+	console.log("GoodsList:" + countGoodsList);
+	var loopCount = 0;
+	var Products = [];
+	for (var i = 0; i < countGoodsList; i++) {
+		var c = $xmlService.countChild("GoodsList", i);
+		var Product = {};
+		Product["LicenseName"] = $xmlService.getVal("LicenseName", i);
+		Product["LicenseNo"] = $xmlService.getVal("LicenseNo", i);
+		Product["item"] = [];
+		Product["GenCode"] = [];
+		console.log("GoodsList[" + i + "]=" + c);
+		for (var j = loopCount; j < c + loopCount; j++) {
+			var n = $xmlService.getVal("GoodsDescriptionText", j);
+			var code = $xmlService.getVal("GoodsCode", j);
+			Product["item"].push(code);
+			// console.log(j + ">" + n);
+			// เบียร์|ลีโอ|-|test|0.625|5|38|0|กระป๋อง|007|48|155|8|7|3
+			var strItem = "";
+			strItem = strItem
+					.concat(
+							$.trim($xmlService.getVal(
+									"ProductTypeDescriptionText", j))).concat(
+							"|");
+			strItem = strItem.concat(
+					$.trim($xmlService.getVal("GoodsDescriptionText", j)))
+					.concat("|");
+			strItem = strItem
+					.concat($.trim($xmlService.getVal("BrandName", j))).concat(
+							"|");
+			strItem = strItem.concat(
+					$.trim($xmlService.getVal("SubbrandName", j))).concat("|");
+			strItem = strItem
+					.concat($.trim($xmlService.getVal("GoodsSize", j))).concat(
+							"|");
+			strItem = strItem.concat($.trim($xmlService.getVal("Degree", j)))
+					.concat("|");
+			strItem = strItem.concat(
+					$.trim($xmlService.getVal("GoodsPrice", j))).concat("|");
+			strItem = strItem.concat(
+					$.trim($xmlService.getVal("DeclarePrice", j))).concat("|");
+			strItem = strItem.concat(
+					$.trim($xmlService
+							.getVal("GoodsSizeUnitDescriptionText", j)))
+					.concat("|");
+			strItem = strItem.concat(
+					$.trim($xmlService.getVal("ProductTypeCode", j))).concat(
+					"|");
+			strItem = strItem.concat(
+					$.trim($xmlService.getVal("TaxRateByPriceAmount", j)))
+					.concat("|");
+			strItem = strItem.concat(
+					$.trim($xmlService.getVal("TaxRateByQuantityAmount", j)))
+					.concat("|");
+			strItem = strItem
+					.concat($.trim($xmlService.getVal("DegreeMin", j))).concat(
+							"|");
+			strItem = strItem.concat($.trim($xmlService.getVal(
+					"RateDegreeOver", j)));
+			 console.log(strItem);
+			Product["GenCode"].push(strItem);
+		}
+		console.log("------------");
+		loopCount = c;
+		Products.push(Product);
 	}
+
+	console.log(Products);
+	// -----------------------------------------
+	// make list item and filter
+	var item = [];
+	var s = [ [], [], [], [], [], [] ];
+
+	lines = Products[0]["GenCode"];
 	for (i in lines) {
 		var lineItem = lines[i].split("|");
 		item.push(lineItem);
@@ -43,7 +172,8 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 
 		s[i] = tmp;
 	}
-	// save
+
+	// -------------- save ---------------------------
 	localStorage["filterSearch"] = JSON.stringify(s);
 	localStorage["item"] = JSON.stringify(item);
 	localStorage["mainItem"] = JSON.stringify([]);
@@ -55,13 +185,17 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 		localStorage["addItem"] = JSON.stringify([]);
 	}
 
+	localStorage["Products"] = JSON.stringify(Products);
+
 	// addr
 	var addrinfo = {
-		username : " บริษัท สยามไวเนอรี่ จำกัด",
-		factoryName : " บริษัท สยามไวเนอรี่ จำกัด 1",
-		licence : "2558/70605817600002",
-		idNumber : "3-1015-1763-7",
-		licenceDate : "01/01/2558-31/12/2558",
+		username : $xmlService.getVal("CompanyName"),
+		factoryName : $xmlService.getVal("LicenseName"),
+		licence : $xmlService.getVal("LicBook") + "/"
+				+ $xmlService.getVal("DocNo"),
+		idNumber : $xmlService.getVal("LicenseNo"),
+		licenceDate : $xmlService.getVal("EffectiveDate") + "-"
+				+ $xmlService.getVal("ExpireDate"),
 		addr : "9/2 หมู่ 3 ต.บางโทรัด อ.เมืองสมุทรสาคร จ.สมุทรสาคร 74000"
 	};
 

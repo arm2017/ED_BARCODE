@@ -34,10 +34,10 @@
 							</div>
 
 							<div class="form-group">
-								<label for="typeModel" class="col-sm-3 control-label">แบบ/รุ่น</label>
+								<label for="typeModel" class="col-sm-3 control-label">เครื่องหมายการค้าหลัก</label>
 								<div class="col-sm-9">
-									<select class="form-control" ng-model="search.s1"
-										ng-options="s for s in search[1]"></select>
+									<select class="form-control" ng-model="search.s5"
+										ng-options="s for s in search[5]"></select>
 								</div>
 							</div>
 
@@ -65,7 +65,7 @@
 
 						<form class="form-horizontal">
 							<div class="form-group">
-								<label for="mainModel" class="col-sm-3 control-label">เครื่องหมายการค้าหลัก</label>
+								<label for="mainModel" class="col-sm-3 control-label">ชื่อสุรา</label>
 								<div class="col-sm-9">
 									<select class="form-control" ng-model="search.s4"
 										ng-options="s for s in search[4]"></select>
@@ -74,8 +74,8 @@
 							<div class="form-group">
 								<label for="subModel" class="col-sm-3 control-label">เครื่องหมายการค้ารอง</label>
 								<div class="col-sm-9">
-									<select class="form-control" ng-model="search.s5"
-										ng-options="s for s in search[5]"></select>
+									<select class="form-control" ng-model="search.s1"
+										ng-options="s for s in search[1]"></select>
 								</div>
 							</div>
 
@@ -117,9 +117,10 @@
 							<tr style="background-color: #bce8f1; color: black;">
 								<th>เลือก</th>
 								<th>ชนิดสุรา</th>
+								<th>ชื่อสุรา</th>
 								<th>เครื่องหมายการค้าหลัก</th>
 								<th>เครื่องหมายการค้ารอง</th>
-								<th>แบบ/รุ่น</th>
+<!-- 								<th>แบบ/รุ่น</th> -->
 								<th text>ขนาด</th>
 								<th textAlign="right">ดีกรี</th>
 								<th>ราคาตามแจ้ง</th>
@@ -176,9 +177,10 @@
 <!-- 							<th>$$swrap</th> -->
 <!-- 							<th>$$hashKey</th> -->
 							<th>ชนิดสุรา</th>
+							<th>ชื่อสุรา</th>
 							<th>เครื่องหมายการค้าหลัก</th>
 							<th>เครื่องหมายการค้ารอง</th>
-							<th>แบบ/รุ่น</th>
+<!-- 							<th>แบบ/รุ่น</th> -->
 							<th text>ขนาดบรรจุ(ลิตร)</th>
 							<th textAlign="right">ดีกรี</th>
 <!-- 							<th>ราคาตามแจ้ง</th> -->
