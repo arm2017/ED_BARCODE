@@ -3,11 +3,20 @@
  */
 var loadingApp = angular.module('loadingApp', []);
 var rw = require('rw');
+var gui = require('nw.gui');
+
 String.prototype.escapeSpecialChars = function() {
 	return this.replace(/\\n/g, "").replace(/\\r/g, "").replace(/\\t/g, "")
 			.replace(/\\b/g, "").replace(/\\f/g, "").replace(
 					/[\u0000-\u0019]+/g, "").replace(/[\uFEFF]+/g, "");
 };
+String.prototype.toTHDate = function() {
+//	"20150115"
+	str = this.substr(6, 2) + "/" + this.substr(4, 2) + "/" + this.substr(0, 4) ;
+	return str;
+};
+
+
 function ParserXml(textXml) {
 	var xmlDoc;
 	if (window.DOMParser) {
@@ -29,11 +38,10 @@ function ParserXml(textXml) {
 				str = xmlDoc.getElementsByTagName(strName)[0].childNodes[0].nodeValue;
 			} else {
 				if (xmlDoc.getElementsByTagName(strName)[0].childNodes.length == 0) {
-					// console.log("empty Value " + strName);
+					console.log("empty Value " + strName);
 				} else {
 					console.log("it root xml tag, Node > 1 :  " + strName);
 				}
-				console.log("it root xml tag, Node > 1" + strName);
 			}
 		} else if (xmlDoc.getElementsByTagName(strName).length > 0
 				&& index < xmlDoc.getElementsByTagName(strName).length) {
@@ -64,6 +72,7 @@ function ParserXml(textXml) {
 		return xmlDoc.getElementsByTagName("GoodsList")[index].children.length;
 	};
 }
+
 loadingApp.controller('loadingCrl', function($scope, $http) {
 	console.log("loadingCrl");
 	var contents = rw.readFileSync("userdata/proudcts.cfg", "utf8");
@@ -83,6 +92,9 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 		var Product = {};
 		Product["LicenseName"] = $xmlService.getVal("LicenseName", i);
 		Product["LicenseNo"] = $xmlService.getVal("LicenseNo", i);
+		Product["EffectiveDate"] = $xmlService.getVal("EffectiveDate", i);
+		Product["ExpireDate"] = $xmlService.getVal("ExpireDate", i);
+		Product["LicBook"] = $xmlService.getVal("LicBook", i);
 		Product["item"] = [];
 		Product["GenCode"] = [];
 		console.log("GoodsList[" + i + "]=" + c);
@@ -133,7 +145,7 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 							"|");
 			strItem = strItem.concat($.trim($xmlService.getVal(
 					"RateDegreeOver", j)));
-			 console.log(strItem);
+			console.log(strItem);
 			Product["GenCode"].push(strItem);
 		}
 		console.log("------------");
@@ -141,13 +153,87 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 		Products.push(Product);
 	}
 
+	
+	console.log("Products");
 	console.log(Products);
+	// load address
+	// "9/2 หมู่ 3 ต.บางโทรัด อ.เมืองสมุทรสาคร จ.สมุทรสาคร 74000"
+	var addressFactory = "";
+	// 0
+	var HouseIdNumber = $xmlService.getVal("HouseIdNumber");
+	var BuildingName = $xmlService.getVal("BuildingName");
+	var RoomNumber = $xmlService.getVal("RoomNumber");
+	var FloorNumber = $xmlService.getVal("FloorNumber");
+	var VillageName = $xmlService.getVal("VillageName");
+
+	if (HouseIdNumber != "") {
+		addressFactory += " " + HouseIdNumber;
+	}
+	if (BuildingName != "") {
+		addressFactory += " " + BuildingName;
+	}
+	if (RoomNumber != "") {
+		addressFactory += " " + RoomNumber;
+	}
+	if (FloorNumber != "") {
+		addressFactory += " " + FloorNumber;
+	}
+	if (VillageName != "") {
+		addressFactory += " " + VillageName;
+	}
+	// 1
+	var HouseNumber = $xmlService.getVal("HouseNumber");
+	var MooNumber = $xmlService.getVal("MooNumber");
+	var TrokSoiName = $xmlService.getVal("TrokSoiName");
+	TrokSoiName = (TrokSoiName == "-") ? "" : TrokSoiName;
+	var StreetName = $xmlService.getVal("StreetName");
+	StreetName = (StreetName == "-") ? "" : StreetName;
+
+	addressFactory += HouseNumber + " หมู่ " + MooNumber;
+	if (TrokSoiName != "") {
+		addressFactory += " " + TrokSoiName;
+	}
+	if (StreetName != "") {
+		addressFactory += " " + StreetName;
+	}
+	// 2
+	var ThambolName = $xmlService.getVal("ThambolName");
+	var AmphurName = $xmlService.getVal("AmphurName");
+	var ProvinceName = $xmlService.getVal("ProvinceName");
+	var Postcode = $xmlService.getVal("Postcode");
+	var TelNumber = $xmlService.getVal("TelNumber");
+
+	addressFactory += " ต. " + ThambolName + " อ. " + AmphurName + " จ. "
+			+ ProvinceName + " " + Postcode;
+	if (TelNumber != "") {
+		addressFactory += " (" + TelNumber + ")";
+	}
+
+	console.log(addressFactory);
+	// -----------------------------------------
+	var cProducts = localStorage["currentProducts"];
+	var indexProduct = 0;
+	if(cProducts != undefined){
+		$.each(Products, function(_i , _r) {
+				if(_r["LicenseName"] == cProducts){
+					indexProduct = _i;
+					console.log("finde : " + cProducts);
+				}
+		});
+	}else{
+		console.log("not finde : " + cProducts);
+	}
+	
+	var currentProducts = Products[indexProduct];
+	factoryName =  $xmlService.getVal("CompanyName");
+	licenceNumber = currentProducts["LicBook"] + "/" +currentProducts["LicenseNo"];
+	licenceDate  = currentProducts["EffectiveDate"].toTHDate() +  " - " + currentProducts["ExpireDate"].toTHDate() ;
 	// -----------------------------------------
 	// make list item and filter
 	var item = [];
 	var s = [ [], [], [], [], [], [] ];
 
-	lines = Products[0]["GenCode"];
+	lines = Products[indexProduct]["GenCode"];
 	for (i in lines) {
 		var lineItem = lines[i].split("|");
 		item.push(lineItem);
@@ -190,15 +276,30 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 	// addr
 	var addrinfo = {
 		username : $xmlService.getVal("CompanyName"),
-		factoryName : $xmlService.getVal("LicenseName"),
-		licence : $xmlService.getVal("LicBook") + "/"
-				+ $xmlService.getVal("DocNo"),
-		idNumber : $xmlService.getVal("LicenseNo"),
-		licenceDate : $xmlService.getVal("EffectiveDate") + "-"
-				+ $xmlService.getVal("ExpireDate"),
-		addr : "9/2 หมู่ 3 ต.บางโทรัด อ.เมืองสมุทรสาคร จ.สมุทรสาคร 74000"
+		factoryName : factoryName,
+		licence : licenceNumber,
+		idNumber : $xmlService.getVal("CompanyId"),
+		licenceDate : licenceDate,
+		addr : addressFactory
 	};
 
 	localStorage["addrinfo"] = JSON.stringify(addrinfo);
 
+	// go home page
+	setTimeout(function() {
+		 window.location = "pageone.html";
+	}, 1000);
+
+	// onclose***********************************************************************************
+	var w = gui.Window.get();
+	console.log("win " + w.listeners("close").length);
+	if (w.listeners("close").length == 0) {
+		gui.Window.get().on('close', function() {
+			// If the new window is still open then close it.
+			console.log("ออกจากโปรแกรม");
+			if (confirm("ออกจากโปรแกรม"))
+				this.close(true);
+
+		});
+	}
 });

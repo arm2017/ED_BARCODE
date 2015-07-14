@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <title>ED Barcode</title>
 <script src="lib/angular-1.3.15/angular.js"></script>
-<script src="js/Pageone.js"></script>
 <script src="lib/jquery-1.11.2.js"></script>
+<script src="js/Pageone.js"></script>
 <script src="lib/jquery.numeric.js"></script>
 <link rel="stylesheet" href="lib/bootstrap-3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/pageonestyle.css">
@@ -70,7 +70,13 @@
 												</blockquote>
 												<blockquote>
 													<p>ชื่อโรงานทำสุรา</p>
-													<footer> {{addrinfo.factoryName}}</footer>
+													<!-- 													<footer> -->
+													<!-- 													{{addrinfo.factoryName}} -->
+													<select class="form-control"
+														onchange="factoryUpdate(this.value)" id="factoryList">
+														<option ng-repeat="f in factoryList" >{{f.LicenseName}}</option>
+													</select>
+													<!-- 													</footer> -->
 												</blockquote></td>
 											<td>
 												<blockquote>
@@ -109,15 +115,17 @@
 								<nav class="navbar navbar-default">
 									<div class="container-fluid">
 										<div class="navbar-header">
-											<button type="button" class="btn btn-default navbar-btn" ng-click="addItem()">
+											<button type="button" class="btn btn-default navbar-btn"
+												ng-click="addItem()">
 												<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 												เพิ่ม
 											</button>
-											<button type="button" class="btn btn-default navbar-btn" ng-click="save()">
+											<button type="button" class="btn btn-default navbar-btn"
+												ng-click="save()">
 												<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
 												บันทึก
 											</button>
-											<button type="button" class="btn btn-default navbar-btn" >
+											<button type="button" class="btn btn-default navbar-btn">
 												<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
 												ประวัติการทำรายการ
 											</button>
@@ -130,9 +138,12 @@
 										<tr class="tableheader">
 											<th rowspan="3">ที่</th>
 											<th rowspan="3">(๓) ชนิดสุรา</th>
-											<th colspan="7">(๔) <br> รายการสุรา</th>
-											<th colspan="4">(๕) <br>ภาษีสุราต่อภาชนะ</th>
-											<th colspan="2">(๖) <br>รวมภาษีสุรา</th>
+											<th colspan="7">(๔) <br> รายการสุรา
+											</th>
+											<th colspan="4">(๕) <br>ภาษีสุราต่อภาชนะ
+											</th>
+											<th colspan="2">(๖) <br>รวมภาษีสุรา
+											</th>
 											<th rowspan="3">ลบ</th>
 
 										</tr>
@@ -172,18 +183,27 @@
 											<td>{{g.col4_1}}</td>
 											<td>{{g.col4_2}}</td>
 											<td>{{g.col4_3}}</td>
-											<td><input type="text" class="form-control"	style="width: 80px;" value="" ng-model="g.col4_4" ng-change="updatechange()" ></td>
-											<td class="textRight" >{{displayNumber(g.col4_5,4)}}</td>
-											<td><input type="text" class="form-control"	style="width: 80px;"  value=""  ng-model="g.col4_61" ng-change="updatechange()"  ></td>
-											<td><input type="text" class="form-control"	style="width: 80px;"  value=""   ng-model="g.col4_62" ng-change="updatechange()" ></td>
-											<td class="textRight" >{{displayNumber(g.col5_1,4)}}</td>
-											<td class="textRight" >{{displayNumber(g.col5_2,4)}}</td>
-											<td class="textRight" >{{displayNumber(g.col5_3,4)}}</td>
-											<td class="textRight" >{{displayNumber(g.col5_4,4)}}</td>
-											<td class="textRight" >{{displayNumber(g.col6_1,2)}}</td>
-											<td class="textRight" >{{displayNumber(g.col6_2,2)}}</td>
+											<td><input type="text" class="form-control"
+												style="width: 80px;" value="" ng-model="g.col4_4"
+												ng-change="updatechange()"></td>
+											<td class="textRight">{{displayNumber(g.col4_5,4)}}</td>
+											<td><input type="text" class="form-control"
+												style="width: 80px;" value="" ng-model="g.col4_61"
+												ng-change="updatechange()"></td>
+											<td><input type="text" class="form-control"
+												style="width: 80px;" value="" ng-model="g.col4_62"
+												ng-change="updatechange()"></td>
+											<td class="textRight">{{displayNumber(g.col5_1,4)}}</td>
+											<td class="textRight">{{displayNumber(g.col5_2,4)}}</td>
+											<td class="textRight">{{displayNumber(g.col5_3,4)}}</td>
+											<td class="textRight">{{displayNumber(g.col5_4,4)}}</td>
+											<td class="textRight">{{displayNumber(g.col6_1,2)}}</td>
+											<td class="textRight">{{displayNumber(g.col6_2,2)}}</td>
 											<td>
-											<button type="button" class="btn btn-default btn-xs" ng-click="btnRemove();"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+												<button type="button" class="btn btn-default btn-xs"
+													ng-click="btnRemove();">
+													<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+												</button>
 											</td>
 										</tr>
 									</tbody>
@@ -196,16 +216,18 @@
 											<td style="text-align: right; vertical-align: middle;">รวม</td>
 											<td width="30%">
 												<div class="input-group">
-													<span class="input-group-addon">ตามมูลค่า</span>
-													 <input 	type="text" class="form-control"	aria-label="" value="{{displayNumber(sumTax1,2)}}" readonly> <span
+													<span class="input-group-addon">ตามมูลค่า</span> <input
+														type="text" class="form-control" aria-label=""
+														value="{{displayNumber(sumTax1,2)}}" readonly> <span
 														class="input-group-addon">บาท</span>
 												</div>
 											</td>
 											<td width="30%">
 												<div class="input-group">
-													<span class="input-group-addon">ตามปริมาณ</span> 
-														<input	 type="text" class="form-control"	aria-label="" value="{{displayNumber(sumTax2,2)}}" readonly> 
-														<span	class="input-group-addon">บาท</span>
+													<span class="input-group-addon">ตามปริมาณ</span> <input
+														type="text" class="form-control" aria-label=""
+														value="{{displayNumber(sumTax2,2)}}" readonly> <span
+														class="input-group-addon">บาท</span>
 												</div>
 											</td>
 										</tr>
@@ -223,7 +245,7 @@
 			</div>
 
 		</div>
-		
+
 		<div class="panel panel-info">
 			<div class="panel-body">
 				<div align="center">
