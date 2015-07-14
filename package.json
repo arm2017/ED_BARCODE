@@ -4,12 +4,8 @@
     "width": 1180,
     "minwidth": 1000,
     "height": 700,
-    "toolbar": true,
-    "title": "ED ED-BarCode"
+    "toolbar": false,
+    "title": "ED-BarCode"
   },
-  "main": "EDWeb/WebContent/loadingDataScreen.html",
-  "dependencies": {
-    "del": "^1.1.1",
-    "jade": "*"
-  }
+  "main": "EDWeb/WebContent/loadingDataScreen.html"
 }

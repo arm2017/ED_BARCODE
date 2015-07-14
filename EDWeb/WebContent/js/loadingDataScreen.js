@@ -222,6 +222,7 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 		});
 	}else{
 		console.log("not finde : " + cProducts);
+		localStorage["currentProducts"] = Products[0]["LicenseName"];
 	}
 	
 	var currentProducts = Products[indexProduct];
