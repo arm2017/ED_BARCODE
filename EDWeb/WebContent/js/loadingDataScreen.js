@@ -11,11 +11,10 @@ String.prototype.escapeSpecialChars = function() {
 					/[\u0000-\u0019]+/g, "").replace(/[\uFEFF]+/g, "");
 };
 String.prototype.toTHDate = function() {
-//	"20150115"
-	str = this.substr(6, 2) + "/" + this.substr(4, 2) + "/" + this.substr(0, 4) ;
+	// "20150115"
+	str = this.substr(6, 2) + "/" + this.substr(4, 2) + "/" + this.substr(0, 4);
 	return str;
 };
-
 
 function ParserXml(textXml) {
 	var xmlDoc;
@@ -123,10 +122,16 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 							"|");
 			strItem = strItem.concat($.trim($xmlService.getVal("Degree", j)))
 					.concat("|");
+			
+			var goodsprice =$.trim($xmlService.getVal("GoodsPrice", j));
+			goodsprice = parseFloat(goodsprice).toFixed(4);
 			strItem = strItem.concat(
-					$.trim($xmlService.getVal("GoodsPrice", j))).concat("|");
-			strItem = strItem.concat(
-					$.trim($xmlService.getVal("DeclarePrice", j))).concat("|");
+					$.trim(goodsprice)).concat("|");
+
+			var dePrice = ($xmlService.getVal("DeclarePrice", j) == "") ? "0.0000"
+					: $xmlService.getVal("DeclarePrice", j);
+			strItem = strItem.concat($.trim(dePrice)).concat("|");
+			
 			strItem = strItem.concat(
 					$.trim($xmlService
 							.getVal("GoodsSizeUnitDescriptionText", j)))
@@ -153,7 +158,6 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 		Products.push(Product);
 	}
 
-	
 	console.log("Products");
 	console.log(Products);
 	// load address
@@ -213,22 +217,24 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 	// -----------------------------------------
 	var cProducts = localStorage["currentProducts"];
 	var indexProduct = 0;
-	if(cProducts != undefined){
-		$.each(Products, function(_i , _r) {
-				if(_r["LicenseName"] == cProducts){
-					indexProduct = _i;
-					console.log("finde : " + cProducts);
-				}
+	if (cProducts != undefined) {
+		$.each(Products, function(_i, _r) {
+			if (_r["LicenseName"] == cProducts) {
+				indexProduct = _i;
+				console.log("finde : " + cProducts);
+			}
 		});
-	}else{
+	} else {
 		console.log("not finde : " + cProducts);
 		localStorage["currentProducts"] = Products[0]["LicenseName"];
 	}
-	
+
 	var currentProducts = Products[indexProduct];
-	factoryName =  $xmlService.getVal("CompanyName");
-	licenceNumber = currentProducts["LicBook"] + "/" +currentProducts["LicenseNo"];
-	licenceDate  = currentProducts["EffectiveDate"].toTHDate() +  " - " + currentProducts["ExpireDate"].toTHDate() ;
+	factoryName = $xmlService.getVal("CompanyName");
+	licenceNumber = currentProducts["LicBook"] + "/"
+			+ currentProducts["LicenseNo"];
+	licenceDate = currentProducts["EffectiveDate"].toTHDate() + " - "
+			+ currentProducts["ExpireDate"].toTHDate();
 	// -----------------------------------------
 	// make list item and filter
 	var item = [];
@@ -288,7 +294,7 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 
 	// go home page
 	setTimeout(function() {
-		 window.location = "pageone.html";
+		window.location = "pageone.html";
 	}, 1000);
 
 	// onclose***********************************************************************************

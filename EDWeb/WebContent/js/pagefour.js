@@ -23,7 +23,8 @@ Pagefour.controller('pagefourCtrl', function($scope, $http) {
 			report001 = gui.Window.open('report/report01.html', {
 				position : 'center',
 				width : 950,
-				height : 760
+				height : 760,
+				toolbar : false
 			});
 			report001.on('closed', function() {
 				report001 = undefined;
@@ -38,7 +39,8 @@ Pagefour.controller('pagefourCtrl', function($scope, $http) {
 			report002 = gui.Window.open('report/report02.html', {
 				position : 'center',
 				width : 800,
-				height : 760
+				height : 760,
+				toolbar : false
 			});
 			report002.on('closed', function() {
 				report002 = undefined;
@@ -53,7 +55,8 @@ Pagefour.controller('pagefourCtrl', function($scope, $http) {
 			report003 = gui.Window.open('report/report03.html', {
 				position : 'center',
 				width : 800,
-				height : 760
+				height : 760,
+				toolbar : false
 			});
 			report003.on('closed', function() {
 				report003 = undefined;
@@ -68,7 +71,8 @@ Pagefour.controller('pagefourCtrl', function($scope, $http) {
 			report004 = gui.Window.open('report/report04.html', {
 				position : 'center',
 				width : 800,
-				height : 760
+				height : 760,
+				toolbar : false
 			});
 			report004.on('closed', function() {
 				report004 = undefined;
