@@ -40,27 +40,45 @@
 						<blockquote>
 							<p>กรุณาเลือกแบบฟอร์มเพิ่ม แสดงตัวอย่าง</p>
 						</blockquote>
-						
+
 						<div align="center">
-							<button type="button" class="btn btn-default" ng-click="report01()">
+							<button type="button" class="btn btn-primary"
+								ng-disabled="previewDisable" ng-click="clickPreview()"
+								ng-show="!isPreview">
+								<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+								แสดงตัวอย่าง
+							</button>
+							<div class="progress" ng-show="progressbarloading" style="margin-top: 15px;">
+								<div class="progress-bar progress-bar-striped active"
+									role="progressbar" aria-valuenow="100" aria-valuemin="0"
+									aria-valuemax="100" style="width: 100%">
+									<span class="sr-only">100% Complete</span>
+								</div>
+							</div>
+
+							<button type="button" class="btn btn-default" ng-show="isPreview"
+								ng-click="report01()">
 								<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
 								แบบ สร.๑๒๐-๑๑
 							</button>
-							<button type="button" class="btn btn-default" ng-click="report04()">
+							<button type="button" class="btn btn-default" ng-show="isPreview"
+								ng-click="report04()">
 								<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
 								แบบ สสส.๑/๐๑
 							</button>
-							
-							<button type="button" class="btn btn-default" ng-click="report03()">
+
+							<button type="button" class="btn btn-default" ng-show="isPreview"
+								ng-click="report03()">
 								<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
 								แบบ สสท.๑/๐๑
 							</button>
-							
-							<button type="button" class="btn btn-default" ng-click="report02()">
+
+							<button type="button" class="btn btn-default" ng-show="isPreview"
+								ng-click="report02()">
 								<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
 								แบบ กกท.๑/๐๑
 							</button>
-							
+
 						</div>
 					</div>
 				</div>
@@ -74,9 +92,10 @@
 						</blockquote>
 
 						<div align="center">
-							<button type="button" class="btn btn-info">
-								<span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
-								พิมพ์แบบฟอร์ม
+							<button type="button" class="btn btn-primary" ng-click="saveTo()"
+								ng-disabled="!isPreview">
+								<span class="glyphicon glyphicon-download-alt"
+									aria-hidden="true"></span> พิมพ์แบบฟอร์ม
 							</button>
 							<button type="button" class="btn btn-success">
 								<span class="glyphicon glyphicon-cloud-upload"
@@ -101,6 +120,8 @@
 			</div>
 		</div>
 		<!-- 		footer -->
+
+
 	</div>
 </body>
 </html>

@@ -3,81 +3,82 @@
  */
 var Pagefour = angular.module('Pagefour', []);
 var gui = require('nw.gui');
+var path = require('path');
+var cmd = require("cmd-exec").init();
 
-Pagefour.controller('pagefourCtrl', function($scope, $http) {
+Pagefour.controller('pagefourCtrl', function($scope, $http, $timeout) {
 	console.log("Pagefour");
 	var report001 = undefined;
 	var report002 = undefined;
 	var report003 = undefined;
 	var report004 = undefined;
 
+	// report preview
+	$scope.isPreview = false;
+	$scope.previewDisable = false;
+	$scope.progressbarloading = false;
+	
+	$scope.dirPath = process.cwd();
+	$scope.execPath = path.dirname(process.execPath);
+	console.log($scope.dirPath, $scope.execPath);
+
+	$scope.clickPreview = function() {
+		// $scope.isPreview = true;
+		$scope.previewDisable = true;
+		$scope.progressbarloading = true;
+		
+		console.log("clickPreview" + $scope.isPreview);
+
+		cmd.baseDir = $scope.cmdpath = $scope.execPath + "\\gen-report\\";
+		console.log("baseDir", cmd.baseDir);
+
+		var isError = false;
+		cmd.exec("call run_report.bat").then(function(res) {
+			console.log(res.message);
+		}).fail(function(err) {
+			console.log(err.message);
+			isError = true;
+			alert("cmd Error : " + err.message);
+		
+		}).done(function() {
+			$timeout(function() {
+				if(isError){
+					$scope.isPreview = false;
+					$scope.previewDisable = false;
+				}else{
+					$scope.isPreview = true;
+				}
+				
+				$scope.progressbarloading = false;
+				
+				console.log("done !!", isError);
+			}, 100);
+		});
+
+	}
+
 	$scope.back = function() {
 		window.location = "pagethree.html";
 	}
 
 	$scope.report01 = function() {
-		if (report001 != undefined) {
-			report001.focus();
-		} else {
-
-			report001 = gui.Window.open('report/report01.html', {
-				position : 'center',
-				width : 950,
-				height : 760,
-				toolbar : false
-			});
-			report001.on('closed', function() {
-				report001 = undefined;
-			  });
-		}
+		report001 = gui.Shell.openItem($scope.cmdpath + "pdf\\SR120-11.pdf");
 	}
-	$scope.report02 = function() {
-		if (report002 != undefined) {
-			report002.focus();
-		} else {
 
-			report002 = gui.Window.open('report/report02.html', {
-				position : 'center',
-				width : 800,
-				height : 760,
-				toolbar : false
-			});
-			report002.on('closed', function() {
-				report002 = undefined;
-			  });
-		}
+	$scope.report02 = function() {
+		report002 = gui.Shell.openItem($scope.cmdpath + "pdf\\KKT1_01.pdf");
 	}
 	$scope.report03 = function() {
-		if (report003  != undefined) {
-			report003.focus();
-		} else {
-			
-			report003 = gui.Window.open('report/report03.html', {
-				position : 'center',
-				width : 800,
-				height : 760,
-				toolbar : false
-			});
-			report003.on('closed', function() {
-				report003 = undefined;
-			});
-		}
+		report003 = gui.Shell.openItem($scope.cmdpath + "pdf\\SST1_01.pdf");
 	}
 	$scope.report04 = function() {
-		if (report004 != undefined) {
-			report004.focus();
-		} else {
-			
-			report004 = gui.Window.open('report/report04.html', {
-				position : 'center',
-				width : 800,
-				height : 760,
-				toolbar : false
-			});
-			report004.on('closed', function() {
-				report004 = undefined;
-			});
-		}
+		report004 = gui.Shell.openItem($scope.cmdpath + "pdf\\SSS1_01.pdf");
+	}
+
+	$scope.saveTo = function() {
+
+		console.log("saveto");
+
 	}
 
 });
