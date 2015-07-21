@@ -39,3 +39,7 @@ blockquote>footer {
 .textRight{
 	text-align: right;
 }
+
+.header-margin{
+	margin-top: 60px;
+}

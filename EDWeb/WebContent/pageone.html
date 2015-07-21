@@ -16,7 +16,7 @@
 <body ng-controller="pageoneCtrl">
 	<div class="container-fluid">
 
-		<div class="panel panel-default">
+		<div class="panel panel-default header-margin">
 			<div class="panel-body" align="center">
 				<img src="img/step1.png" alt="step1">
 			</div>
@@ -32,7 +32,7 @@
 					</div>
 					<div class="panel-body" align="center">
 
-						<div class="panel panel-default"
+						<!-- 		<div class="panel panel-default"
 							style="width: 250px; position: absolute; right: 30px;">
 							<div class="panel-body" align="left">
 								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -52,7 +52,7 @@
 								</div>
 							</div>
 
-						</div>
+						</div> -->
 
 						<table style="width: 100%">
 							<tr>
@@ -74,7 +74,7 @@
 													<!-- 													{{addrinfo.factoryName}} -->
 													<select class="form-control"
 														onchange="factoryUpdate(this.value)" id="factoryList">
-														<option ng-repeat="f in factoryList" >{{f.LicenseName}}</option>
+														<option ng-repeat="f in factoryList">{{f.LicenseName}}</option>
 													</select>
 													<!-- 													</footer> -->
 												</blockquote></td>
@@ -121,7 +121,7 @@
 												เพิ่ม
 											</button>
 											<button type="button" class="btn btn-default navbar-btn"
-												ng-click="save()">
+												ng-click="clicktoSave()">
 												<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
 												บันทึก
 											</button>
@@ -257,6 +257,24 @@
 			</div>
 		</div>
 
+
+	</div>
+
+	<div class="panel panel-info"
+		style="top: 0px; position: fixed; width: 100%; margin: 0">
+		<div class="panel-body">
+			<div align="right">
+					ยินดีต้อนรับ คุณ : <span class="glyphicon glyphicon-user" aria-hidden="true"></span> User name display
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					โปรแกรม เวอร์ชัน : <span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span> 1.0.0.1
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					อัพเดตล่าสุดเมื่อ : <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span> 21/7/2015
+					
+					<button type="button" class="btn btn-info btn-xs">ตรวจสอบเวอร์ชัน</button>
+					
+					
+			</div>
+		</div>
 	</div>
 
 

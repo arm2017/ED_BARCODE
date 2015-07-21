@@ -17,7 +17,7 @@ Pagefour.controller('pagefourCtrl', function($scope, $http, $timeout) {
 	$scope.isPreview = false;
 	$scope.previewDisable = false;
 	$scope.progressbarloading = false;
-	
+
 	$scope.dirPath = process.cwd();
 	$scope.execPath = path.dirname(process.execPath);
 	console.log($scope.dirPath, $scope.execPath);
@@ -26,7 +26,7 @@ Pagefour.controller('pagefourCtrl', function($scope, $http, $timeout) {
 		// $scope.isPreview = true;
 		$scope.previewDisable = true;
 		$scope.progressbarloading = true;
-		
+
 		console.log("clickPreview" + $scope.isPreview);
 
 		cmd.baseDir = $scope.cmdpath = $scope.execPath + "\\gen-report\\";
@@ -39,18 +39,18 @@ Pagefour.controller('pagefourCtrl', function($scope, $http, $timeout) {
 			console.log(err.message);
 			isError = true;
 			alert("cmd Error : " + err.message);
-		
+
 		}).done(function() {
 			$timeout(function() {
-				if(isError){
+				if (isError) {
 					$scope.isPreview = false;
 					$scope.previewDisable = false;
-				}else{
+				} else {
 					$scope.isPreview = true;
 				}
-				
+
 				$scope.progressbarloading = false;
-				
+
 				console.log("done !!", isError);
 			}, 100);
 		});
@@ -77,8 +77,21 @@ Pagefour.controller('pagefourCtrl', function($scope, $http, $timeout) {
 
 	$scope.saveTo = function() {
 
-		console.log("saveto");
+		console.log("saveto", $scope.hddpath);
+		chooseFile("#savetohdd");
+	}
 
+	function chooseFile(name) {
+		var chooser = document.querySelector(name);
+		chooser.addEventListener("change", function(evt) {
+			console.log(this.value);
+			var v = this.value;
+			$timeout(function() {
+				$scope.hddpath = v;
+			});
+		}, false);
+
+		chooser.click();
 	}
 
 });
