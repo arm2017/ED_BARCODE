@@ -4,7 +4,7 @@
     "width": 1180,
     "minwidth": 1000,
     "height": 700,
-    "toolbar": false,
+    "toolbar": true,
     "title": "ED-BarCode"
   },
   "main": "EDWeb/WebContent/loadingDataScreen.html"

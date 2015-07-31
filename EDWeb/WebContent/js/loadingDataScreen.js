@@ -1,9 +1,10 @@
 /**
  * dev by arm
  */
-var loadingApp = angular.module('loadingApp', []);
+var loadingApp = angular.module('loadingApp', ['update.service']);
 var rw = require('rw');
 var gui = require('nw.gui');
+var path = require('path');
 
 String.prototype.escapeSpecialChars = function() {
 	return this.replace(/\\n/g, "").replace(/\\r/g, "").replace(/\\t/g, "").replace(/\\b/g, "").replace(/\\f/g, "").replace(/[\u0000-\u0019]+/g, "").replace(/[\uFEFF]+/g, "");
@@ -66,16 +67,14 @@ function ParserXml(textXml) {
 	this.countChild = function(tagName, index) {
 		return xmlDoc.getElementsByTagName("GoodsList")[index].children.length;
 	};
-}
+};
 
-loadingApp.controller('loadingCrl', function($scope, $http) {
+loadingApp.controller('loadingCrl', function($scope, $http,$SyncMasterDataRequest) {
 	console.log("loadingCrl");
-	var contents = rw.readFileSync("userdata/proudcts.cfg", "utf8");
+	// var contents = rw.readFileSync("userdata/proudcts.cfg", "utf8");
 	var Response = rw.readFileSync("userdata/Response.txt", "utf8");
 	$xmlService = new ParserXml(Response);
-
-	var lines = contents.split("\n");
-	console.log("lines > " + lines.length);
+	$scope.execPath = path.dirname(process.execPath);
 
 	// xml data
 	var countGoodsList = $xmlService.getSize("GoodsList");
@@ -111,7 +110,7 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 			goodsprice = parseFloat(goodsprice).toFixed(4);
 			strItem = strItem.concat($.trim(goodsprice)).concat("|");
 
-			var dePrice = ($xmlService.getVal("DeclarePrice", j) == "") ? "0.0000" : $xmlService.getVal("DeclarePrice", j);
+			var dePrice = ($xmlService.getVal("DeclarePrice", j) == "") ? "0.0000" : parseFloat($xmlService.getVal("DeclarePrice", j)).toFixed(4);
 			strItem = strItem.concat($.trim(dePrice)).concat("|");
 
 			strItem = strItem.concat($.trim($xmlService.getVal("GoodsSizeUnitDescriptionText", j))).concat("|");
@@ -266,11 +265,6 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 
 	localStorage["addrinfo"] = JSON.stringify(addrinfo);
 
-	// go home page
-	setTimeout(function() {
-		window.location = "pageone.html";
-	}, 1000);
-
 	// onclose***********************************************************************************
 	var w = gui.Window.get();
 	console.log("win " + w.listeners("close").length);
@@ -282,5 +276,15 @@ loadingApp.controller('loadingCrl', function($scope, $http) {
 				this.close(true);
 
 		});
+
 	}
+
+	// go home page
+	setTimeout(function() {
+		// window.location = "pageone.html";
+	}, 1000);
+
+	$scope.updateData = function() {
+			$SyncMasterDataRequest.updateData();
+	};
 });
